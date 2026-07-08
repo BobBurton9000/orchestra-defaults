@@ -26,18 +26,26 @@ If you have Orchestra installed in `.orchestra/` of your project, `core` is alre
 See the Orchestra repo's `PUBLISHING.md` for the full guide. In short:
 
 1. Create a GitHub repository
-2. Add an `orchestra-source.list` at the root listing your packages
+2. Add an `orchestra-source.yaml` at the root listing your packages
 3. Push
 4. Tell others to run `orchestra source add <your-owner>/<your-repo>`
 
-The format of `orchestra-source.list`:
+The format of `orchestra-source.yaml`:
 
-```
-# package_name        type        path
-triage-agent          agent       agents/triage-agent.agent.md
-my-skill              skill       skills/my-skill/
-my-prompt             prompt      prompts/my-prompt.prompt.md
-snippets              prompt-dir  prompts/snippets/
+```yaml
+packages:
+  - name: triage-agent
+    type: agent
+    path: agents/triage-agent.agent.md
+  - name: my-skill
+    type: skill
+    path: skills/my-skill/
+  - name: my-prompt
+    type: prompt
+    path: prompts/my-prompt.prompt.md
+  - name: snippets
+    type: prompt-dir
+    path: prompts/snippets/
 ```
 
 Valid types: `agent`, `prompt`, `prompt-dir`, `skill`. For `skill` and `prompt-dir`, the path is a directory — every file in it is installed. For `agent` and `prompt`, the path is a single file.

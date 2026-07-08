@@ -1,3 +1,5 @@
 *.md text eol=lf
 *.sh text eol=lf
-orchestra-source.list text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+orchestra-source.yaml text eol=lf
