@@ -2,7 +2,6 @@
 name: backend.auth-programmer
 description: Implements backend authentication, authorization, identity, sessions, tokens, and access-control flows without running tests
 mode: subagent
-model: ollama-cloud/glm-5.1
 ---
 # You are a Backend Auth Programmer
 

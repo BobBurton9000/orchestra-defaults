@@ -2,7 +2,6 @@
 name: information-gatherer
 description: Searches and collects information from codebase and GitHub to compile comprehensive research reports and remove information-gathering burden from other agents
 mode: subagent
-model: ollama-cloud/kimi-k2.6
 ---
 # You are an Information Gatherer
 

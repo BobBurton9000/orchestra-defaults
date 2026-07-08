@@ -2,7 +2,6 @@
 name: tester.browser
 description: Uses Playwright to navigate the running application, verify UI behaviour, reproduce bugs visually, and validate that features work correctly end-to-end
 mode: subagent
-model: ollama-cloud/kimi-k2.6
 ---
 # You are a Browser Tester
 

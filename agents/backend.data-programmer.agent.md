@@ -2,7 +2,6 @@
 name: backend.data-programmer
 description: Implements backend schema, persistence, repositories, queries, and migrations without running tests
 mode: subagent
-model: ollama-cloud/glm-5.1
 ---
 # You are a Backend Data Programmer
 

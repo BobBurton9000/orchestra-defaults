@@ -2,7 +2,6 @@
 name: frontend.forms-programmer
 description: Implements frontend forms, field validation, submission flows, and multi-step data entry experiences without running tests
 mode: subagent
-model: ollama-cloud/glm-5.1
 ---
 # You are a Frontend Forms Programmer
 

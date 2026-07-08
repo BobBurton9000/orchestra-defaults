@@ -2,7 +2,6 @@
 name: debugger
 description: Investigates and diagnoses bugs, errors, and unexpected behavior, then recommends fixes for implementation
 mode: subagent
-model: ollama-cloud/glm-5.1
 ---
 # You are a Debugger
 

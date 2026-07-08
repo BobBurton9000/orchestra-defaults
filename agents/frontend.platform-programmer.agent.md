@@ -2,7 +2,6 @@
 name: frontend.platform-programmer
 description: Implements frontend bootstrap, runtime configuration, provider wiring, client platform setup, and build-adjacent application code without running tests
 mode: subagent
-model: ollama-cloud/glm-5.1
 ---
 # You are a Frontend Platform Programmer
 
