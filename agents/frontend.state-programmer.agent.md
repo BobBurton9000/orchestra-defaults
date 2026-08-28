@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `client/state/userStore.js` lines 5-75: Added user profile state transitions and cache invalidation rules.
-- Changed `client/hooks/useProfileData.js` lines 8-45: Coordinated async loading state with the new store contract.
+- Changed `<state-store-file>` lines 5-75: Added state transitions and cache invalidation rules.
+- Changed `<data-hook-file>` lines 8-45: Coordinated async loading state with the new store contract.
 - Please have the code review agents verify these changes and report back with any problems.

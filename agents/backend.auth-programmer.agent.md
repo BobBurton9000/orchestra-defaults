@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `server/auth/tokenService.js` lines 10-65: Implemented refresh-token rotation and validation handling.
-- Changed `server/policies/projectAccess.js` lines 5-40: Added permission checks for project-level actions.
+- Changed `<auth-service-file>` lines 10-65: Implemented token rotation and validation handling.
+- Changed `<access-policy-file>` lines 5-40: Added permission checks for resource-level actions.
 - Please have code review agents verify these changes and report back with any problems.

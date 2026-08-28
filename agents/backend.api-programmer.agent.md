@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `server/api/user.js` lines 10-50: Implemented the new user registration endpoint with validation and error handling.
-- Changed `server/middleware/auth.js` lines 5-30: Added middleware checks and mapped authorization failures to consistent API responses.
+- Changed `<backend-api-file>` lines 10-50: Implemented the endpoint with validation and error handling.
+- Changed `<backend-middleware-file>` lines 5-30: Added middleware checks and mapped authorization failures to consistent API responses.
 - Please have code review agents verify these changes and report back with any problems.

@@ -142,9 +142,6 @@ packages:
   - name: ado-import
     type: skill
     path: skills/ado-import/
-  - name: mermaid-safe-node-labels
-    type: skill
-    path: skills/mermaid-safe-node-labels/
   - name: tech-debt-register
     type: skill
     path: skills/tech-debt-register/
@@ -154,4 +151,3 @@ packages:
   - name: writing-prds
     type: skill
     path: skills/writing-prds/
-

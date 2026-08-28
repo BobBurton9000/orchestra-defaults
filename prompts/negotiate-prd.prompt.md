@@ -6,20 +6,23 @@ Produce a converged implementation plan from a PRD by orchestrating the architec
 
 # Variables
 - `{{ file }}`: The PRD path supplied by the user.
-  - If `{{ file }}` contains no `/`, resolve it as `docs/product/requirements/{{ file }}`.
+  - If `{{ file }}` contains no `/`, discover the project's established requirements directory and resolve the filename there.
+  - If no unique requirements directory can be identified, return `ERROR: requirements directory not found`.
   - Accept the argument with or without a trailing `.md`.
   - If the resolved path does not exist, return `ERROR: PRD file not found`.
   - If `{{ file }}` is empty, return `ERROR: no PRD file provided`.
+- `<requirements-dir>`: The requirements directory discovered from the project layout or documentation.
 - `<branch-name>`: Resolve the current branch using `git branch --show-current`, then normalize it by replacing `/` and whitespace with `-` so the result is safe to use as one directory name.
 - `<prd-slug>`: Derive a concise deterministic slug from the PRD filename stem. Strip the leading `NNNN-` number prefix, lowercase it, replace whitespace and path separators with `-`, remove characters that are unsafe for filenames, collapse repeated `-`, trim leading and trailing `-`, and keep it short but recognizable.
+- `<implementation-plan-template>`: The implementation-plan template discovered from the project layout or documentation. If no unique template can be identified, return `ERROR: implementation-plan template not found`.
 - `<output-dir>`: `.temp/<branch-name>/`
 - `<output-path>`: `.temp/<branch-name>/implementation-plan-<prd-slug>.md`
 
 # Invocation Pattern
 This prompt is executed with a required PRD file path.
 
-- Example: `/negotiate-prd 0001-explicit-buy-sell-make-capabilities`
-- Example: `/negotiate-prd docs/product/requirements/0001-explicit-buy-sell-make-capabilities.md`
+- Example: `/negotiate-prd 0001-feature-name`
+- Example: `/negotiate-prd <requirements-dir>/0001-feature-name.md`
 - Example: `<this-command> <prd path>`
 
 Inference rules:
@@ -29,12 +32,13 @@ Inference rules:
 4. Derive `<prd-slug>` from the PRD filename stem before using `<output-path>`.
 5. If slug generation would be empty after normalization, use `prd` as the fallback slug.
 6. If `<output-path>` already exists, read it first and update it in place so earlier plan notes remain aligned with the latest negotiation output unless the user supplies a new PRD file.
+7. Discover `<requirements-dir>` and `<implementation-plan-template>` before resolving the PRD and drafting the plan.
 
 # Required Outcomes
 1. `<output-path>` exists after execution.
 2. The only permitted workspace edits are creating `<output-dir>` if needed and creating or updating `<output-path>`.
 3. No code, test, configuration, or documentation files outside `<output-path>` are modified.
-4. The plan follows every section of `docs/plankit-implementation-plan.template.md`, with no headings renamed or omitted.
+4. The plan follows every section of `<implementation-plan-template>`, with no headings renamed or omitted.
 5. Every requirement in PRD §5 and every acceptance criterion in PRD §10 is traced to at least one task in the plan.
 6. No task in the plan falls outside the PRD's stated scope.
 7. The negotiation runs at most 9 review rounds before stopping. If unresolved issues remain after round 9, fold them into the plan's "User Inputs Required" section and report them as outstanding follow-ups.
@@ -59,10 +63,8 @@ Run at most 9 review rounds. Each round follows the same shape.
 ## Round 0 (once, before review rounds)
 Delegate a research agent to read and return the full content of:
 - the PRD at the resolved `{{ file }}` path
-- `docs/product/vision.md` if present
-- `docs/product/domain-model.md` if present
-- `docs/product/ui-ux.md` if present
-- any ADRs under `docs/dev/adr/` referenced by the PRD metadata block
+- relevant evergreen product documents discovered in the project if present
+- any ADRs discovered in the project and referenced by the PRD metadata block
 
 Return the consolidated content to the orchestrator. No plan is drafted in this round.
 
@@ -70,7 +72,7 @@ Return the consolidated content to the orchestrator. No plan is drafted in this 
 1. Delegate the planning agent to draft (round 1) or revise (rounds 2+) the implementation plan as markdown.
    - Pass the full PRD content and evergreen doc excerpts gathered in round 0.
    - Pass the consolidated reviewer feedback from the previous round (round 1 has none).
-   - Reference `docs/plankit-implementation-plan.template.md` as the required structure.
+   - Reference `<implementation-plan-template>` as the required structure.
    - Instruct the planning agent to load the `writing-prds` skill before starting.
 2. In parallel, delegate the two reviewers:
    - Completeness reviewer: decide whether every PRD §5 requirement and every PRD §10 acceptance criterion is traced to at least one plan task. Return `Approved` or `Rejected` with specific gaps.

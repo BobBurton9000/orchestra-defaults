@@ -20,7 +20,7 @@ This prompt is executed with an optional base ref and optional focus paths.
 
 - Example: `/review-reuse-branch` (review all committed changes vs `origin/HEAD`)
 - Example: `/review-reuse-branch main` (review all committed changes vs `main`)
-- Example: `/review-reuse-branch origin/develop app/client/CategoryPicker.ts app/client/pages/ItemSupplierPicker.ts` (use `origin/develop` as base and prioritise specific paths)
+- Example: `/review-reuse-branch <base-ref> <path/to/file-a> <path/to/file-b>` (use `<base-ref>` as base and prioritise specific paths)
 
 Inference rules:
 1. If the first argument resolves to a valid git ref (`git rev-parse --verify --quiet <arg>` succeeds), treat it as `<base>`; remaining arguments are `<focus>`.

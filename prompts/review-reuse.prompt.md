@@ -18,7 +18,7 @@ Review the outstanding git changes for code that could be simplified by re-using
 This prompt is executed with optional focus paths.
 
 - Example: `/review-reuse` (review all outstanding changes)
-- Example: `/review-reuse app/client/CategoryPicker.ts app/client/pages/ItemSupplierPicker.ts` (prioritise specific paths)
+- Example: `/review-reuse <path/to/file-a> <path/to/file-b>` (prioritise specific paths)
 
 Inference rules:
 1. If `<focus>` is provided, examine all outstanding changes but prioritise findings in the specified paths.

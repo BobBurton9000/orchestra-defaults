@@ -8,7 +8,7 @@ This repository is the canonical `core` source that ships preconfigured with Orc
 
 - **30 agents** in `agents/` — `*.agent.md`
 - **12 prompts** in `prompts/` — `*.prompt.md` plus a `snippets/` companion directory
-- **5 skills** in `skills/` — one directory per skill, each with a `SKILL.md`
+- **4 skills** in `skills/` — one directory per skill, each with a `SKILL.md`
 - **Include files** in `include/` — shared markdown bodies referenced via `#include`
 
 ## Using this source with Orchestra

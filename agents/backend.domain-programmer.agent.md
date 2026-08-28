@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `server/services/billing.js` lines 25-90: Implemented invoice eligibility rules and proration edge-case handling.
-- Changed `server/workflows/subscriptionRenewal.js` lines 10-60: Coordinated renewal flow decisions across existing collaborators.
+- Changed `<domain-service-file>` lines 25-90: Implemented the domain rules and edge-case handling.
+- Changed `<workflow-file>` lines 10-60: Coordinated workflow decisions across existing collaborators.
 - Please have code review agents verify these changes and report back with any problems.

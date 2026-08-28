@@ -17,11 +17,11 @@ Metadata block. Keep at the top of every PRD.
 
 ## Guidance for authors
 
-This template is the single source of truth for PRD structure. Every PRD saved under `docs/product/requirements/` must follow it. The `writing-prds` skill (`.agents/skills/writing-prds/SKILL.md`) explains *how* to fill each section; this template defines *what* sections exist and in what order. Do not reorder, rename, or omit sections. If a section genuinely does not apply, write "Not applicable" with a one-line reason rather than deleting the heading — the consistent shape is what makes PRDs scannable across features.
+This template is the single source of truth for PRD structure. Every PRD saved in the project's requirements directory must follow it. The installed `writing-prds` skill explains *how* to fill each section; this template defines *what* sections exist and in what order. Do not reorder, rename, or omit sections. If a section genuinely does not apply, write "Not applicable" with a one-line reason rather than deleting the heading — the consistent shape is what makes PRDs scannable across features.
 
 Each section below is narrated with: what it is for, what belongs there, what does **not** belong there, a weak example to avoid, a strong example to follow, and common mistakes. Strip the per-section guidance comments before saving a real PRD — they are scaffolding, not part of the document.
 
-The examples use a running scenario — a "notification channel preferences" feature where users independently enable Email, SMS, and Push — purely to illustrate the shape. Replace with your feature's domain terms.
+The examples use a running scenario — a feature with independently configurable options — purely to illustrate the shape. Replace the placeholders with your feature's domain terms.
 
 ---
 
@@ -29,17 +29,17 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **Purpose:** Explain the user-facing or business pain that this feature addresses, in terms a non-engineer could follow. This is the "why now, why us, why this" framing that justifies the whole document.
 
-**What belongs here:** The concrete situation users face today, the friction or gap they hit, and the cost of doing nothing. Reference real workflows ("when a user adds a phone number, SMS silently switches on") rather than abstract capabilities. If the problem is a reversal of a prior decision, name the prior decision and what changed in practice.
+**What belongs here:** The concrete situation users face today, the friction or gap they hit, and the cost of doing nothing. Reference real workflows rather than abstract capabilities. If the problem is a reversal of a prior decision, name the prior decision and what changed in practice.
 
-**What does not belong here:** Implementation rationale ("we need a new boolean column"), solution sketches, or acceptance criteria. Save those for §5 and §10. Avoid restating the product vision — assume the reader has read `docs/product/vision.md`.
+**What does not belong here:** Implementation rationale ("we need a new boolean column"), solution sketches, or acceptance criteria. Save those for §5 and §10. Avoid restating the product vision — assume the reader has read the project's product context.
 
 **Weak:**
 
-> The system lacks explicit notification controls, which is a limitation.
+> The system lacks explicit controls for an important part of the user experience, which is a limitation.
 
 **Strong:**
 
-> Today a user's notification channels are inferred from their contact data: adding an email address silently enables Email notifications, adding a phone number silently enables SMS. There is no user-facing control to set these independently, so a user who added a phone number for account recovery cannot stop the system from sending them SMS alerts.
+> Today a feature's options are inferred from unrelated data or actions. There is no user-facing control to set them independently, so users can encounter behaviour they did not choose or expect.
 
 **Common mistakes:**
 
@@ -57,11 +57,11 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **Weak:**
 
-> Improve the notification preferences experience.
+> Improve the feature configuration experience.
 
 **Strong:**
 
-> Users can choose Email, SMS, and/or Push when configuring notifications, and only the channels they enable are used for sending.
+> Users can choose any supported options when configuring the feature, and only the options they enable are used.
 
 **Common mistakes:**
 
@@ -83,9 +83,9 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **Strong:**
 
-> - Batch channel editing across multiple notification types on a single page.
-> - Per-channel permissioning (e.g. some users can enable Push but not SMS).
-> - Retirement of the legacy `?channel=` query-param branch in the notifications controller.
+> - Batch option editing across multiple feature records on a single page.
+> - Per-option permissioning for different user groups.
+> - Retirement of a legacy compatibility path that is no longer needed after the feature ships.
 
 **Common mistakes:**
 
@@ -102,12 +102,12 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **Weak:**
 
-> Users can manage notifications better.
+> Users can manage the feature better.
 
 **Strong:**
 
-> **Power user who wants all channels:** wants to enable Email, SMS, and Push together so they receive alerts on every channel they care about, choosing all three up front so the configuration form shows all relevant fields at once.
-> **Email-only user:** wants to disable SMS and Push so they only receive email digests, without removing their phone number or device token from the system.
+> **User who wants every option:** wants to enable all supported options together so the configuration reflects their full needs.
+> **User who wants one option:** wants to enable one option without changing the other options or removing related data.
 
 **Common mistakes:**
 
@@ -118,27 +118,27 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **Purpose:** The detailed behavioural specification — the rules the system must enforce and the capabilities it must provide. This is the part an engineer reads to know what to build.
 
-**What belongs here:** Split into two subsections. **Functional requirements** describe what the system does (capabilities, inputs, outputs, state changes). **Rules & edge cases** describe the constraints, invariants, and boundary behaviour that distinguish correct from incorrect implementations. Rules are where most ambiguity is resolved — be explicit about what happens when data conflicts with a channel toggle, when a channel is turned off, when a required field is missing, etc.
+**What belongs here:** Split into two subsections. **Functional requirements** describe what the system does (capabilities, inputs, outputs, state changes). **Rules & edge cases** describe the constraints, invariants, and boundary behaviour that distinguish correct from incorrect implementations. Rules are where most ambiguity is resolved — be explicit about what happens when data conflicts with an option, when an option is turned off, when a required field is missing, etc.
 
 **What does not belong here:** Implementation choices ("use a boolean column") — those belong in §7. UI layout details belong in §6. Test scenarios belong in §10.
 
 **Weak (functional):**
 
-> The system supports notification channels.
+> The system supports independently configurable options.
 
 **Strong (functional):**
 
-> - The system persists `canEmail`, `canSms`, and `canPush` as independent boolean flags on each user's notification preference record.
-> - The notification settings page presents Email, SMS, and Push as independent checkboxes; any combination (including none) is valid.
+> - The system persists the selected options independently for each feature record.
+> - The settings page presents the supported options independently; any combination, including none, is valid.
 
 **Weak (rules):**
 
-> Channels and contact data should stay consistent.
+> Options and their related data should stay consistent.
 
 **Strong (rules):**
 
-> - Toggling a channel off does **not** delete the underlying contact data (email address, phone number, device token). The data is retained and the channel toggle only gates whether the system sends to that channel.
-> - `canPush = true` requires a registered device token; the server rejects any update that would leave Push enabled with no token on file.
+> - Turning an option off does **not** delete its underlying data. The data is retained and the option only controls whether the related behaviour is active.
+> - Enabling an option that has a prerequisite is rejected when that prerequisite is absent.
 
 **Common mistakes:**
 
@@ -150,22 +150,22 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **Purpose:** Describe how a user moves through the feature — the screens, flows, and affordances they encounter, in enough detail that a designer or engineer could build it without further questions.
 
-**What belongs here:** Key user flows as ordered step lists ("User clicks X, sees Y, then Z"). A short text wireframe or control inventory for each significant screen. Call out where this feature touches existing screens and what changes on them. Reference the UI/UX principles in `docs/product/ui-ux.md` where they apply.
+**What belongs here:** Key user flows as ordered step lists ("User clicks X, sees Y, then Z"). A short text wireframe or control inventory for each significant screen. Call out where this feature touches existing screens and what changes on them. Reference the project's UI/UX guidance where it applies.
 
-**What does not belong here:** Visual design specifications (colour, spacing, typography) — those live in `docs/product/style-guide.md`. Do not duplicate the style guide; link to it. Full Gherkin scenarios belong in §10.
+**What does not belong here:** Visual design specifications (colour, spacing, typography) — those live in the project's style guide. Do not duplicate the style guide; link to it. Full Gherkin scenarios belong in §10.
 
 **Weak:**
 
-> A form guides the user through notification setup.
+> A form guides the user through feature setup.
 
 **Strong:**
 
-> **Settings page (replaces the current single-field `GET /notifications/preferences/new` form):**
-> 1. Step 1 — Channels: three independent checkboxes (Email / SMS / Push). None selected is valid and produces a "digest only" preference.
-> 2. Step 2 — Details: digest frequency (required), quiet hours (optional).
-> 3. Step 3 — Conditional sections: if Email, show email address (pre-filled, editable); if SMS, show phone number (required); if Push, show device token selector (optional at setup).
+> **Settings page (replaces the current single-purpose form):**
+> 1. Step 1 — Options: independent controls for each supported option. No option selected is valid when the feature allows it.
+> 2. Step 2 — Details: required and optional details relevant to the feature.
+> 3. Step 3 — Conditional sections: show only the details required by the selected options.
 >
-> **Preferences detail page:** three toggle chips in the header (Email / SMS / Push), each persisting on toggle. Email card renders only when `canEmail`; SMS card only when `canSms`; Push card only when `canPush`.
+> **Feature detail page:** controls for the supported options persist independently. Related sections render only when their option is enabled.
 
 **Common mistakes:**
 
@@ -176,19 +176,19 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **Purpose:** Specify the persisted and transmitted shape changes this feature requires, at the level of entities, fields, and endpoints. This is where the PRD meets the domain model.
 
-**What belongs here:** New or modified entities and their fields (with types and defaults), new or modified API endpoints (method, path, request shape, response shape), and any DTO or validation changes. Reference the existing domain model (`docs/product/domain-model.md`) and call out exactly what changes there. If a schema migration is required, describe it here at the intent level — the actual SQL lives in a migration file.
+**What belongs here:** New or modified entities and their fields (with types and defaults), new or modified API endpoints (method, path, request shape, response shape), and any DTO or validation changes. Reference the existing domain model and call out exactly what changes there. If a schema migration is required, describe it here at the intent level — the actual SQL lives in a migration file.
 
 **What does not belong here:** Full implementation code, repository method signatures, or internal class structure — those belong in an implementation plan. The PRD defines the contract; the implementation plan defines the code.
 
 **Weak:**
 
-> Add fields to the preference record for the channels.
+> Add fields to the feature record for the supported options.
 
 **Strong:**
 
-> Introduce stored boolean columns on `notification_preferences`: `canEmail BOOLEAN NOT NULL DEFAULT FALSE`, `canSms BOOLEAN NOT NULL DEFAULT FALSE`, `canPush BOOLEAN NOT NULL DEFAULT FALSE`. These three booleans are the single source of truth for channel state; the previous derived equations (`emailAddress IS NOT NULL`, `phoneNumber IS NOT NULL`, `deviceTokenCount > 0`) are removed from the preference read query.
+> Introduce explicit stored fields on the feature record for each independently configurable option. These fields are the single source of truth for option state; derived rules based on unrelated data are removed from the read path.
 >
-> `NotificationPreferenceDto` gains optional `canEmail`, `canSms`, `canPush` boolean fields for create/update validation. The server enforces `canPush === true ⇒ deviceTokenCount > 0`.
+> The feature DTO gains fields for option state and create/update validation. The server rejects any update that enables an option without its required prerequisite.
 
 **Common mistakes:**
 
@@ -202,7 +202,7 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **What belongs here:** The migration strategy for existing records (seed from derived state, default-off, etc.), any one-time data patches, rollout ordering (schema first, then code, then UI), and backward-compatibility notes. Reference the `immutable-migration-patches` skill's forward-only principle where it applies. If the feature reverts a prior ADR, name the ADR and state that a superseding ADR will be drafted.
 
-**What does not belong here:** The actual SQL of the migration file (that lives in the migrations directory), or rollout runbooks (those live in `docs/dev/devops/`).
+**What does not belong here:** The actual SQL of the migration file, or rollout runbooks. Those belong in the project's established migration and operations locations.
 
 **Weak:**
 
@@ -210,11 +210,11 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **Strong:**
 
-> 1. Schema: `ALTER TABLE notification_preferences ADD COLUMN canEmail BOOLEAN NOT NULL DEFAULT FALSE, ADD COLUMN canSms BOOLEAN NOT NULL DEFAULT FALSE, ADD COLUMN canPush BOOLEAN NOT NULL DEFAULT FALSE;`
-> 2. Seed from current derived state (one-time data patch in the same or immediately-following migration): set each preference's booleans from the existing derived rules, so a user who today receives "Email + SMS" continues to receive "Email + SMS" after rollout — now as an explicit stored flag, with no user-visible regression.
-> 3. No destructive changes to `user_contact_methods` or `device_tokens`.
+> 1. Schema: add explicit fields for the independently configurable options.
+> 2. Seed from current derived state using a one-time data patch, so existing users retain their current behaviour after rollout — now as explicit stored state, with no user-visible regression.
+> 3. Do not destructively change or remove the underlying data.
 >
-> A new ADR (superseding ADR-0007) will document the reversal and rationale.
+> A new ADR will document any reversal of a prior architectural decision and its rationale.
 
 **Common mistakes:**
 
@@ -235,7 +235,7 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **Strong:**
 
-> Q1. Should the settings page replace the current `GET /notifications/preferences/new` form, or be offered as an alternative path alongside it? (Affects §6.) Recommendation: replace.
+> Q1. Should the settings page replace the current form, or be offered as an alternative path alongside it? (Affects §6.) Recommendation: replace.
 
 **Common mistakes:**
 
@@ -248,7 +248,7 @@ The examples use a running scenario — a "notification channel preferences" fea
 
 **What belongs here:** Gherkin scenarios written per the `writing-gherkin` skill: one behaviour per scenario, concrete `Given`/`When`/`Then` steps, observable outcomes. Cover the happy path and the important edge cases named in §5. If a scenario is too large, it is probably two scenarios.
 
-**What does not belong here:** Implementation assertions ("the `canEmail` column is set"), internal state checks, or prose acceptance criteria. Gherkin is the format; if prose is genuinely needed, keep it out of this section and in §5.
+**What does not belong here:** Implementation assertions ("the option field is set"), internal state checks, or prose acceptance criteria. Gherkin is the format; if prose is genuinely needed, keep it out of this section and in §5.
 
 **Weak:**
 
@@ -257,19 +257,19 @@ The examples use a running scenario — a "notification channel preferences" fea
 **Strong:**
 
 ```gherkin
-Scenario: Toggling SMS off retains the phone number
-  Given a user with canSms set to true
-  And the user has a registered phone number
-  When the user toggles SMS off
-  Then the SMS card is hidden on the preferences page
-  And the phone number is retained
-  And re-toggling SMS on restores the SMS card with the phone number listed
+Scenario: Turning an option off retains its underlying data
+  Given a user with an option enabled
+  And the related data is present
+  When the user turns the option off
+  Then the related section is hidden on the feature page
+  And the related data is retained
+  And turning the option on again restores the section with the data listed
 ```
 
 **Common mistakes:**
 
-- Writing scenarios that bundle multiple behaviours ("configure preferences, edit them, toggle a channel, and check the list").
-- `Given` steps that describe intent rather than setup ("Given the user wants to receive SMS").
+- Writing scenarios that bundle multiple behaviours ("configure the feature, edit it, toggle an option, and check the list").
+- `Given` steps that describe intent rather than setup ("Given the user wants to enable an option").
 - `Then` steps that assert internal state rather than observable output.
 
 ## 11. Out-of-Scope Follow-ups
@@ -282,13 +282,13 @@ Scenario: Toggling SMS off retains the phone number
 
 **Weak:**
 
-> More notification features in future.
+> More feature configuration options in future.
 
 **Strong:**
 
-> - Bulk channel editing across multiple notification types (candidate for a future PRD).
-> - Per-channel permissioning (candidate for a future PRD).
-> - Retirement of the legacy `?channel=email|sms|push` query-param branch in `NotificationsController.preferencesNew`, which becomes dead code once the settings page ships (candidate for a cleanup task).
+> - Bulk option editing across multiple feature records (candidate for a future PRD).
+> - Per-option permissioning (candidate for a future PRD).
+> - Retirement of the legacy compatibility path, which becomes dead code once the settings page ships (candidate for a cleanup task).
 
 **Common mistakes:**
 

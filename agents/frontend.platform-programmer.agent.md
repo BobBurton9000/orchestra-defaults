@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `client/main.tsx` lines 1-35: Added provider wiring and runtime feature-flag initialization.
-- Changed `client/platform/config.ts` lines 5-30: Implemented environment-backed runtime configuration loading.
+- Changed `<frontend-entrypoint-file>` lines 1-35: Added provider wiring and runtime feature-flag initialisation.
+- Changed `<frontend-config-file>` lines 5-30: Implemented environment-backed runtime configuration loading.
 - Please have the code review agents verify these changes and report back with any problems.

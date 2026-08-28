@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `client/forms/UserInviteForm.js` lines 10-80: Implemented field validation, submit states, and error handling for the invite flow.
-- Changed `client/pages/InviteWizard.js` lines 15-70: Added the multi-step form progression and recovery behavior.
+- Changed `<frontend-form-file>` lines 10-80: Implemented field validation, submit states, and error handling for the form flow.
+- Changed `<frontend-page-file>` lines 15-70: Added the multi-step form progression and recovery behaviour.
 - Please have the code review agents verify these changes and report back with any problems.

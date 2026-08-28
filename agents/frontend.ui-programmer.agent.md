@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `client/components/UserProfile.js` lines 10-50: Implemented the new profile panel component and interaction wiring.
-- Changed `client/pages/ProfilePage.js` lines 20-65: Composed the updated view and connected the component hierarchy.
+- Changed `<component-file>` lines 10-50: Implemented the new component and interaction wiring.
+- Changed `<page-file>` lines 20-65: Composed the updated view and connected the component hierarchy.
 - Please have the code review agents verify these changes and report back with any problems.

@@ -9,8 +9,8 @@ Perform a repository-grounded code review of the target pull request using GitHu
 
 # Variables
 <pr-url> = {{PR_URL}}
-<owner> = Derived from parsing <pr-url> (e.g., https://github.com/rld-engineering/intelligentcontract-monorepo/pull/123 → owner = rld-engineering)
-<repo> = Derived from parsing <pr-url> (e.g., https://github.com/rld-engineering/intelligentcontract-monorepo/pull/123 → repo = intelligentcontract-monorepo)
+<owner> = Derived from parsing <pr-url> (e.g., https://github.com/{owner}/{repo}/pull/{pr-number} → owner = {owner})
+<repo> = Derived from parsing <pr-url> (e.g., https://github.com/{owner}/{repo}/pull/{pr-number} → repo = {repo})
 <pr-number> = Derived from parsing <pr-url> (e.g., https://github.com/owner/repo/pull/123 → pr-number = 123)
 <branch-name> = Resolve the current branch using [branch-name](snippets/branch-name.md), then normalize it by replacing `/` and whitespace with `-` so the result is safe to use as one directory name.
 <output-file> = {{OUTPUT_FILENAME_MD}} (optional - auto-generated as `pr-{pr-number}-{datetime}-review.md` if not provided)
@@ -23,10 +23,10 @@ This prompt is executed with just a PR URL.
 Inference rules:
 1. If <pr-url> is present, parse it to extract <owner>, <repo>, and <pr-number>.
    - URL format: `https://github.com/{owner}/{repo}/pull/{pr-number}`
-   - Example: `https://github.com/rld-engineering/intelligentcontract-monorepo/pull/1235`
-     → owner = rld-engineering
-     → repo = intelligentcontract-monorepo
-     → pr-number = 1235
+   - Example: `https://github.com/{owner}/{repo}/pull/{pr-number}`
+     → owner = `{owner}`
+     → repo = `{repo}`
+     → pr-number = `{pr-number}`
 2. If <pr-url> is missing, return ERROR: no pull request URL provided.
 3. If <owner> or <repo> cannot be parsed from <pr-url>, return ERROR: invalid PR URL format.
 4. Resolve <branch-name> from the current git branch, then normalize it before using <output-dir> or <output-path>.

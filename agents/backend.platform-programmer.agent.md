@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `server/bootstrap/app.js` lines 1-55: Added runtime registration for the new feature-flagged dependency path.
-- Changed `server/observability/metrics.js` lines 8-35: Wired metrics emission for the new server workflow.
+- Changed `<server-bootstrap-file>` lines 1-55: Added runtime registration for the new feature-flagged dependency path.
+- Changed `<observability-file>` lines 8-35: Wired metrics emission for the new workflow.
 - Please have code review agents verify these changes and report back with any problems.

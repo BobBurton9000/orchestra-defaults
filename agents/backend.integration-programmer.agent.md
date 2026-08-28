@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `server/integrations/payments/client.js` lines 5-70: Added the payment status lookup adapter and mapped provider errors.
-- Changed `server/jobs/reconcilePayments.js` lines 15-80: Implemented the scheduled reconciliation job with retry-safe guards.
+- Changed `<integration-client-file>` lines 5-70: Added the provider adapter and mapped integration errors.
+- Changed `<background-job-file>` lines 15-80: Implemented the scheduled job with retry-safe guards.
 - Please have code review agents verify these changes and report back with any problems.

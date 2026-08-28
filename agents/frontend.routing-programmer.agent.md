@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `client/routes/index.tsx` lines 5-55: Added the new settings route tree and route guard behavior.
-- Changed `client/app/AppShell.tsx` lines 12-40: Updated shell navigation composition for the new route.
+- Changed `<routes-file>` lines 5-55: Added the new route tree and route guard behaviour.
+- Changed `<app-shell-file>` lines 12-40: Updated shell navigation composition for the new route.
 - Please have the code review agents verify these changes and report back with any problems.

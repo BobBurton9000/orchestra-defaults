@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `server/db/migrations/20260307_add_user_status.sql` lines 1-40: Added the user status column with a safe default and backfill.
-- Changed `server/repositories/userRepository.js` lines 12-55: Updated queries and persistence mapping for the new field.
+- Changed `<migration-file>` lines 1-40: Added the required schema change with a safe default and backfill.
+- Changed `<repository-file>` lines 12-55: Updated queries and persistence mapping for the new field.
 - Please have code review agents verify these changes and report back with any problems.

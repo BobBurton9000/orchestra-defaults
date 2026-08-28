@@ -35,6 +35,6 @@ Your response needs to contain the following:
 - A request for an independent agent to verify the changes
 
 Example:
-- Changed `client/styles/userProfile.css` lines 5-40: Added responsive layout, spacing, and visual hierarchy for the updated profile page.
-- Changed `client/components/UserProfile.js` lines 10-20: Adjusted class structure to support the new styling contract.
+- Changed `<component-styles-file>` lines 5-40: Added responsive layout, spacing, and visual hierarchy for the updated page.
+- Changed `<component-file>` lines 10-20: Adjusted class structure to support the new styling contract.
 - Please have the code review agents verify these changes and report back with any problems.
