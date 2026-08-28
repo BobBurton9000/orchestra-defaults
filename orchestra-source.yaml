@@ -142,12 +142,34 @@ packages:
   - name: ado-import
     type: skill
     path: skills/ado-import/
+  - name: engineering-constitution
+    type: skill
+    path: skills/engineering-constitution/
+  - name: monozukuri
+    type: skill
+    path: skills/monozukuri/
+  - name: normative-technical-writing
+    type: skill
+    path: skills/normative-technical-writing/
+  - name: orchestra
+    type: skill
+    path: skills/orchestra/
   - name: tech-debt-register
     type: skill
     path: skills/tech-debt-register/
   - name: writing-gherkin
     type: skill
     path: skills/writing-gherkin/
+  - name: writing-human-documents
+    type: skill
+    path: skills/writing-human-documents/
+  - name: writing-llm-documents
+    type: skill
+    path: skills/writing-llm-documents/
   - name: writing-prds
     type: skill
     path: skills/writing-prds/
+  - name: writing-typescript
+    type: skill
+    path: skills/writing-typescript/
+
