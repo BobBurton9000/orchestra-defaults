@@ -28,15 +28,15 @@ packages:
   - name: backend.platform-programmer
     type: agent
     path: agents/backend.platform-programmer.agent.md
+  - name: code-review-orchestrator
+    type: agent
+    path: agents/code-review-orchestrator.agent.md
   - name: code-review.bugs
     type: agent
     path: agents/code-review.bugs.agent.md
   - name: code-review.maintainability
     type: agent
     path: agents/code-review.maintainability.agent.md
-  - name: code-review.readability
-    type: agent
-    path: agents/code-review.readability.agent.md
   - name: code-review.simplify
     type: agent
     path: agents/code-review.simplify.agent.md
@@ -46,24 +46,6 @@ packages:
   - name: debugger
     type: agent
     path: agents/debugger.agent.md
-  - name: frontend.forms-programmer
-    type: agent
-    path: agents/frontend.forms-programmer.agent.md
-  - name: frontend.platform-programmer
-    type: agent
-    path: agents/frontend.platform-programmer.agent.md
-  - name: frontend.routing-programmer
-    type: agent
-    path: agents/frontend.routing-programmer.agent.md
-  - name: frontend.state-programmer
-    type: agent
-    path: agents/frontend.state-programmer.agent.md
-  - name: frontend.styling-programmer
-    type: agent
-    path: agents/frontend.styling-programmer.agent.md
-  - name: frontend.ui-programmer
-    type: agent
-    path: agents/frontend.ui-programmer.agent.md
   - name: information-gatherer
     type: agent
     path: agents/information-gatherer.agent.md
@@ -85,6 +67,12 @@ packages:
   - name: security-expert
     type: agent
     path: agents/security-expert.agent.md
+  - name: squad-build
+    type: agent
+    path: agents/squad-build.agent.md
+  - name: squad-plan
+    type: agent
+    path: agents/squad-plan.agent.md
   - name: tester.browser
     type: agent
     path: agents/tester.browser.agent.md
@@ -145,6 +133,9 @@ packages:
   - name: engineering-constitution
     type: skill
     path: skills/engineering-constitution/
+  - name: github-cli
+    type: skill
+    path: skills/github-cli/
   - name: monozukuri
     type: skill
     path: skills/monozukuri/
@@ -154,6 +145,9 @@ packages:
   - name: orchestra
     type: skill
     path: skills/orchestra/
+  - name: playwright
+    type: skill
+    path: skills/playwright/
   - name: tech-debt-register
     type: skill
     path: skills/tech-debt-register/
