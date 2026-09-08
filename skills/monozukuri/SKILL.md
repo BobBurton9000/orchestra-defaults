@@ -7,8 +7,8 @@ description: Applies Monozukuri, Kaizen, and Jidoka to engineering work without 
 
 ## Purpose and Scope
 
-This skill is a binding instruction for a practitioner who investigates, plans,
-implements, reviews, or verifies engineering work in a repository.
+This skill gives you binding instructions when you investigate, plan, implement,
+review, or verify engineering work in a repository.
 
 It covers evidence-led development, quality at source, bounded change,
 continuous improvement, failure handling, and honest verification.
@@ -22,18 +22,18 @@ value.
 
 ## Instruction Summary
 
-1. The practitioner MUST begin from repository evidence and applicable authoritative
+1. You MUST begin from repository evidence and applicable authoritative
    documents.
-2. The practitioner MUST identify the intended outcome, owning boundary, contract, and
+2. You MUST identify the intended outcome, owning boundary, contract, and
    completion condition.
-3. The practitioner MUST implement the smallest complete change that satisfies the
+3. You MUST implement the smallest complete change that satisfies the
    applicable contract.
-4. The practitioner MUST build quality into the boundary that owns the relevant rule or
+4. You MUST build quality into the boundary that owns the relevant rule or
    state.
-5. The practitioner MUST stop normal processing when an unexpected condition or
+5. You MUST stop normal processing when an unexpected condition or
    invariant violation is detected.
-6. The practitioner MUST keep Kaizen improvements bounded, related, and verifiable.
-7. The practitioner MUST report verification results, assumptions, and unfinished work
+6. You MUST keep Kaizen improvements bounded, related, and verifiable.
+7. You MUST report verification results, assumptions, and unfinished work
    without fabrication.
 
 ## Definitions
@@ -53,8 +53,6 @@ value.
   reason, completion condition, and verification method.
 - **Complete change** means a change that includes all implementation and
   verification work required by its applicable contract.
-- **Practitioner** means the person or system performing repository work under
-  this skill.
 - **Unexpected condition** means a condition that violates an applicable
   contract or invariant and has no defined safe outcome.
 - **Expected condition** means a condition for which an applicable contract or
@@ -62,10 +60,10 @@ value.
 
 ## Authority and Precedence
 
-The practitioner MUST identify the authorities that govern the requested work before
+You MUST identify the authorities that govern the requested work before
 changing the system.
 
-When authorities conflict, the practitioner MUST apply them in this order:
+When authorities conflict, you MUST apply them in this order:
 
 1. System and developer instructions.
 2. Explicit task requirements that do not conflict with a higher authority.
@@ -79,7 +77,7 @@ reinterpret, or replace them.
 
 ## Inputs
 
-The practitioner MUST use the following inputs when they are applicable:
+You MUST use the following inputs when they are applicable:
 
 - **Task request:** The requested outcome and stated constraints.
 - **Authoritative documents:** Constitutions, requirements, policies, and
@@ -88,96 +86,96 @@ The practitioner MUST use the following inputs when they are applicable:
   dependencies, runtime observations, and the current working tree.
 - **Acceptance conditions:** Observable conditions that establish completion.
 - **Existing changes:** The current diff and uncommitted work not created by
-  the practitioner.
+  you.
 
-The practitioner MUST distinguish missing input from unknown input.
+You MUST distinguish missing input from unknown input.
 
 When a missing requirement could change ownership, public behaviour, data
-shape, failure handling, or scope, the practitioner MUST ask a focused clarification
+shape, failure handling, or scope, you MUST ask a focused clarification
 question before implementation.
 
-When a missing requirement cannot change those boundaries, the practitioner MAY proceed
-with a bounded assumption. The practitioner MUST state that assumption in its output.
+When a missing requirement cannot change those boundaries, you MAY proceed
+with a bounded assumption. You MUST state that assumption in its output.
 
-The practitioner MUST NOT invent an API, contract, domain rule, asset, test result, or
+You MUST NOT invent an API, contract, domain rule, asset, test result, or
 current behaviour to fill an information gap.
 
-The practitioner MUST preserve existing worktree changes that it did not create. It MUST
-NOT revert, overwrite, or stage unrelated changes.
+You MUST preserve existing worktree changes that you did not create. You MUST
+  NOT revert, overwrite, or stage unrelated changes.
 
 ## Normative Rules
 
 ### Value and Ownership
 
-1. The practitioner MUST identify the intended outcome or stakeholder value that the
+1. You MUST identify the intended outcome or stakeholder value that the
    work enables or protects.
-2. The practitioner MUST identify the owning boundary and applicable contract or
+2. You MUST identify the owning boundary and applicable contract or
    invariant affected by the work.
-3. The practitioner MUST keep authoritative rules and state inside their owning
-   boundary.
-4. The practitioner MUST NOT create a second source of truth to make a change
+3. You MUST keep authoritative rules and state inside the boundary that owns
+   the relevant rule or state.
+4. You MUST NOT create a second source of truth to make a change
    convenient.
-5. The practitioner MUST NOT move ownership into a composition point, adapter, test
+5. You MUST NOT move ownership into a composition point, adapter, test
    fixture, or generic shared area merely to simplify implementation.
 
 ### Bounded Change
 
-1. The practitioner MUST implement the smallest complete change that satisfies the
+1. You MUST implement the smallest complete change that satisfies the
    applicable contract.
-2. The practitioner MUST NOT add speculative abstractions, compatibility paths,
+2. You MUST NOT add speculative abstractions, compatibility paths,
    dependencies, or unrelated refactors.
-3. The practitioner MAY improve directly related clarity when the improvement preserves
+3. You MAY improve directly related clarity when the improvement preserves
    the existing contract, remains within the identified boundary, and has
    verification evidence.
-4. The practitioner MUST record unrelated improvements as follow-up work instead of
+4. You MUST record unrelated improvements as follow-up work instead of
    including them in the current change.
-5. The practitioner MUST NOT widen product scope from an inferred future need.
+5. You MUST NOT widen product scope from an inferred future need.
 
 ### Kaizen
 
-1. After completing a change, the practitioner MUST inspect whether the work exposed a
+1. After completing a change, you MUST inspect whether the work exposed a
    recurring defect, unclear boundary, repeated workaround, or avoidable
    workflow friction.
-2. The practitioner MAY implement a Kaizen improvement when the improvement is directly
+2. You MAY implement a Kaizen improvement when the improvement is directly
    related to the changed boundary, has a bounded completion condition, and can
    be verified within the available scope.
-3. The practitioner MUST record a Kaizen improvement as follow-up work when it is not
+3. You MUST record a Kaizen improvement as follow-up work when it is not
    directly related, cannot be bounded, or cannot be verified.
-4. The practitioner MUST NOT use Kaizen as a reason to refactor unrelated areas,
+4. You MUST NOT use Kaizen as a reason to refactor unrelated areas,
    redesign a contract without a requirement, or bypass review.
 5. The final output MUST state whether a relevant improvement was made,
    deferred, or not identified.
 
 ### Jidoka
 
-1. The practitioner MUST validate behaviour at the earliest boundary that can establish
+1. You MUST validate behaviour at the earliest boundary that can establish
    its correctness.
-2. When an Unexpected condition or invariant violation is detected, the practitioner
+2. When an Unexpected condition or invariant violation is detected, you
    MUST stop normal processing and expose the failure.
-3. The practitioner MUST NOT hide an Unexpected condition with a fabricated value,
+3. You MUST NOT hide an Unexpected condition with a fabricated value,
    partial result, arbitrary default, fallback state, or log-and-continue path.
-4. The practitioner MUST NOT continue dependent implementation work as though an
+4. You MUST NOT continue dependent implementation work as though an
    Unexpected condition had not occurred.
-5. The practitioner MUST distinguish an Expected condition from an Unexpected
+5. You MUST distinguish an Expected condition from an Unexpected
    condition.
-6. The practitioner MUST preserve the evidence needed to diagnose an exposed failure.
+6. You MUST preserve the evidence needed to diagnose an exposed failure.
 7. Tests and tooling MAY provide evidence of a failure, but they MUST NOT be
    used to legitimise a constitutional violation.
 
 ### Verification
 
-1. The practitioner MUST verify behaviour at the public boundary that owns the changed
+1. You MUST verify behaviour at the public boundary that owns the changed
    behaviour.
-2. The practitioner MUST use the verification method required by the applicable
+2. You MUST use the verification method required by the applicable
    contract, testing policy, or technical boundary.
-3. The practitioner MUST report a verification command or observation for every claimed
+3. You MUST report a verification command or observation for every claimed
    verification result.
-4. The practitioner MUST report unavailable verification as unavailable.
-5. The practitioner MUST NOT claim that an unrun check passed.
+4. You MUST report unavailable verification as unavailable.
+5. You MUST NOT claim that an unrun check passed.
 
 ## Process
 
-The practitioner MUST follow this sequence when performing repository work:
+You MUST follow this sequence when performing repository work:
 
 1. **Observe:** Read the relevant authorities, source, tests, documentation,
    and current diff.
@@ -198,30 +196,30 @@ The practitioner MUST follow this sequence when performing repository work:
 
 ## Failure and Ambiguity Behaviour
 
-When the task conflicts with an applicable constitution or mandatory policy, the
-practitioner MUST stop and report the conflict.
+When the task conflicts with an applicable constitution or mandatory policy, you
+MUST stop and report the conflict.
 
-When ownership or public behaviour is ambiguous, the practitioner MUST ask for
+When ownership or public behaviour is ambiguous, you MUST ask for
 clarification before changing the affected boundary.
 
-When an API, contract, or domain rule is missing, the practitioner MUST NOT invent one.
-The practitioner MUST report the missing seam or ask for the required decision.
+When an API, contract, or domain rule is missing, you MUST NOT invent one.
+You MUST report the missing seam or ask for the required decision.
 
-When an Expected condition has an identifiable contract-defined outcome, the practitioner
+When an Expected condition has an identifiable contract-defined outcome, you
 MAY implement that outcome.
 
-When an Unexpected condition is detected, the practitioner MUST fail fast and MUST NOT
+When an Unexpected condition is detected, you MUST fail fast and MUST NOT
 continue normal processing.
 
 When verification cannot run because of a missing tool, environment, or test
-seam, the practitioner MUST report the limitation and MUST NOT fabricate evidence.
+seam, you MUST report the limitation and MUST NOT fabricate evidence.
 
-When an adjacent improvement is outside the approved scope, the practitioner MUST leave
+When an adjacent improvement is outside the approved scope, you MUST leave
 the current change bounded and report the improvement as follow-up work.
 
 ## Output Contract
 
-When implementation or review work is completed, the practitioner MUST report:
+When implementation or review work is completed, you MUST report:
 
 ```markdown
 ## Outcome
@@ -248,12 +246,12 @@ When implementation or review work is completed, the practitioner MUST report:
 - [Bounded follow-up work or `None`.]
 ```
 
-The practitioner MUST omit claims that cannot be supported by evidence.
+You MUST omit claims that cannot be supported by evidence.
 
-When no files are changed, the practitioner MUST state that no files were changed and
+When no files are changed, you MUST state that no files were changed and
 MUST provide the reason.
 
-When implementation is blocked, the practitioner MUST state the blocking condition, the
+When implementation is blocked, you MUST state the blocking condition, the
 last verified state, and the decision required to continue.
 
 ## Valid Example
@@ -307,7 +305,7 @@ Unexpected condition.
 
 ## Validation Checklist
 
-The practitioner MUST confirm all applicable items before reporting completion:
+You MUST confirm all applicable items before reporting completion:
 
 - [ ] The intended outcome and completion condition are explicit.
 - [ ] The owning boundary is explicit.

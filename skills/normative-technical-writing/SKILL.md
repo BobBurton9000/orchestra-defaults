@@ -29,19 +29,19 @@ vocabulary:
 - **MUST NOT** means that the action is prohibited.
 - **MAY** means that the action is permitted but not required.
 
-The author MUST use uppercase modal terms when they carry normative force. The
-author MUST NOT use lowercase `must`, `should`, `required`, `prefer`, `avoid`,
+You MUST use uppercase modal terms when they carry normative force.
+You MUST NOT use lowercase `must`, `should`, `required`, `prefer`, `avoid`,
 `normally`, or similar terms to create an undefined requirement. A document MAY
 define additional modal terms, but it MUST define their force and relationship
 to the existing vocabulary first.
 
 `MAY` expresses permission, not a recommendation or a weaker form of `MUST`.
-The author MUST state a recommendation as a recommendation and MUST NOT disguise
+You MUST state a recommendation as a recommendation and MUST NOT disguise
 it as a mandatory requirement.
 
 ## Normative Rules
 
-The author MUST write each independently testable obligation as a separate
+You MUST write each independently testable obligation as a separate
 clause. Each clause MUST identify:
 
 1. The responsible actor or boundary.
@@ -51,16 +51,16 @@ clause. Each clause MUST identify:
 5. The condition under which the rule applies.
 6. The observable result when that result matters.
 
-The author MUST state conditions and exceptions in the clause itself. The author
+You MUST state conditions and exceptions in the clause itself. You
 MUST NOT hide a requirement in a definition, example, rationale, comment,
 diagram, or implication.
 
-The author MUST use one canonical term for each concept within the document.
+You MUST use one canonical term for each concept within the document.
 Terms MUST be defined before normative use when their meaning affects
-interpretation. The author MUST use active voice and concrete subjects when that
+interpretation. You MUST use active voice and concrete subjects when that
 makes responsibility clearer.
 
-The author MUST use absolute words such as `only`, `sole`, `all`, and `complete`
+You MUST use absolute words such as `only`, `sole`, `all`, and `complete`
 only when the intended obligation really has that strength. Normative language
 MUST NOT claim authority or certainty that the governing evidence does not
 support.
@@ -83,7 +83,7 @@ The UI should normally use the service.
 Caching is fine if it does not cause problems.
 ```
 
-The author MUST label examples and non-examples clearly. Examples MUST illustrate
+You MUST label examples and non-examples clearly. Examples MUST illustrate
 the governing rules and MUST NOT silently add narrower requirements.
 
 ## Review Checklist
