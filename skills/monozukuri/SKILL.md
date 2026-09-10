@@ -26,8 +26,8 @@ value.
    documents.
 2. You MUST identify the intended outcome, owning boundary, contract, and
    completion condition.
-3. You MUST implement the smallest complete change that satisfies the
-   applicable contract.
+3. You MUST apply the Necessity Gate and implement the smallest complete
+   change that satisfies the applicable contract.
 4. You MUST build quality into the boundary that owns the relevant rule or
    state.
 5. You MUST stop normal processing when an unexpected condition or
@@ -51,8 +51,17 @@ value.
   tooling, runtime behaviour, or explicit requirements.
 - **Bounded improvement** means an improvement with an identified boundary,
   reason, completion condition, and verification method.
-- **Complete change** means a change that includes all implementation and
+- **Complete change** means a change that includes only the implementation and
   verification work required by its applicable contract.
+- **Necessity evidence** means evidence that an implementation element has an
+  expected reachable trigger and a required observable outcome in the current
+  task. A task requirement, applicable contract or invariant, existing
+  reachable input or state, observed platform constraint, or mandatory
+  security, data-loss, accessibility, or testing requirement is necessity
+  evidence.
+- **Speculative implementation** means code added for a merely conceivable
+  input, consumer, replacement, compatibility concern, recovery path, or
+  failure mode without necessity evidence.
 - **Unexpected condition** means a condition that violates an applicable
   contract or invariant and has no defined safe outcome.
 - **Expected condition** means a condition for which an applicable contract or
@@ -122,14 +131,37 @@ You MUST preserve existing worktree changes that you did not create. You MUST
 
 1. You MUST implement the smallest complete change that satisfies the
    applicable contract.
-2. You MUST NOT add speculative abstractions, compatibility paths,
-   dependencies, or unrelated refactors.
+2. You MUST NOT add speculative conditionals, branches, abstractions,
+   compatibility paths, retries, fallbacks, error paths, tests, dependencies,
+   or unrelated refactors.
 3. You MAY improve directly related clarity when the improvement preserves
    the existing contract, remains within the identified boundary, and has
    verification evidence.
 4. You MUST record unrelated improvements as follow-up work instead of
    including them in the current change.
 5. You MUST NOT widen product scope from an inferred future need.
+
+### Necessity Gate
+
+Before adding a conditional, branch, abstraction, fallback, retry,
+compatibility path, error path, or automated test, you MUST establish:
+
+1. A likely trigger: a state, input, platform behaviour, or invariant
+   violation supported by necessity evidence.
+2. A needed outcome: an applicable contract, invariant, or requirement that
+   requires observably different behaviour when the trigger occurs.
+3. A bounded place in the current task.
+
+An implementation element is necessary only when all three conditions hold. If
+any condition is absent, you MUST omit the element. Conceivability, generic
+best practice, possible future reuse, and habit are not necessity evidence.
+
+Mandatory security, data-loss, accessibility, and explicit contract requirements
+remain necessary when applicable. You MUST NOT use this gate to skip them.
+
+Verification remains required under the Verification rules. A new automated test
+is necessary only when an applicable task, policy, or contract requires it, or
+when it is the smallest reliable evidence for changed observable behaviour.
 
 ### Kaizen
 
@@ -183,15 +215,18 @@ You MUST follow this sequence when performing repository work:
    ownership, boundaries, and failure outcomes.
 3. **Define the change:** State the value, owning boundary, contract,
    acceptance conditions, and explicit exclusions.
-4. **Choose the smallest complete change:** Include the implementation,
+4. **Apply the Necessity Gate:** Identify the evidenced triggers and required
+   outcomes for each non-trivial implementation element, then omit elements
+   that do not meet the gate.
+5. **Choose the smallest complete change:** Include the implementation,
    boundary changes, and verification required for a usable result.
-5. **Build quality at source:** Validate at the owning boundary and preserve
+6. **Build quality at source:** Validate at the owning boundary and preserve
    the existing ownership and dependency direction.
-6. **Apply Jidoka:** Stop and expose Unexpected conditions instead of hiding
+7. **Apply Jidoka:** Stop and expose Unexpected conditions instead of hiding
    them.
-7. **Apply Kaizen:** Inspect for a bounded, evidence-led improvement and either
+8. **Apply Kaizen:** Inspect for a bounded, evidence-led improvement and either
    implement it within scope or record it as follow-up work.
-8. **Verify and report:** Run the applicable checks, inspect the final diff,
+9. **Verify and report:** Run the applicable checks, inspect the final diff,
    and report changes, evidence, assumptions, and remaining work.
 
 ## Failure and Ambiguity Behaviour
@@ -312,6 +347,9 @@ You MUST confirm all applicable items before reporting completion:
 - [ ] The applicable contract or invariant is identified.
 - [ ] Repository evidence was inspected.
 - [ ] No API, rule, or result was invented.
+- [ ] Each conditional has an evidenced reachable trigger and a required
+      different outcome.
+- [ ] Each added abstraction or automated test satisfies the Necessity Gate.
 - [ ] The change is bounded and complete.
 - [ ] No duplicate authoritative state or bypass was introduced.
 - [ ] Kaizen was considered without expanding scope.

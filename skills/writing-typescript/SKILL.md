@@ -27,6 +27,13 @@ These rules MUST be applied according to their stated intent, not bypassed by
 changing a name while retaining the same unclear design. Convenience alone is
 not a sufficient reason to depart from a MUST or MUST NOT rule.
 
+A structural rule applies only after the element it governs is independently
+necessary. This Constitution MUST NOT cause a conditional, class, interface,
+DTO, Contract, collaborator, proxy, Null Object, named constant, or test to be
+added solely to satisfy a convention. When `monozukuri` applies, use its
+Necessity Gate. Otherwise, an added element MUST have an evidenced reachable
+trigger or current use and a required outcome in the current task.
+
 ## Article 2: Names
 
 ### Section 2.1: Specific names
@@ -189,34 +196,13 @@ interface PuffballRepository {
 
 ## Article 3: Function Bodies
 
-### Section 3.1: Guard clauses
+### Section 3.1: Necessary control flow
 
-Function bodies MUST NOT use `else`. Guard clauses and early returns MUST be
-used so that the happy path falls through.
-
-**Bad**
-
-```ts
-private setAttributes(): void {
-    if (isInvalid) {
-        input.setAttribute('aria-describedby', 'signup-error');
-    } else {
-        input.removeAttribute('aria-describedby');
-    }
-}
-```
-
-**Good**
-
-```ts
-private setAttributes(): void {
-    if (isInvalid) {
-        input.setAttribute('aria-describedby', 'signup-error');
-        return;
-    }
-    input.removeAttribute('aria-describedby');
-}
-```
+A conditional or branch MUST have both an evidenced reachable trigger and a
+required different outcome. Use a guard clause, `else`, ternary, or direct
+fall-through only when it leaves the required behaviour clearer and shorter. A
+control-flow style MUST NOT cause an extra branch, return, variable, or helper
+to be added.
 
 ### Section 3.2: Function continuity
 
@@ -225,29 +211,12 @@ structural principle, not a formatter preference. Adjacent function and method
 definitions MUST be separated by exactly one empty line. Related steps belong in
 named functions when the body would otherwise become difficult to follow.
 
-### Section 3.3: Self-documenting bodies
+### Section 3.3: Direct bodies
 
-Function bodies MUST communicate their intent through names and structure.
-Inline comments MUST NOT appear in function bodies. Extract a named function or
-variable when it makes the intent clearer.
-
-**Bad**
-
-```ts
-function assetPath(originalPath: string): string {
-    // Fallback for development or missing manifest
-    return originalPath.startsWith('/') ? originalPath : `/static/${originalPath}`;
-}
-```
-
-**Good**
-
-```ts
-function assetPath(originalPath: string): string {
-    const fallbackAssetPathForDevelopment = originalPath.startsWith('/') ? originalPath : `/static/${originalPath}`;
-    return fallbackAssetPathForDevelopment;
-}
-```
+Function bodies MUST communicate intent through direct names and structure.
+Inline comments MUST NOT appear in function bodies. A named function or variable
+MUST NOT be extracted merely to narrate a direct one-line expression. Extract it
+only when it removes real ambiguity or repetition.
 
 ### Section 3.4: Fail-fast behaviour
 
@@ -294,27 +263,13 @@ function move(
 
 ## Article 4: Composition and Data Structures
 
-### Section 4.1: Composition over inheritance
+### Section 4.1: Necessary composition
 
-Inheritance MUST NOT be used. Behaviour MUST be composed from collaborators and
-contracts.
-
-**Bad**
-
-```ts
-class LoginValidation extends BaseValidator {
-}
-```
-
-**Good**
-
-```ts
-class LoginValidation implements Validator {
-}
-```
-
-Inheritance creates coupling between implementation details. Composition keeps
-contracts explicit and collaborators replaceable.
+Inheritance MUST NOT be used. Use a direct function, value, or object unless an
+independently necessary collaborator or Contract better represents current
+ownership or an applicable contract. A Contract or collaborator MUST NOT be
+introduced solely for one known implementation, a theoretical replacement, or a
+structural convention.
 
 ### Section 4.2: Structured data
 
@@ -326,21 +281,24 @@ or other named structure MUST be used when the positions have distinct meaning.
 
 ### Section 4.3: Literal values
 
-Magic strings, repeated string literals, and magic numbers MUST NOT be used.
-They MUST be given a named variable or constant whose name expresses their
-meaning.
+A single local literal MAY remain inline when it is direct and unambiguous.
+Repeated or non-obvious domain values MUST use a named variable or constant
+whose name expresses their meaning.
 
 ### Section 4.4: Static class members
 
-Classes MUST NOT declare static fields, static methods, or static initialisation blocks. Shared behaviour MUST use module-level composition or instance collaborators.
+Classes MUST NOT declare static fields, static methods, or static initialisation blocks.
+Shared behaviour MUST use a module-level function or value unless an
+independently necessary collaborator is required.
 
 ## Article 5: Contracts and DTOs
 
 ### Section 5.1: Classification
 
-Every interface MUST be classified as a `Contract`. Every DTO MUST be a class. Every class
-MUST be classified as either a `Contract` or a `DTO`; there is no third
-classification.
+This classification applies only after an interface, DTO, or class is
+independently necessary under Article 1. Every interface MUST be classified as a
+`Contract`. Every DTO MUST be a class. Every class MUST be classified as either
+a `Contract` or a `DTO`; there is no third classification.
 
 A `Contract` is a first-class description of behaviour. A DTO carries data in
 private instance state.
@@ -471,6 +429,9 @@ Interface members are public by definition and MUST NOT use class visibility
 modifiers.
 
 ### Section 5.6: Replaceable Collaborator Roles
+
+This arrangement applies only when an actual replacement, expected absence, or
+stable retained identity is required under Article 1.
 
 A replaceable collaborator is a Contract-backed object whose implementation may
 change while its consumers retain references.
