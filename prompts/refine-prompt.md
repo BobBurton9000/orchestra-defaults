@@ -1,7 +1,7 @@
 ---
 agent: agent
 description: Rewrite a supplied phrase or draft prompt into a clearer, structured prompt optimised for LLM use
-name: prompt-optimiser
+name: refine-prompt
 argument-hint: "paste the phrase or draft prompt to optimise"
 ---
 # Prompt Optimisation
