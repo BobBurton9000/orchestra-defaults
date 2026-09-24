@@ -87,24 +87,12 @@ packages:
   - name: commit
     type: prompt
     path: prompts/commit.prompt.md
-  - name: create-prd
+  - name: grill-me
     type: prompt
-    path: prompts/create-prd.prompt.md
-  - name: gherkinify
-    type: prompt
-    path: prompts/gherkinify.prompt.md
+    path: prompts/grill-me.prompt.md
   - name: investigate-bug-claim
     type: prompt
     path: prompts/investigate-bug-claim.prompt.md
-  - name: learn
-    type: prompt
-    path: prompts/learn.prompt.md
-  - name: negotiate-prd
-    type: prompt
-    path: prompts/negotiate-prd.prompt.md
-  - name: prompt-optimiser
-    type: prompt
-    path: prompts/prompt-optimiser.prompt.md
   - name: prompt
     type: prompt
     path: prompts/prompt.prompt.md

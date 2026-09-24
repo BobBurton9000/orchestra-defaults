@@ -6,12 +6,12 @@ This repository is the source that ships preconfigured with Orchestra. It is als
 
 ## Contents
 
-The current manifest contains **52 installable packages**:
+The current package layout contains **48 installable packages**:
 
 | Type | Count | Location |
 | --- | ---: | --- |
 | Agents | 26 | [`agents/`](agents/) |
-| Prompts | 12 | [`prompts/`](prompts/) |
+| Prompts | 8 | [`prompts/`](prompts/) |
 | Prompt directory | 1 | [`prompts/snippets/`](prompts/snippets/) |
 | Skills | 13 | [`skills/`](skills/) |
 
@@ -79,12 +79,8 @@ Agents are markdown definitions with YAML frontmatter. Four are primary agents; 
 | Package | Purpose |
 | --- | --- |
 | [`commit`](prompts/commit.prompt.md) | Removes temporary files and commits outstanding changes. |
-| [`create-prd`](prompts/create-prd.prompt.md) | Drafts a product requirements document through user clarification. |
-| [`gherkinify`](prompts/gherkinify.prompt.md) | Converts source material into structured Gherkin statements. |
+| [`grill-me`](prompts/grill-me.prompt.md) | Challenges an idea through focused questions. |
 | [`investigate-bug-claim`](prompts/investigate-bug-claim.prompt.md) | Investigates a bug claim and writes a branch-specific report. |
-| [`learn`](prompts/learn.prompt.md) | Compiles a durable learning from a chat session into a skill. |
-| [`negotiate-prd`](prompts/negotiate-prd.prompt.md) | Negotiates an implementation plan from a PRD and writes it to `.temp/`. |
-| [`prompt-optimiser`](prompts/prompt-optimiser.prompt.md) | Rewrites a supplied prompt for clearer, structured LLM use. |
 | [`prompt`](prompts/prompt.prompt.md) | Optimises a supplied prompt for LLM consumption. |
 | [`review-pr-to-file`](prompts/review-pr-to-file.prompt.md) | Reviews a pull request diff and writes prioritised findings to `.temp/`. |
 | [`review-reuse-branch`](prompts/review-reuse-branch.prompt.md) | Reviews branch changes for opportunities to reuse existing code. |
@@ -288,4 +284,4 @@ orchestra-manifest.sh    Standalone manifest generator
 README.md                This guide
 ```
 
-Keep the package catalogue and counts in this README aligned with [`orchestra-source.yaml`](orchestra-source.yaml), and use `bash orchestra-manifest.sh --check .` to catch stale manifest entries.
+Keep the package catalogue and counts in this README aligned with the repository layout and generated [`orchestra-source.yaml`](orchestra-source.yaml). Use `bash orchestra-manifest.sh --check .` to catch stale manifest entries.
