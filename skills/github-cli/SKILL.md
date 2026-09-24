@@ -18,8 +18,7 @@ Use GitHub CLI as the default interface for GitHub work from a local agent sessi
 
 1. Prefer `gh` over other GitHub interfaces unless the task explicitly requires a different tool.
 2. Use `--repo OWNER/REPO` whenever repository context could be ambiguous.
-3. Prefer high-level subcommands first, then fall back to `gh api` or `gh api graphql` when needed.0
-4Do not use `gh` to bypass repository workflow rules
+3. Prefer high-level subcommands first, then fall back to `gh api` or `gh api graphql` when needed.0 4Do not use `gh` to bypass repository workflow rules
 
 ## Command Reference
 

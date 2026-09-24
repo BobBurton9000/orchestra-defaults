@@ -6,12 +6,9 @@ description: The TypeScript Constitution for this project. Use when writing, mod
 
 ## Preamble
 
-This Constitution establishes the TypeScript standards. It exists to
-make code understandable at the point of use, keep application contracts strict,
-and make invalid states visible rather than hidden.
+This Constitution establishes the TypeScript standards. It exists to make code understandable at the point of use, keep application contracts strict, and make invalid states visible rather than hidden.
 
-The rules apply when writing, modifying, or reviewing TypeScript code. The
-examples are illustrative. The normative statements are authoritative.
+The rules apply when writing, modifying, or reviewing TypeScript code. The examples are illustrative. The normative statements are authoritative.
 
 ## Article 1: Constitutional Language
 
@@ -23,23 +20,15 @@ examples are illustrative. The normative statements are authoritative.
 
 ### Section 1.2: Constitutional interpretation
 
-These rules MUST be applied according to their stated intent, not bypassed by
-changing a name while retaining the same unclear design. Convenience alone is
-not a sufficient reason to depart from a MUST or MUST NOT rule.
+These rules MUST be applied according to their stated intent, not bypassed by changing a name while retaining the same unclear design. Convenience alone is not a sufficient reason to depart from a MUST or MUST NOT rule.
 
-A structural rule applies only after the element it governs is independently
-necessary. This Constitution MUST NOT cause a conditional, class, interface,
-DTO, Contract, collaborator, proxy, Null Object, named constant, or test to be
-added solely to satisfy a convention. When `monozukuri` applies, use its
-Necessity Gate. Otherwise, an added element MUST have an evidenced reachable
-trigger or current use and a required outcome in the current task.
+A structural rule applies only after the element it governs is independently necessary. This Constitution MUST NOT cause a conditional, class, interface, DTO, Contract, collaborator, proxy, Null Object, named constant, or test to be added solely to satisfy a convention. When `monozukuri` applies, use its Necessity Gate. Otherwise, an added element MUST have an evidenced reachable trigger or current use and a required outcome in the current task.
 
 ## Article 2: Names
 
 ### Section 2.1: Specific names
 
-Identifiers MUST be specific enough to communicate their value or intent at the
-point of use. Unnecessary abbreviations MUST NOT be used.
+Identifiers MUST be specific enough to communicate their value or intent at the point of use. Unnecessary abbreviations MUST NOT be used.
 
 **Bad**
 
@@ -55,15 +44,11 @@ const columnIndex = 3;
 
 ### Section 2.2: Boolean names
 
-A question-shaped predicate is a Boolean name that states a yes-or-no
-proposition in the name itself. It MUST remain understandable without an
-enclosing condition or other call-site context.
+A question-shaped predicate is a Boolean name that states a yes-or-no proposition in the name itself. It MUST remain understandable without an enclosing condition or other call-site context.
 
-Boolean variables, parameters, properties, and query methods MUST be named as
-question-shaped predicates.
+Boolean variables, parameters, properties, and query methods MUST be named as question-shaped predicates.
 
-Boolean names MUST NOT be bare action verbs or third-person action phrases that
-require an auxiliary verb to become a yes-or-no question.
+Boolean names MUST NOT be bare action verbs or third-person action phrases that require an auxiliary verb to become a yes-or-no question.
 
 **Bad**
 
@@ -81,23 +66,15 @@ const shouldMoveUp = false;
 const shouldZoomIn = false;
 ```
 
-Predicate prefixes such as `is`, `has`, `can`, and `should` are question forms
-when they accurately describe the proposition.
+Predicate prefixes such as `is`, `has`, `can`, and `should` are question forms when they accurately describe the proposition.
 
 ### Section 2.3: Queries
 
-A query produces a value or predicate. A query MAY update private instance state
-or lazily initialise a collaborator within the instance's owning composition or
-lifecycle boundary when that work is required to produce the returned value.
-A query MUST NOT mutate authoritative Simulation state, enforce application
-rules, or allow a Concrete delegate to escape its owning boundary.
+A query produces a value or predicate. A query MAY update private instance state or lazily initialise a collaborator within the instance's owning composition or lifecycle boundary when that work is required to produce the returned value. A query MUST NOT mutate authoritative Simulation state, enforce application rules, or allow a Concrete delegate to escape its owning boundary.
 
-Query methods MUST use nouns, noun phrases, question-shaped predicates, or
-`<value>From<source>` constructions. Query methods MUST NOT use command verbs or
-the accessor prefix `get`.
+Query methods MUST use nouns, noun phrases, question-shaped predicates, or `<value>From<source>` constructions. Query methods MUST NOT use command verbs or the accessor prefix `get`.
 
-Private lazy accessor methods MUST use ordinary method syntax and MUST NOT use
-JavaScript getter or setter syntax.
+Private lazy accessor methods MUST use ordinary method syntax and MUST NOT use JavaScript getter or setter syntax.
 
 **Bad**
 
@@ -113,8 +90,7 @@ private multipartSectionFromString(section: string): MultipartSection
 private currentUser(): User
 ```
 
-A permitted private lazy accessor method MAY initialise an owned collaborator
-before returning it:
+A permitted private lazy accessor method MAY initialise an owned collaborator before returning it:
 
 ```ts
 private cameraViewport(): CameraViewport {
@@ -129,19 +105,11 @@ private cameraViewport(): CameraViewport {
 
 ### Section 2.4: Commands
 
-A command changes state, performs input/output, or triggers an effect. A command
-MUST use an imperative verb that describes its effect.
+A command changes state, performs input/output, or triggers an effect. A command MUST use an imperative verb that describes its effect.
 
-`set` is a valid command verb, but it is not the only permitted command verb.
-Commands MAY return `void`, `this`, or an operation result. The return type does
-not determine whether a function is a query or a command.
+`set` is a valid command verb, but it is not the only permitted command verb. Commands MAY return `void`, `this`, or an operation result. The return type does not determine whether a function is a query or a command.
 
-Persistent state-transition methods that return a new instance without mutating
-the receiver MUST use the `with<Property>` naming form, where `<Property>`
-identifies the changed state property. They MUST declare an explicit return type
-that accurately describes the new instance. The return type MAY be `this` when
-the method preserves the receiver's subtype. These methods MUST leave the
-receiver unchanged and are commands despite the `with` prefix.
+Persistent state-transition methods that return a new instance without mutating the receiver MUST use the `with<Property>` naming form, where `<Property>` identifies the changed state property. They MUST declare an explicit return type that accurately describes the new instance. The return type MAY be `this` when the method preserves the receiver's subtype. These methods MUST leave the receiver unchanged and are commands despite the `with` prefix.
 
 **Good**
 
@@ -157,26 +125,13 @@ private setAttributes(): void {
 
 ### Section 2.5: Variable scope and mutability
 
-Variables MUST be declared at the narrowest scope that contains every use.
-A variable used by only one function MUST be declared within that function.
-A value used across methods MUST be placed at the boundary that owns the value.
-Class-owned values MUST remain private instance properties. Module-level values
-MUST have a deliberate module-level purpose and MUST NOT be introduced solely to
-name a value used by one function.
+Variables MUST be declared at the narrowest scope that contains every use. A variable used by only one function MUST be declared within that function. A value used across methods MUST be placed at the boundary that owns the value. Class-owned values MUST remain private instance properties. Module-level values MUST have a deliberate module-level purpose and MUST NOT be introduced solely to name a value used by one function.
 
-Local bindings MUST use `const` when the binding is not reassigned and MUST use
-`let` when the binding is reassigned. A private instance property MUST use
-`readonly` when it is not reassigned after construction and MAY remain mutable
-when the owning class changes its value.
+Local bindings MUST use `const` when the binding is not reassigned and MUST use `let` when the binding is reassigned. A private instance property MUST use `readonly` when it is not reassigned after construction and MAY remain mutable when the owning class changes its value.
 
 ### Section 2.6: Contract names
 
-`Contract` is a type classification, not a naming suffix. Contract interfaces
-are the first-class descriptions of the behaviour they represent. Interface
-names MUST describe the capability, role, or domain concept they represent.
-Interface names MUST NOT end in `Contract` solely to identify their
-classification. The suffix MAY be used when `Contract` is part of the actual
-domain concept.
+`Contract` is a type classification, not a naming suffix. Contract interfaces are the first-class descriptions of the behaviour they represent. Interface names MUST describe the capability, role, or domain concept they represent. Interface names MUST NOT end in `Contract` solely to identify their classification. The suffix MAY be used when `Contract` is part of the actual domain concept.
 
 **Bad**
 
@@ -198,34 +153,21 @@ interface PuffballRepository {
 
 ### Section 3.1: Necessary control flow
 
-A conditional or branch MUST have both an evidenced reachable trigger and a
-required different outcome. Use a guard clause, `else`, ternary, or direct
-fall-through only when it leaves the required behaviour clearer and shorter. A
-control-flow style MUST NOT cause an extra branch, return, variable, or helper
-to be added.
+A conditional or branch MUST have both an evidenced reachable trigger and a required different outcome. Use a guard clause, `else`, ternary, or direct fall-through only when it leaves the required behaviour clearer and shorter. A control-flow style MUST NOT cause an extra branch, return, variable, or helper to be added.
 
 ### Section 3.2: Function continuity
 
-Function bodies MUST NOT contain empty lines. This is a constitutional
-structural principle, not a formatter preference. Adjacent function and method
-definitions MUST be separated by exactly one empty line. Related steps belong in
-named functions when the body would otherwise become difficult to follow.
+Function bodies MUST NOT contain empty lines. This is a constitutional structural principle, not a formatter preference. Adjacent function and method definitions MUST be separated by exactly one empty line. Related steps belong in named functions when the body would otherwise become difficult to follow.
 
 ### Section 3.3: Direct bodies
 
-Function bodies MUST communicate intent through direct names and structure.
-Inline comments MUST NOT appear in function bodies. A named function or variable
-MUST NOT be extracted merely to narrate a direct one-line expression. Extract it
-only when it removes real ambiguity or repetition.
+Function bodies MUST communicate intent through direct names and structure. Inline comments MUST NOT appear in function bodies. A named function or variable MUST NOT be extracted merely to narrate a direct one-line expression. Extract it only when it removes real ambiguity or repetition.
 
 ### Section 3.4: Fail-fast behaviour
 
-Code MUST fail fast when a required invariant is violated. It MUST NOT swallow
-errors, log and continue, or invent fallback values merely to avoid failure.
+Code MUST fail fast when a required invariant is violated. It MUST NOT swallow errors, log and continue, or invent fallback values merely to avoid failure.
 
-Deliberate Null Objects and explicit normalisation of platform values at a
-boundary are not defensive fallbacks when they are part of the declared
-contract.
+Deliberate Null Objects and explicit normalisation of platform values at a boundary are not defensive fallbacks when they are part of the declared contract.
 
 ### Section 3.5: Constructor effects
 
@@ -237,10 +179,7 @@ External setup MUST be performed after construction by an explicitly named insta
 
 ### Section 3.6: Function parameter layout
 
-Function-like declarations and signatures with two or more parameters MUST
-place each parameter on its own line. The first parameter MUST start on a line
-after the opening parenthesis, and the closing parenthesis MUST start on a line
-after the final parameter.
+Function-like declarations and signatures with two or more parameters MUST place each parameter on its own line. The first parameter MUST start on a line after the opening parenthesis, and the closing parenthesis MUST start on a line after the final parameter.
 
 **Bad**
 
@@ -265,63 +204,39 @@ function move(
 
 ### Section 4.1: Necessary composition
 
-Inheritance MUST NOT be used. Use a direct function, value, or object unless an
-independently necessary collaborator or Contract better represents current
-ownership or an applicable contract. A Contract or collaborator MUST NOT be
-introduced solely for one known implementation, a theoretical replacement, or a
-structural convention.
+Inheritance MUST NOT be used. Use a direct function, value, or object unless an independently necessary collaborator or Contract better represents current ownership or an applicable contract. A Contract or collaborator MUST NOT be introduced solely for one known implementation, a theoretical replacement, or a structural convention.
 
 ### Section 4.2: Structured data
 
-Arrays MAY represent homogeneous collections. Arrays MUST NOT be used as
-implicit records or positional DTOs.
+Arrays MAY represent homogeneous collections. Arrays MUST NOT be used as implicit records or positional DTOs.
 
-Multi-dimensional arrays SHOULD NOT model named domain data. A class, interface,
-or other named structure MUST be used when the positions have distinct meaning.
+Multi-dimensional arrays SHOULD NOT model named domain data. A class, interface, or other named structure MUST be used when the positions have distinct meaning.
 
 ### Section 4.3: Literal values
 
-A single local literal MAY remain inline when it is direct and unambiguous.
-Repeated or non-obvious domain values MUST use a named variable or constant
-whose name expresses their meaning.
+A single local literal MAY remain inline when it is direct and unambiguous. Repeated or non-obvious domain values MUST use a named variable or constant whose name expresses their meaning.
 
 ### Section 4.4: Static class members
 
-Classes MUST NOT declare static fields, static methods, or static initialisation blocks.
-Shared behaviour MUST use a module-level function or value unless an
-independently necessary collaborator is required.
+Classes MUST NOT declare static fields, static methods, or static initialisation blocks. Shared behaviour MUST use a module-level function or value unless an independently necessary collaborator is required.
 
 ## Article 5: Contracts and DTOs
 
 ### Section 5.1: Classification
 
-This classification applies only after an interface, DTO, or class is
-independently necessary under Article 1. Every interface MUST be classified as a
-`Contract`. Every DTO MUST be a class. Every class MUST be classified as either
-a `Contract` or a `DTO`; there is no third classification.
+This classification applies only after an interface, DTO, or class is independently necessary under Article 1. Every interface MUST be classified as a `Contract`. Every DTO MUST be a class. Every class MUST be classified as either a `Contract` or a `DTO`; there is no third classification.
 
-A `Contract` is a first-class description of behaviour. A DTO carries data in
-private instance state.
+A `Contract` is a first-class description of behaviour. A DTO carries data in private instance state.
 
 ### Section 5.2: Contract interfaces
 
-Contract interfaces MAY declare method signatures. Their methods are public by
-definition. They MUST contain method signatures only. They MUST NOT declare
-properties, index signatures, call signatures, or construct signatures.
+Contract interfaces MAY declare method signatures. Their methods are public by definition. They MUST contain method signatures only. They MUST NOT declare properties, index signatures, call signatures, or construct signatures.
 
-Property and parameter type annotations MUST NOT use intersection types. A
-combined Contract requirement MUST be represented by a named Contract interface
-that extends its required Contracts. This restriction does not apply to return
-or local-variable type annotations.
+Property and parameter type annotations MUST NOT use intersection types. A combined Contract requirement MUST be represented by a named Contract interface that extends its required Contracts. This restriction does not apply to return or local-variable type annotations.
 
 ### Section 5.3: Contract classes
 
-Contract classes MAY declare public methods and commands. Their instance
-properties MUST be private. They MUST expose state through ordinary public
-methods when access is required, not public properties or JavaScript
-getter/setter syntax. Contract classes MAY mutate their private state when the
-mutation is part of their Contract, but they MUST NOT take ownership of rules
-that belong to another boundary.
+Contract classes MAY declare public methods and commands. Their instance properties MUST be private. They MUST expose state through ordinary public methods when access is required, not public properties or JavaScript getter/setter syntax. Contract classes MAY mutate their private state when the mutation is part of their Contract, but they MUST NOT take ownership of rules that belong to another boundary.
 
 **Bad**
 
@@ -385,16 +300,9 @@ export class ConcreteProduct implements Product {
 
 ### Section 5.4: DTO classes
 
-DTOs MUST be classes with private instance properties and public constructors.
-They MUST expose data through ordinary public query methods. DTO methods MUST
-NOT enforce application rules, mutate Simulation state, or perform external
-effects. DTO constructors MAY validate intrinsic values and initialise or freeze
-state owned by the new instance, but MUST NOT perform external effects.
+DTOs MUST be classes with private instance properties and public constructors. They MUST expose data through ordinary public query methods. DTO methods MUST NOT enforce application rules, mutate Simulation state, or perform external effects. DTO constructors MAY validate intrinsic values and initialise or freeze state owned by the new instance, but MUST NOT perform external effects.
 
-DTO query methods MUST use nouns, noun phrases, question-shaped predicates, or
-`<value>From<source>` constructions. DTOs MUST NOT use public properties or
-JavaScript getter/setter syntax. Nested DTO values and collections MUST remain
-immutable when a DTO is published as a read model.
+DTO query methods MUST use nouns, noun phrases, question-shaped predicates, or `<value>From<source>` constructions. DTOs MUST NOT use public properties or JavaScript getter/setter syntax. Nested DTO values and collections MUST remain immutable when a DTO is published as a read model.
 
 **Good**
 
@@ -420,26 +328,17 @@ export class LoginDto {
 
 ### Section 5.5: Visibility
 
-Every class method and property MUST declare explicit visibility. Class instance
-properties MUST be private; public and protected properties are prohibited.
-Constructor parameter properties MUST NOT be used; fields MUST be declared
-explicitly as private members. Private members MUST use standard camelCase
-without a leading underscore; the `private` modifier communicates visibility.
-Interface members are public by definition and MUST NOT use class visibility
-modifiers.
+Every class method and property MUST declare explicit visibility. Class instance properties MUST be private; public and protected properties are prohibited. Constructor parameter properties MUST NOT be used; fields MUST be declared explicitly as private members. Private members MUST use standard camelCase without a leading underscore; the `private` modifier communicates visibility. Interface members are public by definition and MUST NOT use class visibility modifiers.
 
 ### Section 5.6: Replaceable Collaborator Roles
 
-This arrangement applies only when an actual replacement, expected absence, or
-stable retained identity is required under Article 1.
+This arrangement applies only when an actual replacement, expected absence, or stable retained identity is required under Article 1.
 
-A replaceable collaborator is a Contract-backed object whose implementation may
-change while its consumers retain references.
+A replaceable collaborator is a Contract-backed object whose implementation may change while its consumers retain references.
 
 A Concrete implementation provides active behaviour for a Contract.
 
-A Stable Proxy is a Contract implementation whose identity remains stable while
-it delegates operations to a current implementation.
+A Stable Proxy is a Contract implementation whose identity remains stable while it delegates operations to a current implementation.
 
 The current implementation held by a Stable Proxy is its delegate.
 
@@ -454,45 +353,31 @@ The current implementation held by a Stable Proxy is its delegate.
 9. A Stable Proxy MUST be treated as a stable behavioural handle, not as a garbage-collection or memory-management mechanism.
 10. The Concrete, Null Object, and Stable Proxy arrangement MUST NOT be introduced solely by default when replacement, expected absence, or stable consumer identity is not part of the collaborator Contract.
 
-This role arrangement protects retained Stable Proxy references from stale
-delegate behaviour. It cannot repair a reference to a Concrete implementation
-that escaped its ownership boundary.
+This role arrangement protects retained Stable Proxy references from stale delegate behaviour. It cannot repair a reference to a Concrete implementation that escaped its ownership boundary.
 
 ## Article 6: Nullability and Strict Typing
 
 ### Section 6.1: Domain nullability
 
-Application-domain contracts MUST NOT use `null` or `undefined` to represent
-absence. They MUST use a Null Object or another explicit domain representation.
+Application-domain contracts MUST NOT use `null` or `undefined` to represent absence. They MUST use a Null Object or another explicit domain representation.
 
-The `void` return type is permitted for commands and does not represent a
-nullable domain value.
+The `void` return type is permitted for commands and does not represent a nullable domain value.
 
 ### Section 6.2: Boundary values
 
-Boundary adapters MAY receive `null` or `undefined` when required by a platform,
-third-party, or external API. They MUST handle or translate that value before it
-enters a strict application-domain contract.
+Boundary adapters MAY receive `null` or `undefined` when required by a platform, third-party, or external API. They MUST handle or translate that value before it enters a strict application-domain contract.
 
-External input MUST be validated or translated at its boundary before strict DTO
-classes are constructed. DTO constructors MAY repeat intrinsic validation needed
-to protect the instance, but DTOs MUST NOT be used as domain contracts or as a
-replacement for boundary and application-rule validation.
+External input MUST be validated or translated at its boundary before strict DTO classes are constructed. DTO constructors MAY repeat intrinsic validation needed to protect the instance, but DTOs MUST NOT be used as domain contracts or as a replacement for boundary and application-rule validation.
 
 ### Section 6.3: Null Object pattern
 
-A Null Object MUST implement the same contract as the object it represents. It
-MUST provide safe, explicit behaviour for the absent case and MUST NOT require
-callers to add repeated null checks.
+A Null Object MUST implement the same contract as the object it represents. It MUST provide safe, explicit behaviour for the absent case and MUST NOT require callers to add repeated null checks.
 
-A Null Object MUST NOT conceal an unexpected failure or replace fail-fast
-handling of an invalid state.
+A Null Object MUST NOT conceal an unexpected failure or replace fail-fast handling of an invalid state.
 
 ### Section 6.4: Strict typing
 
-Types MUST be explicit and narrow. Invalid states MUST be represented by a
-failure, a dedicated object, or a valid contract rather than hidden by a
-defensive fallback.
+Types MUST be explicit and narrow. Invalid states MUST be represented by a failure, a dedicated object, or a valid contract rather than hidden by a defensive fallback.
 
 ## Article 7: DOM and CSS Selectors
 
@@ -514,17 +399,13 @@ const customerInput = document.querySelector('.js-customer-input');
 
 ### Section 7.2: Behaviour selectors
 
-Selectors prefixed with `js-` MUST NOT have CSS style rules. They exist only for
-behaviour selection.
+Selectors prefixed with `js-` MUST NOT have CSS style rules. They exist only for behaviour selection.
 
-Selectors without a `js-` prefix MUST NOT be used as query selectors in
-TypeScript. Styling classes MUST NOT be used as JavaScript dependencies.
+Selectors without a `js-` prefix MUST NOT be used as query selectors in TypeScript. Styling classes MUST NOT be used as JavaScript dependencies.
 
 ## Article 8: Constitutional Maintenance
 
 ### Section 8.1: Enforcement
 
-Code reviews MUST treat every MUST and MUST NOT rule as binding. A reviewer MAY
-request a refactor when names, structure, types, or method bodies technically
-compile but violate the constitutional intent.
+Code reviews MUST treat every MUST and MUST NOT rule as binding. A reviewer MAY request a refactor when names, structure, types, or method bodies technically compile but violate the constitutional intent.
 

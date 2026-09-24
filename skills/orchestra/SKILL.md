@@ -7,42 +7,29 @@ description: Use the repository's local Orchestra CLI to manage, compile, and ve
 
 ## Purpose and Scope
 
-This skill gives you binding instructions when you use the Orchestra tool in
-this repository. It covers package discovery, installation, upgrades,
-definition authoring, platform export, and the optional delegation workflow.
+This skill gives you binding instructions when you use the Orchestra tool in this repository. It covers package discovery, installation, upgrades, definition authoring, platform export, and the optional delegation workflow.
 
-This skill does not govern product code, game rules, architectural ownership,
-or the implementation of Orchestra itself. The Engineering Constitution and
-other repository policies remain authoritative for those concerns.
+This skill does not govern product code, game rules, architectural ownership, or the implementation of Orchestra itself. The Engineering Constitution and other repository policies remain authoritative for those concerns.
 
 ## Instruction Summary
 
 1. You MUST invoke the repository-local CLI at `.orchestra/orchestra.sh`.
 2. You MUST treat `.agents/orchestra/` as the canonical definition tree.
-3. You MUST treat `.agents/skills/`, `.opencode/`, and `.github/` output as
-   generated platform material.
+3. You MUST treat `.agents/skills/`, `.opencode/`, and `.github/` output as generated platform material.
 4. You MUST inspect the current Orchestra state before a mutating command.
-5. You MUST stop and report the exact failure when a command, dependency,
-   source, package, or export is unavailable or invalid.
+5. You MUST stop and report the exact failure when a command, dependency, source, package, or export is unavailable or invalid.
 6. You MUST report the command run, its result, and any changed paths.
 
 ## Definitions
 
-- **Orchestra**: The repository-local CLI and definition system under
-  `.orchestra/`.
-- **Canonical definition**: An agent, prompt, or skill definition stored under
-  `.agents/orchestra/`.
-- **Generated output**: A platform-specific file produced from canonical
-  definitions by `orchestra export`.
-- **Package**: An installable agent, prompt, prompt directory, or skill from an
-  Orchestra source.
+- **Orchestra**: The repository-local CLI and definition system under `.orchestra/`.
+- **Canonical definition**: An agent, prompt, or skill definition stored under `.agents/orchestra/`.
+- **Generated output**: A platform-specific file produced from canonical definitions by `orchestra export`.
+- **Package**: An installable agent, prompt, prompt directory, or skill from an Orchestra source.
 - **Source**: A GitHub repository with an `orchestra-source.yaml` manifest.
-- **Lockfile**: `.orchestra/pkg.lock.yaml`, which records each installed
-  package's source, commit SHA, type, and paths.
-- **Export**: Compilation of canonical definitions into platform output and
-  `.agents/skills/`.
-- **Orchestrator**: The `mode: primary` agent that delegates work to installed
-  `mode: subagent` agents.
+- **Lockfile**: `.orchestra/pkg.lock.yaml`, which records each installed package's source, commit SHA, type, and paths.
+- **Export**: Compilation of canonical definitions into platform output and `.agents/skills/`.
+- **Orchestrator**: The `mode: primary` agent that delegates work to installed `mode: subagent` agents.
 
 ## Authority and Precedence
 
@@ -52,26 +39,20 @@ You MUST apply authority in this order:
 2. The explicit user task and its constraints.
 3. Repository instructions, constitutions, and mandatory policies.
 4. This skill.
-5. `.orchestra/README.md`, `.orchestra/PUBLISHING.md`, command help, and the
-   current Orchestra implementation as tool references.
+5. `.orchestra/README.md`, `.orchestra/PUBLISHING.md`, command help, and the current Orchestra implementation as tool references.
 
-When tool documentation conflicts with command output, you MUST treat the
-command output as evidence, stop on unsafe ambiguity, and report the conflict.
+When tool documentation conflicts with command output, you MUST treat the command output as evidence, stop on unsafe ambiguity, and report the conflict.
 
 ## Inputs and Preconditions
 
-You MUST establish all of the following before using a mutating Orchestra
-command:
+You MUST establish all of the following before using a mutating Orchestra command:
 
 - The current working repository contains `.orchestra/`.
 - The requested package, source, platform, or definition path is identified.
 - The user task authorises the requested side effect.
-- The command's prerequisites are available. Orchestra requires Bash 4+, `gh`,
-  and `yq`; remote package operations require authenticated `gh` access.
+- The command's prerequisites are available. Orchestra requires Bash 4+, `gh`, and `yq`; remote package operations require authenticated `gh` access.
 
-When `.orchestra/` or a required dependency is missing, you MUST stop and
-report the missing prerequisite. You MUST NOT substitute a global
-`orchestra` command or invent a package, source, model, or path.
+When `.orchestra/` or a required dependency is missing, you MUST stop and report the missing prerequisite. You MUST NOT substitute a global `orchestra` command or invent a package, source, model, or path.
 
 ## Canonical Locations
 
@@ -86,14 +67,11 @@ report the missing prerequisite. You MUST NOT substitute a global
 | OpenCode output | `.opencode/agents/` and `.opencode/commands/` |
 | GitHub Copilot output | `.github/agents/` and `.github/prompts/` |
 
-The package state and platform output are local, generated state. You MUST
-NOT add those ignored files to a commit unless an explicit task changes that
-policy.
+The package state and platform output are local, generated state. You MUST NOT add those ignored files to a commit unless an explicit task changes that policy.
 
 ## Command Reference
 
-All commands in this section MUST be run from the repository root using
-`.orchestra/orchestra.sh`.
+All commands in this section MUST be run from the repository root using `.orchestra/orchestra.sh`.
 
 ### Inspect
 
@@ -108,8 +86,7 @@ All commands in this section MUST be run from the repository root using
 .orchestra/orchestra.sh status
 ```
 
-`status` audits locked package paths and reports missing or untracked files. It
-does not refresh remote sources or modify package state.
+`status` audits locked package paths and reports missing or untracked files. It does not refresh remote sources or modify package state.
 
 ### Install and Remove
 
@@ -120,13 +97,9 @@ does not refresh remote sources or modify package state.
 .orchestra/orchestra.sh remove <package>
 ```
 
-`install --locked` uses the package SHA already recorded in the lockfile.
-Ordinary installation uses the cached source HEAD. `remove` deletes the paths
-recorded for the package and its lockfile entry.
+`install --locked` uses the package SHA already recorded in the lockfile. Ordinary installation uses the cached source HEAD. `remove` deletes the paths recorded for the package and its lockfile entry.
 
-For agents, Orchestra injects a model from `.orchestra/config.yml` during
-installation. You MUST NOT add a model to a shared agent source merely to
-choose a local model. Upgrades preserve the installed agent's existing model.
+For agents, Orchestra injects a model from `.orchestra/config.yml` during installation. You MUST NOT add a model to a shared agent source merely to choose a local model. Upgrades preserve the installed agent's existing model.
 
 ### Sources and Upgrades
 
@@ -140,14 +113,9 @@ choose a local model. Upgrades preserve the installed agent's existing model.
 .orchestra/orchestra.sh upgrade [package]
 ```
 
-`source add` fetches a manifest and makes its packages available. It does not
-install packages. `source subscribe` enables discovery of packages added after
-the subscription baseline during a bulk upgrade. `source remove` MUST NOT be
-used while packages from that source remain installed.
+`source add` fetches a manifest and makes its packages available. It does not install packages. `source subscribe` enables discovery of packages added after the subscription baseline during a bulk upgrade. `source remove` MUST NOT be used while packages from that source remain installed.
 
-Packages are versioned by source commit SHA rather than a static version
-number. You MUST use `update` before an upgrade when the current source
-manifest or HEAD SHA is unknown.
+Packages are versioned by source commit SHA rather than a static version number. You MUST use `update` before an upgrade when the current source manifest or HEAD SHA is unknown.
 
 ### Export and Convert
 
@@ -158,13 +126,9 @@ manifest or HEAD SHA is unknown.
 .orchestra/orchestra.sh convert copilot [name]
 ```
 
-Both platform exports copy skills to `.agents/skills/`. `export opencode` also
-writes `.opencode/` output, while `export copilot` also writes `.github/`
-output. You MUST export the target platform after changing a canonical
-definition when that platform must consume the change.
+Both platform exports copy skills to `.agents/skills/`. `export opencode` also writes `.opencode/` output, while `export copilot` also writes `.github/` output. You MUST export the target platform after changing a canonical definition when that platform must consume the change.
 
-`convert` imports existing platform agents into
-`.agents/orchestra/agents/`; it does not update the original platform file.
+`convert` imports existing platform agents into `.agents/orchestra/agents/`; it does not update the original platform file.
 
 ### Source Publishing
 
@@ -174,28 +138,19 @@ You MAY use:
 .orchestra/orchestra.sh generate-manifest [--check|--force] [directory]
 ```
 
-You MUST read `.orchestra/PUBLISHING.md` before creating or publishing an
-Orchestra source. Source publishing is outside the scope of the package-use
-workflow in this skill.
+You MUST read `.orchestra/PUBLISHING.md` before creating or publishing an Orchestra source. Source publishing is outside the scope of the package-use workflow in this skill.
 
 ## Process
 
 You MUST follow these steps for a package or definition task:
 
-1. **Inspect:** Confirm the repository root, read relevant repository
-   instructions, and run `status` when package state matters.
-2. **Discover:** Use `source list`, `list --available`, `search`, or `info` to
-   verify package and source names before installation.
-3. **Select:** Choose one exact command and target platform. You MUST NOT
-   install, upgrade, remove, or export unrelated packages or platforms.
-4. **Execute:** Run the command and preserve its output. You MUST NOT hide
-   a non-zero exit status or continue as if the command succeeded.
-5. **Export:** When a canonical definition changed and a platform consumes it,
-   export that platform.
-6. **Validate:** Inspect `status`, the relevant generated path, and the final
-   repository diff. A failed validation MUST be reported as a failure.
-7. **Report:** State the exact commands, results, changed canonical paths, and
-   generated paths. State unavailable checks as unavailable.
+1. **Inspect:** Confirm the repository root, read relevant repository instructions, and run `status` when package state matters.
+2. **Discover:** Use `source list`, `list --available`, `search`, or `info` to verify package and source names before installation.
+3. **Select:** Choose one exact command and target platform. You MUST NOT install, upgrade, remove, or export unrelated packages or platforms.
+4. **Execute:** Run the command and preserve its output. You MUST NOT hide a non-zero exit status or continue as if the command succeeded.
+5. **Export:** When a canonical definition changed and a platform consumes it, export that platform.
+6. **Validate:** Inspect `status`, the relevant generated path, and the final repository diff. A failed validation MUST be reported as a failure.
+7. **Report:** State the exact commands, results, changed canonical paths, and generated paths. State unavailable checks as unavailable.
 
 ## Output Contract
 
@@ -203,25 +158,16 @@ For each Orchestra command, you MUST report:
 
 - **Command:** The exact command and arguments.
 - **Result:** The exit result and the observable output.
-- **Changed paths:** Every canonical or generated path changed by the command,
-  or `None` when no path changed.
-- **Verification:** The check that established success, or `Unavailable` with
-  the reason.
+- **Changed paths:** Every canonical or generated path changed by the command, or `None` when no path changed.
+- **Verification:** The check that established success, or `Unavailable` with the reason.
 
-When a command fails, you MUST report the failure before performing any
-dependent command.
+When a command fails, you MUST report the failure before performing any dependent command.
 
 ## Definition Authoring and Compilation
 
-When adding a local skill, you MUST create
-`.agents/orchestra/skills/<name>/SKILL.md` with `name` and `description`
-frontmatter. You MUST keep reusable companion files in the same skill
-directory.
+When adding a local skill, you MUST create `.agents/orchestra/skills/<name>/SKILL.md` with `name` and `description` frontmatter. You MUST keep reusable companion files in the same skill directory.
 
-When a definition uses an include, the include path MUST resolve from the
-project root. A section include uses `:#Heading`; missing files, missing
-headings, and circular includes are hard failures during export. You MUST
-fix the source definition rather than editing compiled output.
+When a definition uses an include, the include path MUST resolve from the project root. A section include uses `:#Heading`; missing files, missing headings, and circular includes are hard failures during export. You MUST fix the source definition rather than editing compiled output.
 
 The canonical flow is:
 
@@ -229,26 +175,20 @@ The canonical flow is:
 canonical definition -> compile and transform -> platform output
 ```
 
-The platform output is derived material. You MUST NOT edit
-`.agents/skills/`, `.opencode/`, `.github/agents/`, or `.github/prompts/` as the
-source of truth.
+The platform output is derived material. You MUST NOT edit `.agents/skills/`, `.opencode/`, `.github/agents/`, or `.github/prompts/` as the source of truth.
 
 ## Orchestration Workflow
 
-The delegation workflow is optional. A direct agent, prompt, or skill MAY be
-used without installing the Orchestrator.
+The delegation workflow is optional. A direct agent, prompt, or skill MAY be used without installing the Orchestrator.
 
 When the Orchestrator is installed and exported:
 
 1. The user invokes the `orchestrator` primary agent.
 2. The Orchestrator delegates each scoped unit of work to a suitable subagent.
 3. Subagents implement or review the delegated unit.
-4. The Orchestrator coordinates review, scope checks, adjudication, and
-   iteration.
+4. The Orchestrator coordinates review, scope checks, adjudication, and iteration.
 
-The Orchestrator MUST coordinate rather than perform direct repository work.
-Delegation prompts MUST include all context required by the subagent because
-subagents do not share conversational context.
+The Orchestrator MUST coordinate rather than perform direct repository work. Delegation prompts MUST include all context required by the subagent because subagents do not share conversational context.
 
 ## Failure Behaviour
 
@@ -261,25 +201,15 @@ You MUST stop and report when any of the following occurs:
 - An export or conversion fails.
 - The lockfile, canonical tree, or generated output is inconsistent.
 
-You MUST NOT recover from an unexpected failure with a fabricated default,
-partial result, silent retry, or unrelated fallback command. You MAY rerun
-the same command only after identifying a bounded, observable cause and
-reporting the rerun.
+You MUST NOT recover from an unexpected failure with a fabricated default, partial result, silent retry, or unrelated fallback command. You MAY rerun the same command only after identifying a bounded, observable cause and reporting the rerun.
 
 ## Valid Example
 
-The user requests the `architect` agent for OpenCode. You run
-`.orchestra/orchestra.sh list --available` or
-`.orchestra/orchestra.sh info architect`, install the package if it is
-available, run `.orchestra/orchestra.sh export opencode`, confirm
-`.opencode/agents/architect.md` exists, and report each command and result.
+The user requests the `architect` agent for OpenCode. You run `.orchestra/orchestra.sh list --available` or `.orchestra/orchestra.sh info architect`, install the package if it is available, run `.orchestra/orchestra.sh export opencode`, confirm `.opencode/agents/architect.md` exists, and report each command and result.
 
 ## Invalid Example
 
-You edit `.opencode/agents/architect.md` directly and skip the canonical
-definition and export steps. This is invalid because generated platform output
-is not the source of truth and the change will be overwritten by a later
-export.
+You edit `.opencode/agents/architect.md` directly and skip the canonical definition and export steps. This is invalid because generated platform output is not the source of truth and the change will be overwritten by a later export.
 
 ## Validation Checklist
 

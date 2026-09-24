@@ -7,70 +7,41 @@ description: Applies Monozukuri, Kaizen, and Jidoka to engineering work without 
 
 ## Purpose and Scope
 
-This skill gives you binding instructions when you investigate, plan, implement,
-review, or verify engineering work in a repository.
+This skill gives you binding instructions when you investigate, plan, implement, review, or verify engineering work in a repository.
 
-It covers evidence-led development, quality at source, bounded change,
-continuous improvement, failure handling, and honest verification.
+It covers evidence-led development, quality at source, bounded change, continuous improvement, failure handling, and honest verification.
 
-It does not define product behaviour, replace a repository constitution, or
-create an exception to an applicable contract or policy.
+It does not define product behaviour, replace a repository constitution, or create an exception to an applicable contract or policy.
 
-Monozukuri is applied as an engineering practice. It does not require cultural
-imitation, unnecessary Japanese terminology, or perfection without bounded
-value.
+Monozukuri is applied as an engineering practice. It does not require cultural imitation, unnecessary Japanese terminology, or perfection without bounded value.
 
 ## Instruction Summary
 
-1. You MUST begin from repository evidence and applicable authoritative
-   documents.
-2. You MUST identify the intended outcome, owning boundary, contract, and
-   completion condition.
-3. You MUST apply the Necessity Gate and implement the smallest complete
-   change that satisfies the applicable contract.
-4. You MUST build quality into the boundary that owns the relevant rule or
-   state.
-5. You MUST stop normal processing when an unexpected condition or
-   invariant violation is detected.
+1. You MUST begin from repository evidence and applicable authoritative documents.
+2. You MUST identify the intended outcome, owning boundary, contract, and completion condition.
+3. You MUST apply the Necessity Gate and implement the smallest complete change that satisfies the applicable contract.
+4. You MUST build quality into the boundary that owns the relevant rule or state.
+5. You MUST stop normal processing when an unexpected condition or invariant violation is detected.
 6. You MUST keep Kaizen improvements bounded, related, and verifiable.
-7. You MUST report verification results, assumptions, and unfinished work
-   without fabrication.
+7. You MUST report verification results, assumptions, and unfinished work without fabrication.
 
 ## Definitions
 
-- **Monozukuri** means creating useful, durable, understandable work through
-  direct evidence, quality at source, bounded change, and continuous
-  improvement.
-- **Kaizen** means a bounded, evidence-led improvement to an existing system or
-  process.
-- **Jidoka** means detecting an abnormal condition at its source, stopping
-  normal propagation, and exposing the failure.
-- **Quality at source** means validating behaviour at the boundary that owns
-  the relevant rule or state.
-- **Evidence** means observable information from source, documentation, tests,
-  tooling, runtime behaviour, or explicit requirements.
-- **Bounded improvement** means an improvement with an identified boundary,
-  reason, completion condition, and verification method.
-- **Complete change** means a change that includes only the implementation and
-  verification work required by its applicable contract.
-- **Necessity evidence** means evidence that an implementation element has an
-  expected reachable trigger and a required observable outcome in the current
-  task. A task requirement, applicable contract or invariant, existing
-  reachable input or state, observed platform constraint, or mandatory
-  security, data-loss, accessibility, or testing requirement is necessity
-  evidence.
-- **Speculative implementation** means code added for a merely conceivable
-  input, consumer, replacement, compatibility concern, recovery path, or
-  failure mode without necessity evidence.
-- **Unexpected condition** means a condition that violates an applicable
-  contract or invariant and has no defined safe outcome.
-- **Expected condition** means a condition for which an applicable contract or
-  domain rule defines an intentional outcome, including rejection or recovery.
+- **Monozukuri** means creating useful, durable, understandable work through direct evidence, quality at source, bounded change, and continuous improvement.
+- **Kaizen** means a bounded, evidence-led improvement to an existing system or process.
+- **Jidoka** means detecting an abnormal condition at its source, stopping normal propagation, and exposing the failure.
+- **Quality at source** means validating behaviour at the boundary that owns the relevant rule or state.
+- **Evidence** means observable information from source, documentation, tests, tooling, runtime behaviour, or explicit requirements.
+- **Bounded improvement** means an improvement with an identified boundary, reason, completion condition, and verification method.
+- **Complete change** means a change that includes only the implementation and verification work required by its applicable contract.
+- **Necessity evidence** means evidence that an implementation element has an expected reachable trigger and a required observable outcome in the current task. A task requirement, applicable contract or invariant, existing reachable input or state, observed platform constraint, or mandatory security, data-loss, accessibility, or testing requirement is necessity evidence.
+- **Speculative implementation** means code added for a merely conceivable input, consumer, replacement, compatibility concern, recovery path, or failure mode without necessity evidence.
+- **Unexpected condition** means a condition that violates an applicable contract or invariant and has no defined safe outcome.
+- **Expected condition** means a condition for which an applicable contract or domain rule defines an intentional outcome, including rejection or recovery.
 
 ## Authority and Precedence
 
-You MUST identify the authorities that govern the requested work before
-changing the system.
+You MUST identify the authorities that govern the requested work before changing the system.
 
 When authorities conflict, you MUST apply them in this order:
 
@@ -81,127 +52,83 @@ When authorities conflict, you MUST apply them in this order:
 5. This skill.
 6. Existing implementation and tests as evidence of current behaviour.
 
-This skill explains how to apply higher authorities. It MUST NOT weaken,
-reinterpret, or replace them.
+This skill explains how to apply higher authorities. It MUST NOT weaken, reinterpret, or replace them.
 
 ## Inputs
 
 You MUST use the following inputs when they are applicable:
 
 - **Task request:** The requested outcome and stated constraints.
-- **Authoritative documents:** Constitutions, requirements, policies, and
-  applicable skills.
-- **Repository evidence:** Source, tests, documentation, configuration,
-  dependencies, runtime observations, and the current working tree.
+- **Authoritative documents:** Constitutions, requirements, policies, and applicable skills.
+- **Repository evidence:** Source, tests, documentation, configuration, dependencies, runtime observations, and the current working tree.
 - **Acceptance conditions:** Observable conditions that establish completion.
-- **Existing changes:** The current diff and uncommitted work not created by
-  you.
+- **Existing changes:** The current diff and uncommitted work not created by you.
 
 You MUST distinguish missing input from unknown input.
 
-When a missing requirement could change ownership, public behaviour, data
-shape, failure handling, or scope, you MUST ask a focused clarification
-question before implementation.
+When a missing requirement could change ownership, public behaviour, data shape, failure handling, or scope, you MUST ask a focused clarification question before implementation.
 
-When a missing requirement cannot change those boundaries, you MAY proceed
-with a bounded assumption. You MUST state that assumption in its output.
+When a missing requirement cannot change those boundaries, you MAY proceed with a bounded assumption. You MUST state that assumption in its output.
 
-You MUST NOT invent an API, contract, domain rule, asset, test result, or
-current behaviour to fill an information gap.
+You MUST NOT invent an API, contract, domain rule, asset, test result, or current behaviour to fill an information gap.
 
-You MUST preserve existing worktree changes that you did not create. You MUST
-  NOT revert, overwrite, or stage unrelated changes.
+You MUST preserve existing worktree changes that you did not create. You MUST NOT revert, overwrite, or stage unrelated changes.
 
 ## Normative Rules
 
 ### Value and Ownership
 
-1. You MUST identify the intended outcome or stakeholder value that the
-   work enables or protects.
-2. You MUST identify the owning boundary and applicable contract or
-   invariant affected by the work.
-3. You MUST keep authoritative rules and state inside the boundary that owns
-   the relevant rule or state.
-4. You MUST NOT create a second source of truth to make a change
-   convenient.
-5. You MUST NOT move ownership into a composition point, adapter, test
-   fixture, or generic shared area merely to simplify implementation.
+1. You MUST identify the intended outcome or stakeholder value that the work enables or protects.
+2. You MUST identify the owning boundary and applicable contract or invariant affected by the work.
+3. You MUST keep authoritative rules and state inside the boundary that owns the relevant rule or state.
+4. You MUST NOT create a second source of truth to make a change convenient.
+5. You MUST NOT move ownership into a composition point, adapter, test fixture, or generic shared area merely to simplify implementation.
 
 ### Bounded Change
 
-1. You MUST implement the smallest complete change that satisfies the
-   applicable contract.
-2. You MUST NOT add speculative conditionals, branches, abstractions,
-   compatibility paths, retries, fallbacks, error paths, tests, dependencies,
-   or unrelated refactors.
-3. You MAY improve directly related clarity when the improvement preserves
-   the existing contract, remains within the identified boundary, and has
-   verification evidence.
-4. You MUST record unrelated improvements as follow-up work instead of
-   including them in the current change.
+1. You MUST implement the smallest complete change that satisfies the applicable contract.
+2. You MUST NOT add speculative conditionals, branches, abstractions, compatibility paths, retries, fallbacks, error paths, tests, dependencies, or unrelated refactors.
+3. You MAY improve directly related clarity when the improvement preserves the existing contract, remains within the identified boundary, and has verification evidence.
+4. You MUST record unrelated improvements as follow-up work instead of including them in the current change.
 5. You MUST NOT widen product scope from an inferred future need.
 
 ### Necessity Gate
 
-Before adding a conditional, branch, abstraction, fallback, retry,
-compatibility path, error path, or automated test, you MUST establish:
+Before adding a conditional, branch, abstraction, fallback, retry, compatibility path, error path, or automated test, you MUST establish:
 
-1. A likely trigger: a state, input, platform behaviour, or invariant
-   violation supported by necessity evidence.
-2. A needed outcome: an applicable contract, invariant, or requirement that
-   requires observably different behaviour when the trigger occurs.
+1. A likely trigger: a state, input, platform behaviour, or invariant violation supported by necessity evidence.
+2. A needed outcome: an applicable contract, invariant, or requirement that requires observably different behaviour when the trigger occurs.
 3. A bounded place in the current task.
 
-An implementation element is necessary only when all three conditions hold. If
-any condition is absent, you MUST omit the element. Conceivability, generic
-best practice, possible future reuse, and habit are not necessity evidence.
+An implementation element is necessary only when all three conditions hold. If any condition is absent, you MUST omit the element. Conceivability, generic best practice, possible future reuse, and habit are not necessity evidence.
 
-Mandatory security, data-loss, accessibility, and explicit contract requirements
-remain necessary when applicable. You MUST NOT use this gate to skip them.
+Mandatory security, data-loss, accessibility, and explicit contract requirements remain necessary when applicable. You MUST NOT use this gate to skip them.
 
-Verification remains required under the Verification rules. A new automated test
-is necessary only when an applicable task, policy, or contract requires it, or
-when it is the smallest reliable evidence for changed observable behaviour.
+Verification remains required under the Verification rules. A new automated test is necessary only when an applicable task, policy, or contract requires it, or when it is the smallest reliable evidence for changed observable behaviour.
 
 ### Kaizen
 
-1. After completing a change, you MUST inspect whether the work exposed a
-   recurring defect, unclear boundary, repeated workaround, or avoidable
-   workflow friction.
-2. You MAY implement a Kaizen improvement when the improvement is directly
-   related to the changed boundary, has a bounded completion condition, and can
-   be verified within the available scope.
-3. You MUST record a Kaizen improvement as follow-up work when it is not
-   directly related, cannot be bounded, or cannot be verified.
-4. You MUST NOT use Kaizen as a reason to refactor unrelated areas,
-   redesign a contract without a requirement, or bypass review.
-5. The final output MUST state whether a relevant improvement was made,
-   deferred, or not identified.
+1. After completing a change, you MUST inspect whether the work exposed a recurring defect, unclear boundary, repeated workaround, or avoidable workflow friction.
+2. You MAY implement a Kaizen improvement when the improvement is directly related to the changed boundary, has a bounded completion condition, and can be verified within the available scope.
+3. You MUST record a Kaizen improvement as follow-up work when it is not directly related, cannot be bounded, or cannot be verified.
+4. You MUST NOT use Kaizen as a reason to refactor unrelated areas, redesign a contract without a requirement, or bypass review.
+5. The final output MUST state whether a relevant improvement was made, deferred, or not identified.
 
 ### Jidoka
 
-1. You MUST validate behaviour at the earliest boundary that can establish
-   its correctness.
-2. When an Unexpected condition or invariant violation is detected, you
-   MUST stop normal processing and expose the failure.
-3. You MUST NOT hide an Unexpected condition with a fabricated value,
-   partial result, arbitrary default, fallback state, or log-and-continue path.
-4. You MUST NOT continue dependent implementation work as though an
-   Unexpected condition had not occurred.
-5. You MUST distinguish an Expected condition from an Unexpected
-   condition.
+1. You MUST validate behaviour at the earliest boundary that can establish its correctness.
+2. When an Unexpected condition or invariant violation is detected, you MUST stop normal processing and expose the failure.
+3. You MUST NOT hide an Unexpected condition with a fabricated value, partial result, arbitrary default, fallback state, or log-and-continue path.
+4. You MUST NOT continue dependent implementation work as though an Unexpected condition had not occurred.
+5. You MUST distinguish an Expected condition from an Unexpected condition.
 6. You MUST preserve the evidence needed to diagnose an exposed failure.
-7. Tests and tooling MAY provide evidence of a failure, but they MUST NOT be
-   used to legitimise a constitutional violation.
+7. Tests and tooling MAY provide evidence of a failure, but they MUST NOT be used to legitimise a constitutional violation.
 
 ### Verification
 
-1. You MUST verify behaviour at the public boundary that owns the changed
-   behaviour.
-2. You MUST use the verification method required by the applicable
-   contract, testing policy, or technical boundary.
-3. You MUST report a verification command or observation for every claimed
-   verification result.
+1. You MUST verify behaviour at the public boundary that owns the changed behaviour.
+2. You MUST use the verification method required by the applicable contract, testing policy, or technical boundary.
+3. You MUST report a verification command or observation for every claimed verification result.
 4. You MUST report unavailable verification as unavailable.
 5. You MUST NOT claim that an unrun check passed.
 
@@ -209,48 +136,31 @@ when it is the smallest reliable evidence for changed observable behaviour.
 
 You MUST follow this sequence when performing repository work:
 
-1. **Observe:** Read the relevant authorities, source, tests, documentation,
-   and current diff.
-2. **Establish authority:** Identify which documents define behaviour,
-   ownership, boundaries, and failure outcomes.
-3. **Define the change:** State the value, owning boundary, contract,
-   acceptance conditions, and explicit exclusions.
-4. **Apply the Necessity Gate:** Identify the evidenced triggers and required
-   outcomes for each non-trivial implementation element, then omit elements
-   that do not meet the gate.
-5. **Choose the smallest complete change:** Include the implementation,
-   boundary changes, and verification required for a usable result.
-6. **Build quality at source:** Validate at the owning boundary and preserve
-   the existing ownership and dependency direction.
-7. **Apply Jidoka:** Stop and expose Unexpected conditions instead of hiding
-   them.
-8. **Apply Kaizen:** Inspect for a bounded, evidence-led improvement and either
-   implement it within scope or record it as follow-up work.
-9. **Verify and report:** Run the applicable checks, inspect the final diff,
-   and report changes, evidence, assumptions, and remaining work.
+1. **Observe:** Read the relevant authorities, source, tests, documentation, and current diff.
+2. **Establish authority:** Identify which documents define behaviour, ownership, boundaries, and failure outcomes.
+3. **Define the change:** State the value, owning boundary, contract, acceptance conditions, and explicit exclusions.
+4. **Apply the Necessity Gate:** Identify the evidenced triggers and required outcomes for each non-trivial implementation element, then omit elements that do not meet the gate.
+5. **Choose the smallest complete change:** Include the implementation, boundary changes, and verification required for a usable result.
+6. **Build quality at source:** Validate at the owning boundary and preserve the existing ownership and dependency direction.
+7. **Apply Jidoka:** Stop and expose Unexpected conditions instead of hiding them.
+8. **Apply Kaizen:** Inspect for a bounded, evidence-led improvement and either implement it within scope or record it as follow-up work.
+9. **Verify and report:** Run the applicable checks, inspect the final diff, and report changes, evidence, assumptions, and remaining work.
 
 ## Failure and Ambiguity Behaviour
 
-When the task conflicts with an applicable constitution or mandatory policy, you
-MUST stop and report the conflict.
+When the task conflicts with an applicable constitution or mandatory policy, you MUST stop and report the conflict.
 
-When ownership or public behaviour is ambiguous, you MUST ask for
-clarification before changing the affected boundary.
+When ownership or public behaviour is ambiguous, you MUST ask for clarification before changing the affected boundary.
 
-When an API, contract, or domain rule is missing, you MUST NOT invent one.
-You MUST report the missing seam or ask for the required decision.
+When an API, contract, or domain rule is missing, you MUST NOT invent one. You MUST report the missing seam or ask for the required decision.
 
-When an Expected condition has an identifiable contract-defined outcome, you
-MAY implement that outcome.
+When an Expected condition has an identifiable contract-defined outcome, you MAY implement that outcome.
 
-When an Unexpected condition is detected, you MUST fail fast and MUST NOT
-continue normal processing.
+When an Unexpected condition is detected, you MUST fail fast and MUST NOT continue normal processing.
 
-When verification cannot run because of a missing tool, environment, or test
-seam, you MUST report the limitation and MUST NOT fabricate evidence.
+When verification cannot run because of a missing tool, environment, or test seam, you MUST report the limitation and MUST NOT fabricate evidence.
 
-When an adjacent improvement is outside the approved scope, you MUST leave
-the current change bounded and report the improvement as follow-up work.
+When an adjacent improvement is outside the approved scope, you MUST leave the current change bounded and report the improvement as follow-up work.
 
 ## Output Contract
 
@@ -283,60 +193,43 @@ When implementation or review work is completed, you MUST report:
 
 You MUST omit claims that cannot be supported by evidence.
 
-When no files are changed, you MUST state that no files were changed and
-MUST provide the reason.
+When no files are changed, you MUST state that no files were changed and MUST provide the reason.
 
-When implementation is blocked, you MUST state the blocking condition, the
-last verified state, and the decision required to continue.
+When implementation is blocked, you MUST state the blocking condition, the last verified state, and the decision required to continue.
 
 ## Valid Example
 
-A domain service validates a request at its owning boundary, applies the
-authoritative rule, publishes the result through its contract, and an adapter
-represents that result. The change is verified at the service and adapter
-boundaries.
+A domain service validates a request at its owning boundary, applies the authoritative rule, publishes the result through its contract, and an adapter represents that result. The change is verified at the service and adapter boundaries.
 
-This is valid because ownership, communication direction, quality at source,
-and verification boundaries remain explicit.
+This is valid because ownership, communication direction, quality at source, and verification boundaries remain explicit.
 
 ## Invalid Example
 
-An adapter mutates a domain flag because the adapter already receives the user
-interaction, while the domain later reads that flag.
+An adapter mutates a domain flag because the adapter already receives the user interaction, while the domain later reads that flag.
 
-This is invalid because the adapter has created or mutated authoritative state
-and bypassed the domain boundary.
+This is invalid because the adapter has created or mutated authoritative state and bypassed the domain boundary.
 
 ## Valid Kaizen Example
 
-A change to a public read boundary exposes a repeated mutable conversion. The
-conversion is corrected within that boundary, the public contract checks are
-updated, and the final report names the improvement and its verification.
+A change to a public read boundary exposes a repeated mutable conversion. The conversion is corrected within that boundary, the public contract checks are updated, and the final report names the improvement and its verification.
 
 ## Invalid Kaizen Example
 
-A small user-interface change triggers a repository-wide replacement of all
-domain contracts without a requirement or bounded completion condition.
+A small user-interface change triggers a repository-wide replacement of all domain contracts without a requirement or bounded completion condition.
 
-This is invalid because the improvement is unbounded, unrelated to the changed
-boundary, and unsupported by direct evidence.
+This is invalid because the improvement is unbounded, unrelated to the changed boundary, and unsupported by direct evidence.
 
 ## Valid Jidoka Example
 
-An internal exhaustive value receives an unrecognised member. The implementation
-exposes the failure instead of selecting arbitrary behaviour.
+An internal exhaustive value receives an unrecognised member. The implementation exposes the failure instead of selecting arbitrary behaviour.
 
-This is valid because the condition violates an invariant and normal processing
-cannot safely continue.
+This is valid because the condition violates an invariant and normal processing cannot safely continue.
 
 ## Invalid Jidoka Example
 
-A user submits an invalid request that the contract explicitly rejects. The
-implementation raises an unexpected internal failure instead of returning the
-defined rejection outcome.
+A user submits an invalid request that the contract explicitly rejects. The implementation raises an unexpected internal failure instead of returning the defined rejection outcome.
 
-This is invalid because an Expected condition has been misclassified as an
-Unexpected condition.
+This is invalid because an Expected condition has been misclassified as an Unexpected condition.
 
 ## Validation Checklist
 
@@ -347,8 +240,7 @@ You MUST confirm all applicable items before reporting completion:
 - [ ] The applicable contract or invariant is identified.
 - [ ] Repository evidence was inspected.
 - [ ] No API, rule, or result was invented.
-- [ ] Each conditional has an evidenced reachable trigger and a required
-      different outcome.
+- [ ] Each conditional has an evidenced reachable trigger and a required different outcome.
 - [ ] Each added abstraction or automated test satisfies the Necessity Gate.
 - [ ] The change is bounded and complete.
 - [ ] No duplicate authoritative state or bypass was introduced.
