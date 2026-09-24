@@ -19,7 +19,18 @@ The skill does not author fixes, run tests on behalf of reviewers, alter Git sta
 
 # Normative Vocabulary
 
-`MUST` means mandatory. `MUST NOT` means prohibited. `MAY` means permitted but not required. `Review run` means one complete invocation of this procedure. `Base` means the target branch or commit against which the branch is compared. `Review batch` means one same-language set of related changed hunks sent to reviewers. `Applicable reviewer` means an available code-review subagent whose declared remit covers the batch and whose language or framework constraints do not exclude it. `Incomplete review` means at least one changed unit or required reviewer result is unavailable, failed, or not accounted for. Higher-priority system, developer, and user instructions take precedence over this skill.
+- `MUST` means mandatory. `MUST NOT` means prohibited. `MAY` means permitted but not required.
+- `Review run` means one complete invocation of this procedure.
+- `Base` means the target branch or commit against which the branch is compared.
+- `Review batch` means one same-language set of related changed hunks sent to reviewers.
+- `Applicable reviewer` means an available code-review subagent whose declared remit covers the batch and whose language or framework constraints do not exclude it.
+- `Constitution reviewer` means an applicable reviewer whose logical name contains the case-insensitive substring `constitution`.
+- `Bug reviewer` means an applicable reviewer whose logical name contains the case-insensitive substring `bug`, unless it is already classified as a constitution reviewer.
+- `Other reviewer` means an applicable reviewer matching neither higher-priority tier.
+- `Review phase` means one tier of reviewer assignments processed in priority order.
+- `Incomplete review` means at least one changed unit or required reviewer result is unavailable, failed, or not accounted for.
+
+Higher-priority system, developer, and user instructions take precedence over this skill.
 
 # Authority and Boundaries
 
@@ -105,6 +116,8 @@ The orchestrator MUST resolve the roster at runtime. It MUST NOT maintain a stat
 - The `<specialty>` portion MUST be non-empty. The dedicated `review-orchestrator` primary and any other primary agent MUST NOT be treated as reviewers.
 - The orchestrator MUST read each candidate's current description and remit before selecting it. A candidate is applicable unless its stated language/framework constraint excludes the batch or its explicit remit clearly excludes the change type. Uncertainty about applicability MUST favour dispatch, not omission.
 - The reviewer set MAY differ between batches. For every exclusion, the orchestrator MUST record the agent and a concise, evidence-based reason.
+- After determining applicability, the orchestrator MUST assign each reviewer to exactly one priority tier using its logical name: constitution reviewers first, then bug reviewers, then other reviewers. A name matching both `constitution` and `bug` MUST be assigned only to the constitution tier. Name matching MUST be case-insensitive and MUST use the logical name, not the description or remit.
+- Tier assignment MUST NOT change reviewer applicability or cause the orchestrator to add, install, or assume the availability of any agent.
 - If no applicable reviewer is available for a reviewable batch, the orchestrator MUST report that batch as uncovered and MUST mark the review incomplete.
 
 ## 6. Delegate every applicable review
@@ -121,7 +134,7 @@ The orchestrator MUST create one independent delegation for every `(review batch
 
 Subagents do not share the orchestrator's conversation. Every delegation MUST be self-contained. Reviewers MUST be instructed not to modify source, tests, Git state, or pull requests.
 
-The orchestrator MUST keep at most 10 reviewer subagents active globally across all batches. It MUST queue additional `(batch, reviewer)` work and dispatch it as slots become available. It MUST wait for every dispatched task to finish before writing the final report.
+The orchestrator MUST process reviewer assignments in three sequential phases across all batches: constitution reviewers, then bug reviewers, then other reviewers. Within each phase, it MUST dispatch as many queued assignments as available capacity permits, up to 10 active reviewer subagents globally. As slots become available, it MUST dispatch the next assignment from the current phase. It MUST NOT dispatch a lower-priority phase while any assignment in a higher-priority phase is pending, active, or undergoing its permitted retry. An assignment reaches a terminal state when it returns a usable result or when a failure or unusable result remains after any retry. The orchestrator MUST proceed to the next non-empty phase only after every assignment in the current phase reaches a terminal state; terminal failures MUST be recorded and MUST NOT prevent later phases from running. It MUST wait for every dispatched task to finish before writing the final report.
 
 The orchestrator MAY retry a failed or unusable delegation once, using a complete replacement prompt. It MUST NOT retry a task more than once. If the retry fails or the reviewer returns no usable result, record the exact missing result and mark coverage incomplete.
 
@@ -146,7 +159,7 @@ The Markdown report MUST include these sections:
 1. `Review status` — `Complete`, `Incomplete`, `Not performed`, or `No changes to review`.
 2. `Review source` — repository, Base ref and commit, merge-base, `HEAD` commit, branch identity, and committed-only boundary.
 3. `Batch coverage` — each batch, language, paths, hunks/line ranges, changed-line totals, and uncovered or non-reviewable changes.
-4. `Reviewer coverage` — each applicable reviewer per batch, dispatch/retry/result state, and each excluded candidate with its reason.
+4. `Reviewer coverage` — each applicable reviewer per batch, its priority tier and phase dispatch/retry/result state, and each excluded candidate with its reason.
 5. `Consolidated findings` — deduplicated findings with reviewer attribution, location, evidence, impact, severity/classification as supplied, and bounded recommendation. The orchestrator MUST write `None` when no finding was reported.
 6. `Conflicts and uncertainty` — disagreements, unavailable evidence, and unresolved questions, or `None`.
 7. `Follow-up work` — important non-blocking work, or `None`.
