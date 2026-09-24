@@ -6,53 +6,32 @@ This repository is the source that ships preconfigured with Orchestra. It is als
 
 ## Contents
 
-The current package layout contains **48 installable packages**:
+The current package layout contains **23 installable packages**:
 
 | Type | Count | Location |
 | --- | ---: | --- |
-| Agents | 26 | [`agents/`](agents/) |
-| Prompts | 8 | [`prompts/`](prompts/) |
-| Prompt directory | 1 | [`prompts/snippets/`](prompts/snippets/) |
-| Skills | 13 | [`skills/`](skills/) |
-
-The repository also contains [`include/worker.md`](include/worker.md), a reusable markdown include body. It is supporting content, not a separate manifest package.
+| Agents | 7 | [`agents/`](agents/) |
+| Prompts | 4 | [`prompts/`](prompts/) |
+| Skills | 12 | [`skills/`](skills/) |
 
 ## Package Catalogue
 
 ### Agents
 
-Agents are markdown definitions with YAML frontmatter. Four are primary agents; the other 22 are normally used as subagents by an orchestrator.
+Agents are markdown definitions with YAML frontmatter. One is a primary orchestrator; six are subagents.
 
-#### Primary agents
-
-| Package | Purpose |
-| --- | --- |
-| [`code-review-orchestrator`](agents/code-review-orchestrator.agent.md) | Coordinates complete, evidence-based reviews and delegates changed batches to applicable reviewers. |
-| [`orchestrator`](agents/orchestrator.agent.md) | Delegates approved work to specialised agents and coordinates review and iteration. |
-| [`squad-build`](agents/squad-build.agent.md) | Coordinates implementation, review, scope control, and verification. |
-| [`squad-plan`](agents/squad-plan.agent.md) | Coordinates read-only, repository-grounded implementation planning. |
-
-#### Team and planning agents
+#### Primary agent
 
 | Package | Purpose |
 | --- | --- |
-| [`agent-resources`](agents/agent-resources.agent.md) | Curates the agent team and balances responsibility boundaries. |
-| [`architect`](agents/architect.agent.md) | Plans software architecture and system design. |
+| [`review-orchestrator`](agents/review-orchestrator.agent.md) | Loads the dedicated skill to coordinate a complete, evidence-based branch review and report. |
+
+#### Subagents
+
+| Package | Purpose |
+| --- | --- |
 | [`information-gatherer`](agents/information-gatherer.agent.md) | Collects bounded research from the codebase and GitHub. |
 | [`judge`](agents/judge.agent.md) | Determines whether claims are supported by submitted and independent evidence. |
-| [`scope-guard`](agents/scope-guard.agent.md) | Protects task boundaries and identifies scope creep. |
-| [`scribe`](agents/scribe.agent.md) | Updates documentation and GitHub text for scoped writing tasks. |
-
-#### Backend agents
-
-| Package | Purpose |
-| --- | --- |
-| [`backend.api-programmer`](agents/backend.api-programmer.agent.md) | Implements API endpoints, controllers, middleware, validation, and HTTP responses. |
-| [`backend.auth-programmer`](agents/backend.auth-programmer.agent.md) | Implements authentication, authorisation, identity, sessions, tokens, and access control. |
-| [`backend.data-programmer`](agents/backend.data-programmer.agent.md) | Implements schemas, persistence, repositories, queries, and migrations. |
-| [`backend.domain-programmer`](agents/backend.domain-programmer.agent.md) | Implements business logic, domain services, workflows, and server-side rules. |
-| [`backend.integration-programmer`](agents/backend.integration-programmer.agent.md) | Implements external service integrations, jobs, adapters, and infrastructure-facing code. |
-| [`backend.platform-programmer`](agents/backend.platform-programmer.agent.md) | Implements application bootstrap, runtime configuration, infrastructure wiring, feature flags, and observability. |
 
 #### Review agents
 
@@ -63,46 +42,28 @@ Agents are markdown definitions with YAML frontmatter. Four are primary agents; 
 | [`code-review.simplify`](agents/code-review.simplify.agent.md) | Finds duplication, unnecessary complexity, missed reuse, and speculative abstractions. |
 | [`code-review.solid`](agents/code-review.solid.agent.md) | Reviews introduced code for adherence to SOLID principles. |
 
-#### Testing, security, and user experience agents
-
-| Package | Purpose |
-| --- | --- |
-| [`debugger`](agents/debugger.agent.md) | Investigates bugs, errors, and unexpected behaviour. |
-| [`quality-engineer`](agents/quality-engineer.agent.md) | Writes and maintains automated tests and checks coverage. |
-| [`security-expert`](agents/security-expert.agent.md) | Analyses application security and recommends controls. |
-| [`tester.browser`](agents/tester.browser.agent.md) | Uses Playwright to verify running application behaviour end to end. |
-| [`tester.cli`](agents/tester.cli.agent.md) | Runs the automated test suite and reports failures. |
-| [`ux-designer`](agents/ux-designer.agent.md) | Reviews user-facing changes for clarity, accessibility, and usability. |
-
 ### Prompts
 
 | Package | Purpose |
 | --- | --- |
 | [`commit`](prompts/commit.prompt.md) | Removes temporary files and commits outstanding changes. |
-| [`grill-me`](prompts/grill-me.prompt.md) | Challenges an idea through focused questions. |
-| [`investigate-bug-claim`](prompts/investigate-bug-claim.prompt.md) | Investigates a bug claim and writes a branch-specific report. |
-| [`prompt`](prompts/prompt.prompt.md) | Optimises a supplied prompt for LLM consumption. |
-| [`review-pr-to-file`](prompts/review-pr-to-file.prompt.md) | Reviews a pull request diff and writes prioritised findings to `.temp/`. |
-| [`review-reuse-branch`](prompts/review-reuse-branch.prompt.md) | Reviews branch changes for opportunities to reuse existing code. |
-| [`review-reuse`](prompts/review-reuse.prompt.md) | Reviews outstanding changes for avoidable duplication. |
+| [`interactive-plan`](prompts/interactive-plan.prompt.md) | Based on Matt Pocock’s “Grill Me” skill; challenges an idea through focused questions. |
+| [`refine-prompt`](prompts/refine-prompt.prompt.md) | Optimises a supplied prompt for LLM consumption. |
 | [`transcribe-plan`](prompts/transcribe-plan.prompt.md) | Transcribes a plan to a uniquely named markdown file under `.temp/`. |
-
-The [`snippets`](prompts/snippets/) package installs prompt helper files as one `prompt-dir` package. Its files are not standalone prompts.
 
 ### Skills
 
 | Package | Purpose |
 | --- | --- |
 | [`ado-import`](skills/ado-import/) | Fetches and parses Azure DevOps work items through ADO MCP tools. |
-| [`engineering-constitution`](skills/engineering-constitution/) | Creates and revises durable engineering constitutions. |
+| [`how-to-delegate-to-subagents`](skills/how-to-delegate-to-subagents/) | Ensures delegation prompts contain the context required by independent subagents. |
+| [`how-to-write-engineering-constitutions`](skills/how-to-write-engineering-constitutions/) | Creates and revises durable engineering constitutions. |
 | [`github-cli`](skills/github-cli/) | Provides guidance for GitHub CLI work. |
 | [`monozukuri`](skills/monozukuri/) | Applies Monozukuri, Kaizen, and Jidoka to engineering work. |
 | [`normative-technical-writing`](skills/normative-technical-writing/) | Writes precise requirements using explicit normative language. |
 | [`orchestra`](skills/orchestra/) | Describes the repository-local Orchestra package and export workflow. |
-| [`playwright`](skills/playwright/) | Provides guidance for browser automation and UI verification. |
-| [`tech-debt-register`](skills/tech-debt-register/) | Maintains the authoritative technical-debt register. |
-| [`writing-gherkin`](skills/writing-gherkin/) | Guides authoring and review of Gherkin features and scenarios. |
-| [`writing-human-documents`](skills/writing-human-documents/) | Guides clear, engaging documents for human readers. |
+| [`review-orchestrator-instructions`](skills/review-orchestrator-instructions/) | Defines the exclusive review workflow and includes its Git hunk extraction helper. |
+| [`writing-human-documents`](skills/writing-human-documents/) | Guides clear, engaging human documents. |
 | [`writing-llm-documents`](skills/writing-llm-documents/) | Guides precise documents for reliable LLM interpretation. |
 | [`writing-prds`](skills/writing-prds/) | Guides authoring and review of product requirements documents. |
 | [`writing-typescript`](skills/writing-typescript/) | Defines the project's TypeScript conventions and rules. |
@@ -111,16 +72,16 @@ The [`snippets`](prompts/snippets/) package installs prompt helper files as one 
 
 Install Orchestra in a project first. Its local entry point is `.orchestra/orchestra.sh`. The `core` source is configured by default, so no source setup is needed for the packages in this repository. See the [Orchestra README](https://github.com/BobBurton9000/orchestra#setup) for installation instructions.
 
-Using Orchestra requires Bash 4+, the GitHub CLI (`gh`), and `yq`. Remote package operations also require authenticated GitHub CLI access.
+Using Orchestra requires Bash 4+, the GitHub CLI (`gh`), and `yq`. Remote package operations also require authenticated GitHub CLI access. The `review-orchestrator-instructions` helper additionally requires Git and Python 3.
 
 ### Quick start
 
-Install the Orchestrator and selected agents, then export them to a platform:
+Install the review orchestrator, its instructions skill, and selected reviewers, then export them to a platform:
 
 ```bash
-.orchestra/orchestra.sh install orchestrator
-.orchestra/orchestra.sh install architect
-.orchestra/orchestra.sh install debugger
+.orchestra/orchestra.sh install review-orchestrator
+.orchestra/orchestra.sh install review-orchestrator-instructions
+.orchestra/orchestra.sh install code-review.bugs
 .orchestra/orchestra.sh export opencode
 ```
 
@@ -140,7 +101,7 @@ The Orchestrator is optional. Any agent, prompt, or skill can be installed and u
 .orchestra/orchestra.sh source list
 .orchestra/orchestra.sh list --available
 .orchestra/orchestra.sh search review
-.orchestra/orchestra.sh info architect
+.orchestra/orchestra.sh info review-orchestrator
 .orchestra/orchestra.sh status
 ```
 
@@ -276,11 +237,10 @@ There are no static package versions or required releases. Pushing a new source 
 ```text
 agents/                  Agent definitions
 prompts/                 Prompt definitions
-prompts/snippets/        Multi-file prompt helper package
 skills/                  Skill directories, each with SKILL.md
-include/                 Reusable markdown include bodies
 orchestra-source.yaml    Generated package manifest
 orchestra-manifest.sh    Standalone manifest generator
+RECOMMENDED_AGENTS.MD    Agent-selection guidance
 README.md                This guide
 ```
 

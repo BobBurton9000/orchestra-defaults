@@ -12,7 +12,7 @@ prohibitions, permissions, or other binding rules with explicit force.
 
 This skill governs how obligations are expressed. It does not define the domain
 rules, the document's authority, or its structure. Compose it with
-`engineering-constitution`, `writing-human-documents`, or
+`how-to-write-engineering-constitutions`, `writing-human-documents`, or
 `writing-llm-documents` when those concerns apply.
 
 Normative language MUST be definitive about obligations without pretending that

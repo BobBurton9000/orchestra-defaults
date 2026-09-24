@@ -4,33 +4,6 @@
 
 packages:
   # --- Agents ---
-  - name: agent-resources
-    type: agent
-    path: agents/agent-resources.agent.md
-  - name: architect
-    type: agent
-    path: agents/architect.agent.md
-  - name: backend.api-programmer
-    type: agent
-    path: agents/backend.api-programmer.agent.md
-  - name: backend.auth-programmer
-    type: agent
-    path: agents/backend.auth-programmer.agent.md
-  - name: backend.data-programmer
-    type: agent
-    path: agents/backend.data-programmer.agent.md
-  - name: backend.domain-programmer
-    type: agent
-    path: agents/backend.domain-programmer.agent.md
-  - name: backend.integration-programmer
-    type: agent
-    path: agents/backend.integration-programmer.agent.md
-  - name: backend.platform-programmer
-    type: agent
-    path: agents/backend.platform-programmer.agent.md
-  - name: code-review-orchestrator
-    type: agent
-    path: agents/code-review-orchestrator.agent.md
   - name: code-review.bugs
     type: agent
     path: agents/code-review.bugs.agent.md
@@ -43,87 +16,43 @@ packages:
   - name: code-review.solid
     type: agent
     path: agents/code-review.solid.agent.md
-  - name: debugger
-    type: agent
-    path: agents/debugger.agent.md
   - name: information-gatherer
     type: agent
     path: agents/information-gatherer.agent.md
   - name: judge
     type: agent
     path: agents/judge.agent.md
-  - name: orchestrator
+  - name: review-orchestrator
     type: agent
-    path: agents/orchestrator.agent.md
-  - name: quality-engineer
-    type: agent
-    path: agents/quality-engineer.agent.md
-  - name: scope-guard
-    type: agent
-    path: agents/scope-guard.agent.md
-  - name: scribe
-    type: agent
-    path: agents/scribe.agent.md
-  - name: security-expert
-    type: agent
-    path: agents/security-expert.agent.md
-  - name: squad-build
-    type: agent
-    path: agents/squad-build.agent.md
-  - name: squad-plan
-    type: agent
-    path: agents/squad-plan.agent.md
-  - name: tester.browser
-    type: agent
-    path: agents/tester.browser.agent.md
-  - name: tester.cli
-    type: agent
-    path: agents/tester.cli.agent.md
-  - name: ux-designer
-    type: agent
-    path: agents/ux-designer.agent.md
+    path: agents/review-orchestrator.agent.md
 
   # --- Prompts ---
   - name: commit
     type: prompt
     path: prompts/commit.prompt.md
-  - name: grill-me
+  - name: interactive-plan
     type: prompt
-    path: prompts/grill-me.prompt.md
-  - name: investigate-bug-claim
+    path: prompts/interactive-plan.prompt.md
+  - name: refine-prompt
     type: prompt
-    path: prompts/investigate-bug-claim.prompt.md
-  - name: prompt
-    type: prompt
-    path: prompts/prompt.prompt.md
-  - name: review-pr-to-file
-    type: prompt
-    path: prompts/review-pr-to-file.prompt.md
-  - name: review-reuse-branch
-    type: prompt
-    path: prompts/review-reuse-branch.prompt.md
-  - name: review-reuse
-    type: prompt
-    path: prompts/review-reuse.prompt.md
+    path: prompts/refine-prompt.prompt.md
   - name: transcribe-plan
     type: prompt
     path: prompts/transcribe-plan.prompt.md
-
-  # --- Prompt snippets (multi-file package) ---
-  - name: snippets
-    type: prompt-dir
-    path: prompts/snippets/
 
   # --- Skills ---
   - name: ado-import
     type: skill
     path: skills/ado-import/
-  - name: engineering-constitution
-    type: skill
-    path: skills/engineering-constitution/
   - name: github-cli
     type: skill
     path: skills/github-cli/
+  - name: how-to-delegate-to-subagents
+    type: skill
+    path: skills/how-to-delegate-to-subagents/
+  - name: how-to-write-engineering-constitutions
+    type: skill
+    path: skills/how-to-write-engineering-constitutions/
   - name: monozukuri
     type: skill
     path: skills/monozukuri/
@@ -133,15 +62,9 @@ packages:
   - name: orchestra
     type: skill
     path: skills/orchestra/
-  - name: playwright
+  - name: review-orchestrator-instructions
     type: skill
-    path: skills/playwright/
-  - name: tech-debt-register
-    type: skill
-    path: skills/tech-debt-register/
-  - name: writing-gherkin
-    type: skill
-    path: skills/writing-gherkin/
+    path: skills/review-orchestrator-instructions/
   - name: writing-human-documents
     type: skill
     path: skills/writing-human-documents/

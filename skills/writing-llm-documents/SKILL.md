@@ -364,35 +364,35 @@ Graphviz, PlantUML, or another specialist diagram language.
 Before finalising a consumer-facing document, you MUST verify:
 
 - [ ] You MUST make the purpose, scope, authority, and consumer role
-      explicit.
+  explicit.
 - [ ] You MUST define every applicable input, output, failure, and
-      terminology contract or explicitly mark it as not applicable.
+  terminology contract or explicitly mark it as not applicable.
 - [ ] You MUST define and use `MUST`, `MUST NOT`, and `MAY` consistently.
 - [ ] You MUST NOT use `SHOULD`, `SHOULD NOT`, `prefer`, `avoid`, or an
-      undefined modal form to create an ambiguous weaker instruction.
+  undefined modal form to create an ambiguous weaker instruction.
 - [ ] Every normative clause MUST have an explicit actor, action, condition, and
-      result where a result matters.
+  result where a result matters.
 - [ ] You MUST split compound obligations into independently testable
-      clauses.
+  clauses.
 - [ ] Definitions MUST appear before normative use and canonical terms MUST
-      remain stable.
+  remain stable.
 - [ ] Cross-references MUST identify a specific heading, identifier, or contract.
 - [ ] Normative rules, rationale, examples, non-examples, and open questions MUST
-      be clearly separated and labelled.
+  be clearly separated and labelled.
 - [ ] Examples MUST NOT silently add constraints or contradict the rules.
 - [ ] Missing, invalid, ambiguous, and conflicting inputs MUST have explicit
-      behaviour.
+  behaviour.
 - [ ] Output format, required fields, limits, uncertainty, and failure behaviour
-      MUST be explicit.
+  MUST be explicit.
 - [ ] Branches, retries, loops, fallbacks, and termination conditions MUST be
-      bounded.
+  bounded.
 - [ ] Required instructions MUST NOT be hidden in comments, footnotes, examples,
-      diagrams, or external references.
+  diagrams, or external references.
 - [ ] Duplicate rules MUST have one canonical source and MUST NOT drift apart.
 - [ ] External dependencies and precedence rules MUST be explicit.
 - [ ] Diagrams MUST be ASCII-only, labelled, compact, and explained in prose.
 - [ ] The document MUST NOT contain Mermaid, Graphviz, PlantUML, or other
-      specialist diagram syntax.
+  specialist diagram syntax.
 - [ ] The document MUST use British English spelling and grammar.
 
 ## Common failure modes

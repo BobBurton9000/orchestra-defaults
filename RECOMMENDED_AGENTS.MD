@@ -1,0 +1,4 @@
+- You MUST consistently evaluate every turn whether any SKILLS could be relevant to your task.
+- Any skills that could be relevant MUST be read and applied to all work.
+- You MUST NOT launch subagents unless explicitly instructed.
+- You MUST NOT use MCP tools unless explicitly instructed; CLI tools are preferred.

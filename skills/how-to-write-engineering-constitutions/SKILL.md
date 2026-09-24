@@ -1,9 +1,9 @@
 ---
-name: engineering-constitution
+name: how-to-write-engineering-constitutions
 description: Creates and revises engineering constitutions with Articles, Sections, numbered clauses, authority, ownership, invariants, compliance, and exceptions. Use when defining the durable architectural rules that govern how a system is designed and changed.
 ---
 
-# Engineering Constitution Authoring
+# How to Write Engineering Constitutions
 
 Use this skill when writing a durable engineering constitution: an internal,
 authoritative specification that governs how a system is designed and changed.
