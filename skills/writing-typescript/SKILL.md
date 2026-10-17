@@ -22,7 +22,7 @@ The rules apply when writing, modifying, or reviewing TypeScript code. The examp
 
 These rules MUST be applied according to their stated intent, not bypassed by changing a name while retaining the same unclear design. Convenience alone is not a sufficient reason to depart from a MUST or MUST NOT rule.
 
-A structural rule applies only after the element it governs is independently necessary. This Constitution MUST NOT cause a conditional, class, interface, DTO, Contract, collaborator, proxy, Null Object, named constant, or test to be added solely to satisfy a convention. When `monozukuri` applies, use its Necessity Gate. Otherwise, an added element MUST have an evidenced reachable trigger or current use and a required outcome in the current task.
+An explicit normative rule in this Constitution MUST NOT be waived by the Necessity Gate. This Constitution MUST NOT require a conditional, class, interface, DTO, Contract, collaborator, proxy, Null Object, named constant, or test solely to satisfy a convention unless an explicit normative rule in this Constitution requires that element or form. For elements not expressly required by this Constitution, a structural rule applies only after the element it governs is independently necessary. When `monozukuri` applies, use its Necessity Gate for implementation choices not prescribed by this Constitution. Otherwise, an added element MUST have an evidenced reachable trigger or current use and a required outcome in the current task.
 
 ## Article 2: Names
 
@@ -30,16 +30,22 @@ A structural rule applies only after the element it governs is independently nec
 
 Identifiers MUST be specific enough to communicate their value or intent at the point of use. Unnecessary abbreviations MUST NOT be used.
 
-**Bad**
+**Invalid example:** `col` is an unnecessary abbreviation and does not identify the value.
 
 ```ts
-const col = 3;
+function columnIndexFromRequest(requestedColumnIndex: number): number {
+    const col = requestedColumnIndex;
+    return col;
+}
 ```
 
 **Good**
 
 ```ts
-const columnIndex = 3;
+function columnIndexFromRequest(requestedColumnIndex: number): number {
+    const columnIndex = requestedColumnIndex;
+    return columnIndex;
+}
 ```
 
 ### Section 2.2: Boolean names
@@ -50,7 +56,7 @@ Boolean variables, parameters, properties, and query methods MUST be named as qu
 
 Boolean names MUST NOT be bare action verbs or third-person action phrases that require an auxiliary verb to become a yes-or-no question.
 
-**Bad**
+**Invalid example:** `auth` is not question-shaped, and the other names describe actions rather than yes-or-no propositions.
 
 ```ts
 const auth = true;
@@ -70,13 +76,13 @@ Predicate prefixes such as `is`, `has`, `can`, and `should` are question forms w
 
 ### Section 2.3: Queries
 
-A query produces a value or predicate. A query MAY update private instance state or lazily initialise a collaborator within the instance's owning composition or lifecycle boundary when that work is required to produce the returned value. A query MUST NOT mutate authoritative Simulation state, enforce application rules, or allow a Concrete delegate to escape its owning boundary.
+A query produces a value or predicate. A query MAY update private instance state or lazily initialise a collaborator within the instance's owning composition or lifecycle boundary when that work is required to produce the returned value. A query MUST NOT mutate authoritative application state, enforce application rules, or allow a Concrete delegate to escape its owning boundary.
 
 Query methods MUST use nouns, noun phrases, question-shaped predicates, or `<value>From<source>` constructions. Query methods MUST NOT use command verbs or the accessor prefix `get`.
 
 Private lazy accessor methods MUST use ordinary method syntax and MUST NOT use JavaScript getter or setter syntax.
 
-**Bad**
+**Invalid example:** `parseMultipartSection` uses a command verb for a query, and `getCurrentUser` uses the prohibited `get` prefix.
 
 ```ts
 private parseMultipartSection(section: string): MultipartSection
@@ -114,12 +120,14 @@ Persistent state-transition methods that return a new instance without mutating 
 **Good**
 
 ```ts
+const inputDescriptionAttributeName = 'aria-describedby';
+const validationErrorElementId = 'validation-error';
 private setAttributes(): void {
     if (isInvalid) {
-        input.setAttribute('aria-describedby', 'signup-error');
+        input.setAttribute(inputDescriptionAttributeName, validationErrorElementId);
         return;
     }
-    input.removeAttribute('aria-describedby');
+    input.removeAttribute(inputDescriptionAttributeName);
 }
 ```
 
@@ -133,19 +141,19 @@ Local bindings MUST use `const` when the binding is not reassigned and MUST use 
 
 `Contract` is a type classification, not a naming suffix. Contract interfaces are the first-class descriptions of the behaviour they represent. Interface names MUST describe the capability, role, or domain concept they represent. Interface names MUST NOT end in `Contract` solely to identify their classification. The suffix MAY be used when `Contract` is part of the actual domain concept.
 
-**Bad**
+**Invalid example:** `Contract` is used only as a classification suffix instead of naming the repository capability.
 
 ```ts
-interface PuffballRepositoryContract {
-    snapshots(): ReadonlyArray<PuffballSnapshot>;
+interface AccountRepositoryContract {
+    snapshots(): ReadonlyArray<AccountSnapshot>;
 }
 ```
 
 **Good**
 
 ```ts
-interface PuffballRepository {
-    snapshots(): ReadonlyArray<PuffballSnapshot>;
+interface AccountRepository {
+    snapshots(): ReadonlyArray<AccountSnapshot>;
 }
 ```
 
@@ -153,7 +161,27 @@ interface PuffballRepository {
 
 ### Section 3.1: Necessary control flow
 
-A conditional or branch MUST have both an evidenced reachable trigger and a required different outcome. Use a guard clause, `else`, ternary, or direct fall-through only when it leaves the required behaviour clearer and shorter. A control-flow style MUST NOT cause an extra branch, return, variable, or helper to be added.
+A conditional or branch MUST have both an evidenced reachable trigger and a required different outcome. Function bodies MUST NOT use `else`. Guard clauses and early returns MUST be used so the successful path falls through. A control-flow style MUST NOT add an extra branch, return, variable, or helper unless an explicit normative rule in this Constitution requires that form.
+
+**Invalid example:** Function bodies MUST NOT use `else`.
+
+```ts
+if (isInvalid) {
+    rejectRequest();
+} else {
+    acceptRequest();
+}
+```
+
+**Good**
+
+```ts
+if (isInvalid) {
+    rejectRequest();
+    return;
+}
+acceptRequest();
+```
 
 ### Section 3.2: Function continuity
 
@@ -162,6 +190,25 @@ Function bodies MUST NOT contain empty lines. This is a constitutional structura
 ### Section 3.3: Direct bodies
 
 Function bodies MUST communicate intent through direct names and structure. Inline comments MUST NOT appear in function bodies. A named function or variable MUST NOT be extracted merely to narrate a direct one-line expression. Extract it only when it removes real ambiguity or repetition.
+
+A compound Boolean expression combines two or more Boolean terms with `&&` or `||`. A compound Boolean expression MUST NOT be used directly as the condition of a branch, loop, or conditional expression. It MUST first be assigned to a local `const` with a question-shaped predicate name that states the complete decision. The branch, loop, or conditional expression MUST use that name as its condition. This naming requirement applies even when the original expression is already clear.
+
+**Invalid example:** The compound Boolean condition is used directly in the branch instead of a named question-shaped predicate.
+
+```ts
+if (isOrderPaid && hasAvailableStock) {
+    dispatchOrder();
+}
+```
+
+**Good**
+
+```ts
+const canDispatchOrder = isOrderPaid && hasAvailableStock;
+if (canDispatchOrder) {
+    dispatchOrder();
+}
+```
 
 ### Section 3.4: Fail-fast behaviour
 
@@ -181,7 +228,7 @@ External setup MUST be performed after construction by an explicitly named insta
 
 Function-like declarations and signatures with two or more parameters MUST place each parameter on its own line. The first parameter MUST start on a line after the opening parenthesis, and the closing parenthesis MUST start on a line after the final parameter.
 
-**Bad**
+**Invalid example:** A declaration with multiple parameters must put each parameter on its own line.
 
 ```ts
 function move(horizontalOffset: number, verticalOffset: number): void {
@@ -212,9 +259,11 @@ Arrays MAY represent homogeneous collections. Arrays MUST NOT be used as implici
 
 Multi-dimensional arrays SHOULD NOT model named domain data. A class, interface, or other named structure MUST be used when the positions have distinct meaning.
 
+Array destructuring MUST NOT be used in variable initialisers or assignment expressions. Code MUST use explicitly named variables with indexed access or a named query instead. This rule does not prohibit array literals, indexed reads, or `for...of` entry bindings.
+
 ### Section 4.3: Literal values
 
-A single local literal MAY remain inline when it is direct and unambiguous. Repeated or non-obvious domain values MUST use a named variable or constant whose name expresses their meaning.
+Magic strings, repeated string literals, and magic numbers MUST NOT be used. They MUST be given a named variable or constant whose name expresses their meaning.
 
 ### Section 4.4: Static class members
 
@@ -238,7 +287,7 @@ Property and parameter type annotations MUST NOT use intersection types. A combi
 
 Contract classes MAY declare public methods and commands. Their instance properties MUST be private. They MUST expose state through ordinary public methods when access is required, not public properties or JavaScript getter/setter syntax. Contract classes MAY mutate their private state when the mutation is part of their Contract, but they MUST NOT take ownership of rules that belong to another boundary.
 
-**Bad**
+**Invalid example:** Constructor parameter properties are prohibited, and class instance properties must be private.
 
 ```ts
 export class ConcreteProduct implements Product {
@@ -300,7 +349,7 @@ export class ConcreteProduct implements Product {
 
 ### Section 5.4: DTO classes
 
-DTOs MUST be classes with private instance properties and public constructors. They MUST expose data through ordinary public query methods. DTO methods MUST NOT enforce application rules, mutate Simulation state, or perform external effects. DTO constructors MAY validate intrinsic values and initialise or freeze state owned by the new instance, but MUST NOT perform external effects.
+DTOs MUST be classes with private instance properties and public constructors. They MUST expose data through ordinary public query methods. DTO methods MUST NOT enforce application rules, mutate authoritative application state, or perform external effects. DTO constructors MAY validate intrinsic values and initialise or freeze state owned by the new instance, but MUST NOT perform external effects.
 
 DTO query methods MUST use nouns, noun phrases, question-shaped predicates, or `<value>From<source>` constructions. DTOs MUST NOT use public properties or JavaScript getter/setter syntax. Nested DTO values and collections MUST remain immutable when a DTO is published as a read model.
 
@@ -385,16 +434,18 @@ Types MUST be explicit and narrow. Invalid states MUST be represented by a failu
 
 JavaScript selectors and CSS classes MUST remain separate concerns.
 
-**Bad**
+**Invalid example:** TypeScript MUST NOT query a styling class; behaviour selectors must use the `js-` prefix.
 
 ```ts
-const customerInput = document.querySelector('.customer-input');
+const customerInputSelector = '.customer-input';
+const customerInput = document.querySelector(customerInputSelector);
 ```
 
 **Good**
 
 ```ts
-const customerInput = document.querySelector('.js-customer-input');
+const customerInputBehaviourSelector = '.js-customer-input';
+const customerInput = document.querySelector(customerInputBehaviourSelector);
 ```
 
 ### Section 7.2: Behaviour selectors
