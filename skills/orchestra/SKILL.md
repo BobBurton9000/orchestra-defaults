@@ -9,7 +9,7 @@ description: Use the repository's local Orchestra CLI to manage, compile, and ve
 
 This skill gives you binding instructions when you use the Orchestra tool in this repository. It covers package discovery, installation, upgrades, definition authoring, platform export, and the optional delegation workflow.
 
-This skill does not govern product code, game rules, architectural ownership, or the implementation of Orchestra itself. The Engineering Constitution and other repository policies remain authoritative for those concerns.
+This skill does not govern product code, domain rules, architectural ownership, or the implementation of Orchestra itself. The applicable constitution and other repository policies remain authoritative for those concerns.
 
 ## Instruction Summary
 
