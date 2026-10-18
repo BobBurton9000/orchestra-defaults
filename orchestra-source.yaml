@@ -62,6 +62,9 @@ packages:
   - name: orchestra
     type: skill
     path: skills/orchestra/
+  - name: playwright-cli-guide
+    type: skill
+    path: skills/playwright-cli-guide/
   - name: review-orchestrator-instructions
     type: skill
     path: skills/review-orchestrator-instructions/
