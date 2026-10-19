@@ -6,13 +6,13 @@ This repository is the source that ships preconfigured with Orchestra. It is als
 
 ## Contents
 
-The current package layout contains **24 installable packages**:
+The current package layout contains **25 installable packages**:
 
 | Type | Count | Location |
 | --- | ---: | --- |
 | Agents | 7 | [`agents/`](agents/) |
 | Prompts | 4 | [`prompts/`](prompts/) |
-| Skills | 13 | [`skills/`](skills/) |
+| Skills | 14 | [`skills/`](skills/) |
 
 ## Package Catalogue
 
@@ -64,6 +64,7 @@ Agents are markdown definitions with YAML frontmatter. One is a primary orchestr
 | [`normative-technical-writing`](skills/normative-technical-writing/) | Writes precise requirements using explicit normative language. |
 | [`orchestra`](skills/orchestra/) | Describes the repository-local Orchestra package and export workflow. |
 | [`review-orchestrator-instructions`](skills/review-orchestrator-instructions/) | Defines the exclusive review workflow and includes its Git hunk extraction helper. |
+| [`writing-adrs`](skills/writing-adrs/) | Guides autonomous creation, revision, audit, and pruning of accepted architectural decision records. |
 | [`writing-human-documents`](skills/writing-human-documents/) | Guides clear, engaging human documents. |
 | [`writing-llm-documents`](skills/writing-llm-documents/) | Guides precise documents for reliable LLM interpretation. |
 | [`writing-prds`](skills/writing-prds/) | Guides authoring and review of product requirements documents. |

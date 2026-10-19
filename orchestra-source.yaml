@@ -68,6 +68,9 @@ packages:
   - name: review-orchestrator-instructions
     type: skill
     path: skills/review-orchestrator-instructions/
+  - name: writing-adrs
+    type: skill
+    path: skills/writing-adrs/
   - name: writing-human-documents
     type: skill
     path: skills/writing-human-documents/
