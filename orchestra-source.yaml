@@ -30,6 +30,9 @@ packages:
   - name: commit
     type: prompt
     path: prompts/commit.prompt.md
+  - name: handoff
+    type: prompt
+    path: prompts/handoff.prompt.md
   - name: interactive-plan
     type: prompt
     path: prompts/interactive-plan.prompt.md
