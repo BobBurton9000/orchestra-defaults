@@ -19,6 +19,8 @@ You MUST format each round like this:
 ➡️ <your recommended answer>
 ```
 
+The user may reply `ARA` (“accept recommended answer”; recognize it case-insensitively) to accept your recommendation for a question. If they reply `ARA` by itself, apply it to every recommendation in the current round; if they specify a question, apply it only to that question.
+
 After each round, you MUST use the user's answers to reshape the tree. Settled decisions MUST extend the frontier and unblock questions that depend on them. You MUST recompute the frontier before asking the next round. If a question depends on another question that remains open in the current round, you MUST defer it to a later round.
 
 You MUST find facts yourself; you MUST NOT ask the user for facts you could look up using the filesystem, tools, or another available source. When a frontier question requires an environmental fact, you MUST dispatch a sub-agent to find it. You MUST NOT block the rest of the round while that exploration runs: treat the running exploration as an unsettled prerequisite, wait only on questions downstream of it, and ask the remaining frontier questions immediately. The user MUST make the decisions; you MUST present each decision to them and wait for their answer.
