@@ -6,7 +6,7 @@ description: The TypeScript Constitution for this project. Use when writing, mod
 
 ## Preamble
 
-This Constitution establishes the TypeScript standards. It exists to make code understandable at the point of use, keep application contracts strict, and make invalid states visible rather than hidden.
+This Constitution establishes the TypeScript standards. It exists to make code understandable at the point of use, keep application contracts strict, and make invalid states visible rather than hidden. It organises code around vertical capabilities with explicit behavioural contracts and private implementation spaces so changes can be understood and contained within a capability by human developers and coding agents.
 
 The rules apply when writing, modifying, or reviewing TypeScript code. The examples are illustrative. The normative statements are authoritative.
 
@@ -24,7 +24,7 @@ These rules MUST be applied according to their stated intent, not bypassed by ch
 
 An explicit normative rule in this Constitution MUST NOT be waived by the Necessity Gate. This Constitution MUST NOT require a conditional, class, interface, DTO, Contract, collaborator, proxy, Null Object, named constant, or test solely to satisfy a convention unless an explicit normative rule in this Constitution requires that element or form. For elements not expressly required by this Constitution, a structural rule applies only after the element it governs is independently necessary. When `monozukuri` applies, use its Necessity Gate for implementation choices not prescribed by this Constitution. Otherwise, an added element MUST have an evidenced reachable trigger or current use and a required outcome in the current task.
 
-## Article 2: Names
+## Article 2: Names and Module Terms
 
 ### Section 2.1: Specific names
 
@@ -157,6 +157,26 @@ interface AccountRepository {
 }
 ```
 
+### Section 2.7: Module terms
+
+A **vertical module** is a code boundary for one cohesive feature or capability. It owns its feature-specific application rules, authoritative state, data handling, and domain-specific adapters.
+
+A module's **public space** is its declared consumer-facing entry point and the Contract interfaces and DTO classes it exposes.
+
+A module's **private space** is its implementation files and symbols that are not part of its public space.
+
+A **composition entry point** is a module-owned, composition-only entry point that provides a factory for the composition root without exposing implementation details to ordinary consumers.
+
+A **module factory** is the composition-only function that constructs a module implementation and returns its public Contract interface or interfaces.
+
+A **composition root** is the system boundary that constructs modules and connects their Contracts.
+
+A **workflow module** is a vertical module that coordinates a workflow across multiple capability modules through their Contracts.
+
+A **shared infrastructure module** provides generic technical behaviour independent of a feature's rules, state, or domain-specific adapters.
+
+A **boundary module** is a vertical module or a shared infrastructure module consumed by another module.
+
 ## Article 3: Function Bodies
 
 ### Section 3.1: Necessary control flow
@@ -251,7 +271,7 @@ function move(
 
 ### Section 4.1: Necessary composition
 
-Inheritance MUST NOT be used. Use a direct function, value, or object unless an independently necessary collaborator or Contract better represents current ownership or an applicable contract. A Contract or collaborator MUST NOT be introduced solely for one known implementation, a theoretical replacement, or a structural convention.
+Inheritance MUST NOT be used. Use a direct function, value, or object unless an independently necessary collaborator or Contract better represents current ownership or an applicable contract. Except where a Contract is required at a module boundary under Sections 4.6 or 5.7, a Contract or collaborator MUST NOT be introduced solely for one known implementation, a theoretical replacement, or a structural convention.
 
 ### Section 4.2: Structured data
 
@@ -269,11 +289,35 @@ Magic strings, repeated string literals, and magic numbers MUST NOT be used. The
 
 Classes MUST NOT declare static fields, static methods, or static initialisation blocks. Shared behaviour MUST use a module-level function or value unless an independently necessary collaborator is required.
 
+### Section 4.5: Vertical module ownership
+
+1. Each cohesive feature or capability that owns application rules or authoritative state MUST have one vertical module as its owner.
+2. A vertical module MUST keep the feature-specific behaviour, data handling, and domain-specific adapters for its capability within its private space. Technical layers MAY organise files inside the private space but MUST NOT split one capability across system-wide horizontal modules.
+3. A helper MUST NOT be promoted to a vertical module solely to satisfy a structural convention. A single-use helper MAY remain a private function, value, or object within its owning module.
+4. A shared infrastructure module MUST provide generic technical behaviour currently used by multiple vertical modules. It MUST NOT own feature-specific policy, authoritative feature state, or domain-specific adapters.
+5. A vertical module MAY depend on shared infrastructure. Shared infrastructure MUST NOT depend on a vertical module.
+
+### Section 4.6: Module public and private spaces
+
+1. Each vertical module MUST have a public entry point that exposes its public Contract interface or interfaces and only the minimum named data types required by their signatures. A shared infrastructure module consumed by another module MUST have a public entry point with the same export restrictions. Any DTO used at the boundary MUST comply with Section 5.4.
+2. Production code in another module MUST access a boundary module only through its public entry point. It MUST NOT import that module's private files or symbols through deep paths.
+3. Inter-module behaviour MUST be expressed through public Contract interfaces. Consumers MUST NOT depend on a Concrete implementation.
+4. A module's public behavioural API MUST NOT expose its operations as collections of free functions. Public operations MUST be methods of its Contract interface or interfaces.
+
+### Section 4.7: Module composition and dependency direction
+
+1. Each vertical module and each shared infrastructure module consumed by another module MUST provide one composition entry point containing one module factory. The factory MUST construct the module's private implementation and return an object typed by the module's public Contract interface or interfaces.
+2. A module factory MUST receive each dependency on another module through that module's public Contract interface.
+3. Production code outside the composition root MUST NOT import a module's composition entry point. The composition root MUST use module factories to construct modules and connect their Contracts.
+4. The composition root MUST NOT own feature rules or workflow behaviour.
+5. The module dependency graph MUST be acyclic. A workflow module MUST depend on the capability Contracts it coordinates, and capability modules MUST NOT depend on a workflow module.
+6. Cross-capability workflows MUST be owned by workflow modules, not by the composition root.
+
 ## Article 5: Contracts and DTOs
 
 ### Section 5.1: Classification
 
-This classification applies only after an interface, DTO, or class is independently necessary under Article 1. Every interface MUST be classified as a `Contract`. Every DTO MUST be a class. Every class MUST be classified as either a `Contract` or a `DTO`; there is no third classification.
+This classification applies after an interface, DTO, or class is independently necessary under Article 1 or explicitly required by a module-boundary rule. Every interface MUST be classified as a `Contract`. Every DTO MUST be a class. Every class MUST be classified as either a `Contract` or a `DTO`; there is no third classification.
 
 A `Contract` is a first-class description of behaviour. A DTO carries data in private instance state.
 
@@ -404,6 +448,14 @@ The current implementation held by a Stable Proxy is its delegate.
 
 This role arrangement protects retained Stable Proxy references from stale delegate behaviour. It cannot repair a reference to a Concrete implementation that escaped its ownership boundary.
 
+### Section 5.7: Vertical module Contracts
+
+1. Every vertical module MUST expose one primary behavioural Contract as a TypeScript interface. A shared infrastructure module consumed by another module MUST expose a Contract interface.
+2. A vertical module MAY expose additional Contract interfaces only when distinct consumer capabilities independently require them.
+3. A module's public entry point MUST NOT export Concrete implementations or helpers. It MAY export DTO classes or other named data types only when they are required by public Contract signatures.
+4. Contract methods MUST describe the module's capability in domain terms. They MUST NOT mirror transport or persistence details or expose generic CRUD solely as a technical convenience. CRUD operations MAY appear when they are genuine domain operations.
+5. A change to a module Contract MUST update all affected consumers in the same coherent change. A module MUST NOT retain compatibility behaviour solely for hypothetical future consumers.
+
 ## Article 6: Nullability and Strict Typing
 
 ### Section 6.1: Domain nullability
@@ -459,4 +511,8 @@ Selectors without a `js-` prefix MUST NOT be used as query selectors in TypeScri
 ### Section 8.1: Enforcement
 
 Code reviews MUST treat every MUST and MUST NOT rule as binding. A reviewer MAY request a refactor when names, structure, types, or method bodies technically compile but violate the constitutional intent.
+
+Where project tooling can enforce production module-import boundaries, the project MUST configure it to reject production imports from another module's private space and composition entry point outside the composition root. If no available tooling can enforce a boundary, code review MUST enforce it. The absence of an automated check MUST NOT make a module-boundary violation permissible.
+
+Tests that exercise a module as a consumer MUST use its public Contract and MUST NOT import its private implementation. Tests owned by a module MAY exercise its private implementation, but private symbols MUST NOT be exported solely for testing.
 
