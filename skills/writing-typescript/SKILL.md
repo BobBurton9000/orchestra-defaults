@@ -115,7 +115,7 @@ A command changes state, performs input/output, or triggers an effect. A command
 
 `set` is a valid command verb, but it is not the only permitted command verb. Commands MAY return `void`, `this`, or an operation result. The return type does not determine whether a function is a query or a command.
 
-Persistent state-transition methods that return a new instance without mutating the receiver MUST use the `with<Property>` naming form, where `<Property>` identifies the changed state property. They MUST declare an explicit return type that accurately describes the new instance. The return type MAY be `this` when the method preserves the receiver's subtype. These methods MUST leave the receiver unchanged and are commands despite the `with` prefix.
+Persistent state-transition methods that return a new instance without mutating the receiver are an explicit exception to the imperative-verb naming rule. They MUST use the `with<Property>` naming form, where `<Property>` identifies the changed state property. They MUST declare an explicit return type that accurately describes the new instance. The return type MAY be `this` when the method preserves the receiver's subtype. These methods MUST leave the receiver unchanged and are commands despite the `with` prefix.
 
 **Good**
 
@@ -211,7 +211,7 @@ Function bodies MUST NOT contain empty lines. This is a constitutional structura
 
 Function bodies MUST communicate intent through direct names and structure. Inline comments MUST NOT appear in function bodies. A named function or variable MUST NOT be extracted merely to narrate a direct one-line expression. Extract it only when it removes real ambiguity or repetition.
 
-A compound Boolean expression combines two or more Boolean terms with `&&` or `||`. A compound Boolean expression MUST NOT be used directly as the condition of a branch, loop, or conditional expression. It MUST first be assigned to a local `const` with a question-shaped predicate name that states the complete decision. The branch, loop, or conditional expression MUST use that name as its condition. This naming requirement applies even when the original expression is already clear.
+A compound Boolean expression combines two or more Boolean terms with `&&` or `||`. A compound Boolean expression MUST NOT be used directly as the condition of a branch, loop, or conditional expression. It MUST first be assigned to a local `const` with a question-shaped predicate name that states the complete decision. The branch, loop, or conditional expression MUST use that name as its condition. This naming requirement applies even when the original expression is already clear. For a loop condition, the `const` MUST be evaluated once per iteration, preserving the original evaluation order, short-circuiting, and evaluation frequency. When necessary, rewrite the loop so the condition is computed at the start of each iteration and a guard exits when it is false.
 
 **Invalid example:** The compound Boolean condition is used directly in the branch instead of a named question-shaped predicate.
 
@@ -227,6 +227,18 @@ if (isOrderPaid && hasAvailableStock) {
 const canDispatchOrder = isOrderPaid && hasAvailableStock;
 if (canDispatchOrder) {
     dispatchOrder();
+}
+```
+
+For a loop whose compound condition must be reevaluated on every iteration, compute the named predicate inside the loop and exit through a guard:
+
+```ts
+while (true) {
+    const shouldContinue = hasNext() && isValid();
+    if (!shouldContinue) {
+        break;
+    }
+    processNext();
 }
 ```
 
@@ -277,7 +289,7 @@ Inheritance MUST NOT be used. Use a direct function, value, or object unless an 
 
 Arrays MAY represent homogeneous collections. Arrays MUST NOT be used as implicit records or positional DTOs.
 
-Multi-dimensional arrays SHOULD NOT model named domain data. A class, interface, or other named structure MUST be used when the positions have distinct meaning.
+Multi-dimensional arrays SHOULD NOT model named domain data. A DTO class MUST be used when the positions have distinct meaning.
 
 Array destructuring MUST NOT be used in variable initialisers or assignment expressions. Code MUST use explicitly named variables with indexed access or a named query instead. This rule does not prohibit array literals, indexed reads, or `for...of` entry bindings.
 
@@ -317,9 +329,9 @@ Classes MUST NOT declare static fields, static methods, or static initialisation
 
 ### Section 5.1: Classification
 
-This classification applies after an interface, DTO, or class is independently necessary under Article 1 or explicitly required by a module-boundary rule. Every interface MUST be classified as a `Contract`. Every DTO MUST be a class. Every class MUST be classified as either a `Contract` or a `DTO`; there is no third classification.
+This classification applies after an interface, DTO, or class is independently necessary under Article 1 or explicitly required by a module-boundary rule. Every interface MUST be classified as a `Contract`. Every DTO MUST be a class. Every class MUST be classified as either a `DTO` or a `Concrete` implementation; there is no third class classification. A class that provides active behaviour for a Contract MUST be classified as a `Concrete` implementation, not as a `Contract`.
 
-A `Contract` is a first-class description of behaviour. A DTO carries data in private instance state.
+A `Contract` is a first-class description of behaviour represented by an interface. A DTO carries data in private instance state.
 
 ### Section 5.2: Contract interfaces
 
@@ -327,9 +339,9 @@ Contract interfaces MAY declare method signatures. Their methods are public by d
 
 Property and parameter type annotations MUST NOT use intersection types. A combined Contract requirement MUST be represented by a named Contract interface that extends its required Contracts. This restriction does not apply to return or local-variable type annotations.
 
-### Section 5.3: Contract classes
+### Section 5.3: Concrete implementation classes
 
-Contract classes MAY declare public methods and commands. Their instance properties MUST be private. They MUST expose state through ordinary public methods when access is required, not public properties or JavaScript getter/setter syntax. Contract classes MAY mutate their private state when the mutation is part of their Contract, but they MUST NOT take ownership of rules that belong to another boundary.
+Concrete implementation classes MAY declare public methods and commands. Their instance properties MUST be private. They MUST expose state through ordinary public methods when access is required, not public properties or JavaScript getter/setter syntax. Concrete implementation classes MAY mutate their private state when the mutation is part of the implemented Contract, but they MUST NOT take ownership of rules that belong to another boundary.
 
 **Invalid example:** Constructor parameter properties are prohibited, and class instance properties must be private.
 
@@ -484,7 +496,7 @@ Types MUST be explicit and narrow. Invalid states MUST be represented by a failu
 
 ### Section 7.1: Selector separation
 
-JavaScript selectors and CSS classes MUST remain separate concerns.
+JavaScript behaviour hooks and CSS styling classes MUST remain separate concerns.
 
 **Invalid example:** TypeScript MUST NOT query a styling class; behaviour selectors must use the `js-` prefix.
 
@@ -502,9 +514,7 @@ const customerInput = document.querySelector(customerInputBehaviourSelector);
 
 ### Section 7.2: Behaviour selectors
 
-Selectors prefixed with `js-` MUST NOT have CSS style rules. They exist only for behaviour selection.
-
-Selectors without a `js-` prefix MUST NOT be used as query selectors in TypeScript. Styling classes MUST NOT be used as JavaScript dependencies.
+Every query selector used by TypeScript MUST select elements through a class whose name starts with `js-`. A selector MAY also include an ID, attribute, element name, or other selector component, but it MUST include a `js-` behaviour class as its hook. The `js-` behaviour class MUST NOT have CSS style rules. Styling classes MUST NOT be used as JavaScript dependencies.
 
 ## Article 8: Constitutional Maintenance
 
