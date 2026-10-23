@@ -22,7 +22,7 @@ The rules apply when writing, modifying, or reviewing TypeScript code. The examp
 
 These rules MUST be applied according to their stated intent, not bypassed by changing a name while retaining the same unclear design. Convenience alone is not a sufficient reason to depart from a MUST or MUST NOT rule.
 
-An explicit normative rule in this Constitution MUST NOT be waived by the Necessity Gate. This Constitution MUST NOT require a conditional, class, interface, DTO, Contract, collaborator, proxy, Null Object, named constant, or test solely to satisfy a convention unless an explicit normative rule in this Constitution requires that element or form. For elements not expressly required by this Constitution, a structural rule applies only after the element it governs is independently necessary. When `monozukuri` applies, use its Necessity Gate for implementation choices not prescribed by this Constitution. Otherwise, an added element MUST have an evidenced reachable trigger or current use and a required outcome in the current task.
+An explicit normative rule in this Constitution MUST NOT be waived by the Necessity Gate. This Constitution MUST NOT require a conditional, class, interface, DTO, Contract, collaborator, proxy, Null Object, named constant, or test solely to satisfy a convention unless an explicit normative rule in this Constitution requires that element or form. For any implementation choice not expressly required by this Constitution, an added element MUST have evidence of a likely trigger or current use, a required observable outcome, and a bounded place in the current task. This is the Necessity Gate and applies whether or not another skill is loaded.
 
 ## Article 2: Names and Module Terms
 
@@ -76,7 +76,7 @@ Predicate prefixes such as `is`, `has`, `can`, and `should` are question forms w
 
 ### Section 2.3: Queries
 
-A query produces a value or predicate. A query MAY update private instance state or lazily initialise a collaborator within the instance's owning composition or lifecycle boundary when that work is required to produce the returned value. A query MUST NOT mutate authoritative application state, enforce application rules, or allow a Concrete delegate to escape its owning boundary.
+A query produces a value or predicate. A query MAY update private instance state or lazily initialise a collaborator within the instance's owning composition or lifecycle boundary solely for memoization or lazy setup required to produce the returned value. Such internal initialisation does not by itself make the query a command. A query MUST NOT mutate authoritative application state, enforce application rules, or allow a Concrete delegate to escape its owning boundary.
 
 Query methods MUST use nouns, noun phrases, question-shaped predicates, or `<value>From<source>` constructions. Query methods MUST NOT use command verbs or the accessor prefix `get`.
 
@@ -111,7 +111,7 @@ private cameraViewport(): CameraViewport {
 
 ### Section 2.4: Commands
 
-A command changes state, performs input/output, or triggers an effect. A command MUST use an imperative verb that describes its effect.
+A command changes state, performs input/output, or triggers an effect, except for private-state memoisation or lazy initialisation permitted for a query under Section 2.3. A command MUST use an imperative verb that describes its effect.
 
 `set` is a valid command verb, but it is not the only permitted command verb. Commands MAY return `void`, `this`, or an operation result. The return type does not determine whether a function is a query or a command.
 
@@ -211,7 +211,7 @@ Function bodies MUST NOT contain empty lines. This is a constitutional structura
 
 Function bodies MUST communicate intent through direct names and structure. Inline comments MUST NOT appear in function bodies. A named function or variable MUST NOT be extracted merely to narrate a direct one-line expression. Extract it only when it removes real ambiguity or repetition.
 
-A compound Boolean expression combines two or more Boolean terms with `&&` or `||`. A compound Boolean expression MUST NOT be used directly as the condition of a branch, loop, or conditional expression. It MUST first be assigned to a local `const` with a question-shaped predicate name that states the complete decision. The branch, loop, or conditional expression MUST use that name as its condition. This naming requirement applies even when the original expression is already clear. For a loop condition, the `const` MUST be evaluated once per iteration, preserving the original evaluation order, short-circuiting, and evaluation frequency. When necessary, rewrite the loop so the condition is computed at the start of each iteration and a guard exits when it is false.
+A compound Boolean expression combines two or more Boolean terms with `&&` or `||`. A compound Boolean expression MUST NOT be used directly as the condition of a branch, loop, or conditional expression, except as permitted for loop conditions below. It MUST first be assigned to a local `const` with a question-shaped predicate name that states the complete decision. The branch, loop, or conditional expression MUST use that name as its condition. This naming requirement applies even when the original expression is already clear. A loop rewrite that introduces a named predicate MUST evaluate it once each time the original condition would be evaluated, preserving evaluation order, short-circuiting, frequency, and position relative to the loop body and increment. The rewrite MUST preserve `continue` behavior and all other loop semantics. If a local `const` cannot be introduced at the original condition-evaluation point without changing loop semantics, the compound expression MAY remain directly in that loop condition.
 
 **Invalid example:** The compound Boolean condition is used directly in the branch instead of a named question-shaped predicate.
 
@@ -283,7 +283,7 @@ function move(
 
 ### Section 4.1: Necessary composition
 
-Inheritance MUST NOT be used. Use a direct function, value, or object unless an independently necessary collaborator or Contract better represents current ownership or an applicable contract. Except where a Contract is required at a module boundary under Sections 4.6 or 5.7, a Contract or collaborator MUST NOT be introduced solely for one known implementation, a theoretical replacement, or a structural convention.
+Class inheritance MUST NOT be used. Interface extension MAY be used to compose Contracts as required by Section 5.2. Use a direct function, value, or object unless an independently necessary collaborator or Contract better represents current ownership or an applicable contract. Except where a Contract is required at a module boundary under Sections 4.6 or 5.7, a Contract or collaborator MUST NOT be introduced solely for one known implementation, a theoretical replacement, or a structural convention.
 
 ### Section 4.2: Structured data
 
@@ -318,7 +318,7 @@ Classes MUST NOT declare static fields, static methods, or static initialisation
 
 ### Section 4.7: Module composition and dependency direction
 
-1. Each vertical module and each shared infrastructure module consumed by another module MUST provide one composition entry point containing one module factory. The factory MUST construct the module's private implementation and return an object typed by the module's public Contract interface or interfaces.
+1. Each vertical module and each shared infrastructure module consumed by another module MUST provide one composition entry point containing one module factory. The factory MUST construct the module's private implementation and return an object typed by its primary public Contract when it exposes one Contract. When it exposes multiple public Contracts, the factory MUST return an object typed by a named composition-only interface that extends those Contracts. The composition-only interface MUST be available only through the composition entry point; consumers MUST depend on the specific public Contract or Contracts they require.
 2. A module factory MUST receive each dependency on another module through that module's public Contract interface.
 3. Production code outside the composition root MUST NOT import a module's composition entry point. The composition root MUST use module factories to construct modules and connect their Contracts.
 4. The composition root MUST NOT own feature rules or workflow behaviour.
@@ -329,7 +329,7 @@ Classes MUST NOT declare static fields, static methods, or static initialisation
 
 ### Section 5.1: Classification
 
-This classification applies after an interface, DTO, or class is independently necessary under Article 1 or explicitly required by a module-boundary rule. Every interface MUST be classified as a `Contract`. Every DTO MUST be a class. Every class MUST be classified as either a `DTO` or a `Concrete` implementation; there is no third class classification. A class that provides active behaviour for a Contract MUST be classified as a `Concrete` implementation, not as a `Contract`.
+This classification applies after an interface, DTO, or class is independently necessary under Article 1 or explicitly required by a module-boundary rule. Every interface MUST be classified as a `Contract`. Every DTO MUST be a class. Every class MUST be classified as either a `DTO` or a `Concrete` implementation; there is no third class classification. A `Concrete` implementation is a non-DTO class that provides active behaviour; it need not implement a Contract unless it is used as a Contract implementation. A class that provides active behaviour for a Contract MUST be classified as a `Concrete` implementation, not as a `Contract`.
 
 A `Contract` is a first-class description of behaviour represented by an interface. A DTO carries data in private instance state.
 
@@ -441,7 +441,7 @@ This arrangement applies only when an actual replacement, expected absence, or s
 
 A replaceable collaborator is a Contract-backed object whose implementation may change while its consumers retain references.
 
-A Concrete implementation provides active behaviour for a Contract.
+A Concrete implementation is a non-DTO class that provides active behaviour. When it implements a Contract, it provides active behaviour for that Contract.
 
 A Stable Proxy is a Contract implementation whose identity remains stable while it delegates operations to a current implementation.
 
