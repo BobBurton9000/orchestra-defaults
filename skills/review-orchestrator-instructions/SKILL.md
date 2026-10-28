@@ -27,7 +27,8 @@ The skill does not author fixes, run tests on behalf of reviewers, alter Git sta
 - `Constitution reviewer` means an applicable reviewer whose logical name contains the case-insensitive substring `constitution`.
 - `Bug reviewer` means an applicable reviewer whose logical name contains the case-insensitive substring `bug`, unless it is already classified as a constitution reviewer.
 - `Other reviewer` means an applicable reviewer matching neither higher-priority tier.
-- `Review phase` means one tier of reviewer assignments processed in priority order.
+- `Reviewer tier` means one of three priority groups: constitution, bug, or other, in that order.
+- `Review phase` means processing one reviewer tier within one review batch.
 - `Incomplete review` means at least one changed unit or required reviewer result is unavailable, failed, or not accounted for.
 
 Higher-priority system, developer, and user instructions take precedence over this skill.
@@ -134,7 +135,11 @@ The orchestrator MUST create one independent delegation for every `(review batch
 
 Subagents do not share the orchestrator's conversation. Every delegation MUST be self-contained. Reviewers MUST be instructed not to modify source, tests, Git state, or pull requests.
 
-The orchestrator MUST process reviewer assignments in three sequential phases across all batches: constitution reviewers, then bug reviewers, then other reviewers. Within each phase, it MUST dispatch as many queued assignments as available capacity permits, up to 10 active reviewer subagents globally. As slots become available, it MUST dispatch the next assignment from the current phase. It MUST NOT dispatch a lower-priority phase while any assignment in a higher-priority phase is pending, active, or undergoing its permitted retry. An assignment reaches a terminal state when it returns a usable result or when a failure or unusable result remains after any retry. The orchestrator MUST proceed to the next non-empty phase only after every assignment in the current phase reaches a terminal state; terminal failures MUST be recorded and MUST NOT prevent later phases from running. It MUST wait for every dispatched task to finish before writing the final report.
+The orchestrator MUST process the three reviewer tiers in priority order independently for each review batch: constitution reviewers, then bug reviewers, then other reviewers. Within a batch, assignments in a later non-empty tier MUST remain blocked until every assignment in all earlier non-empty tiers for that batch reaches a terminal state. A tier with no applicable assignments MUST be skipped immediately. A batch with no applicable reviewers MUST be reported as uncovered under the existing coverage rules.
+
+Across batches, the orchestrator MUST dispatch eligible queued assignments as soon as capacity permits, up to 10 active reviewer subagents globally. This limit includes retries in progress. At each dispatch opportunity, it MUST select an assignment from the highest-priority tier that currently has eligible queued work; ties MUST be broken by ascending batch ID and then reviewer logical name. It MUST continue dispatching until all 10 slots are occupied or no eligible queued assignment remains. A lower-priority assignment MAY be dispatched while higher-priority assignments in other batches are pending, active, or undergoing retries, provided its own batch's earlier tiers have reached a terminal state. A blocked assignment MUST NOT hold a slot or prevent other eligible work from being dispatched.
+
+An assignment reaches a terminal state when it returns a usable result or when a failure or unusable result remains after any permitted retry. While a retry is in progress, the assignment remains in its tier and is not terminal. Terminal failures MUST be recorded and MUST NOT prevent later tiers in that batch from running. The orchestrator MUST wait for every dispatched task to finish before writing the final report.
 
 The orchestrator MAY retry a failed or unusable delegation once, using a complete replacement prompt. It MUST NOT retry a task more than once. If the retry fails or the reviewer returns no usable result, record the exact missing result and mark coverage incomplete.
 
@@ -159,7 +164,7 @@ The Markdown report MUST include these sections:
 1. `Review status` — `Complete`, `Incomplete`, `Not performed`, or `No changes to review`.
 2. `Review source` — repository, Base ref and commit, merge-base, `HEAD` commit, branch identity, and committed-only boundary.
 3. `Batch coverage` — each batch, language, paths, hunks/line ranges, changed-line totals, and uncovered or non-reviewable changes.
-4. `Reviewer coverage` — each applicable reviewer per batch, its priority tier and phase dispatch/retry/result state, and each excluded candidate with its reason.
+4. `Reviewer coverage` — each batch's ordered tier progression, including tiers skipped because they had no applicable assignments; each applicable reviewer per batch, its priority tier and dispatch/retry/result state; and each excluded candidate with its reason.
 5. `Consolidated findings` — deduplicated findings with reviewer attribution, location, evidence, impact, severity/classification as supplied, and bounded recommendation. The orchestrator MUST write `None` when no finding was reported.
 6. `Conflicts and uncertainty` — disagreements, unavailable evidence, and unresolved questions, or `None`.
 7. `Follow-up work` — important non-blocking work, or `None`.
