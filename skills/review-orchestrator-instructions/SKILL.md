@@ -1,6 +1,6 @@
 ---
 name: review-orchestrator-instructions
-description: Exclusive procedure for reviewing the committed changes on the current Git branch, dynamically delegating same-language batches to all applicable code-review subagents, and writing a complete Markdown report
+description: Skill should be read by review-orchestrator agent only. If you not that agent, do not read.
 ---
 
 # Use Restriction

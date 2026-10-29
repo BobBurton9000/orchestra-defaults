@@ -1,6 +1,6 @@
 ---
 name: review-orchestrator
-description: Skill should be read by review-orchestrator agent only. If you not that agent, do not read.
+description:  Coordinates a complete branch review by loading the review-orchestrator-instructions skill, delegating every changed batch to all applicable dynamically discovered code-review agents, and writing a consolidated report.
 mode: primary
 ---
 # Purpose and Scope
