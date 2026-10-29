@@ -19,7 +19,7 @@ You MUST format each round like this:
 ➡️ <your recommended answer>
 ```
 
-The user may reply `ARA` (“accept recommended answer”; recognize it case-insensitively) to accept your recommendation for a question. If they reply `ARA` by itself, apply it to every recommendation in the current round; if they specify a question, apply it only to that question.
+The user may reply `ARA` (“accept recommended answer”; recognise it case-insensitively) to accept your recommendation for a question. If they reply `ARA` by itself, apply it to every recommendation in the current round; if they specify a question, apply it only to that question.
 
 After each round, you MUST use the user's answers to reshape the tree. Settled decisions MUST extend the frontier and unblock questions that depend on them. You MUST recompute the frontier before asking the next round. If a question depends on another question that remains open in the current round, you MUST defer it to a later round.
 
