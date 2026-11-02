@@ -182,6 +182,8 @@ An **owner-facing lifecycle operation** is an operation available only to the de
 
 A **shared infrastructure module** provides generic technical behaviour independent of a feature's rules, state, or domain-specific adapters.
 
+A **cohesive implementation responsibility** is a bounded group of related operations within one module that share a purpose and are used together or rely on shared invariants or private helpers.
+
 A **boundary module** is a vertical module or a shared infrastructure module consumed by another module.
 
 A **designated lifecycle owner** for a Stable Proxy is the single module or composition root assigned through composition to invoke its final shutdown and any replacement or cleanup-retry operations it supports. An **external lifecycle owner** is a designated owner outside the provider module, including the composition root whether or not it is a separate module. The designated lifecycle owner invokes owner-control operations; the lifecycle owner assigned to an individual resource is accountable for its release. These roles MAY be held by different components.
@@ -292,9 +294,15 @@ function move(
 
 ## Article 4: Composition and Data Structures
 
-### Section 4.1: Necessary composition
+### Section 4.1: Class-based behaviour ownership
 
-Class inheritance MUST NOT be used. Interface extension MAY be used to compose Contracts as required by Section 5.2. Use a direct function, value, or object unless an independently necessary collaborator or Contract better represents current ownership or an applicable contract. Except where a Contract is required at a module boundary under Sections 4.6 or 5.7, a Contract or collaborator MUST NOT be introduced solely for one known implementation, a theoretical replacement, or a structural convention.
+Class inheritance MUST NOT be used. Interface extension MAY be used to compose Contracts as required by Section 5.2.
+
+Operations that implement one cohesive implementation responsibility SHOULD be instance methods of a Concrete class that owns that responsibility. Supporting routines used only by that class SHOULD be private methods, and state required across its methods MUST be private instance state. A Concrete class MAY be stateless when it provides a cohesive behaviour boundary.
+
+A set of related operations that shares private helpers or invariants SHOULD NOT remain as module-level functions when a Concrete class provides a clearer owner. Module-level functions MAY remain for module factories, framework-required functions or callbacks, and focused standalone algorithms that have no meaningful shared behaviour owner. A class MUST NOT be added solely to wrap one direct expression or one focused operation.
+
+Except where a Contract is required at a module boundary under Sections 4.6 or 5.7, a Contract or collaborator MUST NOT be introduced solely for one known implementation, a theoretical replacement, or a structural convention.
 
 ### Section 4.2: Structured data
 
@@ -308,7 +316,7 @@ A magic string or magic number is a literal value that encodes a domain rule, co
 
 ### Section 4.4: Static class members
 
-Classes MUST NOT declare static fields, static methods, or static initialisation blocks. Shared behaviour MUST use a module-level function or value unless an independently necessary collaborator is required.
+Classes MUST NOT declare static fields, static methods, or static initialisation blocks. Shared behaviour SHOULD be owned by a Concrete instance class when it belongs to a cohesive implementation responsibility under Section 4.1. A module-level function or value MAY be used when the behaviour has no meaningful shared owner.
 
 ### Section 4.5: Vertical module ownership
 
@@ -486,6 +494,10 @@ This role arrangement protects retained Stable Proxy references from stale deleg
 4. Contract methods MUST describe the module's capability in domain terms. They MUST NOT mirror transport or persistence details or expose generic CRUD solely as a technical convenience. CRUD operations MAY appear when they are genuine domain operations.
 5. A change to a module Contract MUST update all affected consumers in the same coherent change. A module MUST NOT retain compatibility behaviour solely for hypothetical future consumers.
 
+### Section 5.8: Class and interface file boundaries
+
+Each project-authored TypeScript source file MUST declare no more than one class or interface declaration in total. This requirement does not restrict the number of type aliases, functions, values, imports, or exports in a file. Public module entry points SHOULD re-export class and interface declarations from their individual files rather than define multiple declarations inline.
+
 ## Article 6: Nullability and Strict Typing
 
 ### Section 6.1: Domain nullability
@@ -538,9 +550,8 @@ Every query selector used by TypeScript MUST select elements through a class who
 
 ### Section 8.1: Enforcement
 
-Code reviews MUST treat every MUST and MUST NOT rule as binding. A reviewer MAY request a refactor when names, structure, types, or method bodies technically compile but violate the constitutional intent.
+Code reviews MUST treat every MUST and MUST NOT rule as binding. ESLint configuration for project-authored TypeScript MUST enable `bob-style/one-declaration-per-file` for application code, tests, and TypeScript configuration files to enforce Section 5.8. That rule limits class and interface declarations only; it does not require every declaration kind to have a separate file. A reviewer MAY request a refactor when names, structure, types, or method bodies technically compile but violate the constitutional intent.
 
 Where project tooling can enforce production module-import boundaries, the project MUST configure it to reject production imports from another module's private space and composition entry point outside the composition root. If no available tooling can enforce a boundary, code review MUST enforce it. The absence of an automated check MUST NOT make a module-boundary violation permissible.
 
 A composition or integration test that exercises module assembly MAY import composition entry points to test the composition root; it MUST NOT import another module's private implementation. A test is owned by the single module whose private implementation it is designated to exercise. A test owned by a module MAY exercise that module's private implementation, but MUST NOT import another module's private implementation. Whenever a test exercises any other module as a consumer, it MUST use that module's public Contract and MUST NOT import its private implementation. Private symbols MUST NOT be exported solely for testing.
-
