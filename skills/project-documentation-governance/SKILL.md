@@ -123,19 +123,19 @@ Inspect repository ignore/build configuration to identify additional generated o
 
 - Identify missing required documents, unsupported claims, conflicts, duplicate descriptions, broken links, and documentation made obsolete by the requested change.
 - For an existing noncanonical layout, do not create duplicate documents or silently rename files. Propose a migration to the canonical paths, describe the reference updates, and obtain approval before destructive moves.
-- When product intent, a governing rule, or an architectural decision is missing or ambiguous, ask the user. Do not infer approval from code, tests, convention, or an explicit task that conflicts with current approved documentation.
+- When product intent, a governing rule, or an architectural decision is missing or ambiguous, the assistant MUST ask the user. Code, tests, and convention MUST NOT establish approval for a product or engineering decision. A clear, explicit user request MAY authorise a change that conflicts with current approved documentation; when the requested outcome or the affected decision remains ambiguous, the assistant MUST ask the user before changing it.
 - Never leave unresolved placeholders or guesses in approved canonical documents. If an unknown does not block the task, omit the unsupported claim and report the gap; if it blocks the work, pause for the user's answer.
 
-### 3. Propose governing-document changes before code
+### 3. Keep governing documents aligned with implementation
 
-For a code task that needs a new or changed product behaviour, engineering invariant, security rule, or architectural decision:
+For a code task that changes product behaviour, an engineering invariant, security, or architecture:
 
-1. Make a doc-only proposal in the worktree, limited to the relevant canonical docs and necessary stale-content/reference cleanup.
-2. Show the changed paths and diff, explain the decision being requested, and wait for explicit user approval.
-3. Do not implement code that depends on the proposal until the user approves it. If the request conflicts with existing docs, ask whether the user intentionally approves changing the governing decision; do not assume the task text alone overrides it.
-4. If the user rejects the proposal or the decision remains unresolved, do not proceed with dependent implementation.
+1. The assistant MUST identify the affected governing documents and determine whether the user has clearly authorised the requested decision before changing the implementation.
+2. When the user explicitly authorises a behaviour or decision that differs from current approved documentation, the assistant MUST implement the requested change and update the affected canonical documents in the same work. The assistant MUST NOT require a separate doc-only proposal or pre-implementation documentation approval.
+3. When the task does not clearly authorise the conflicting behaviour, or a material decision remains ambiguous, the assistant MUST ask a focused question before changing code or governing documents. The assistant MUST NOT implement dependent code until the user resolves the ambiguity.
+4. The assistant MUST include necessary stale-content and reference cleanup with the governing-document updates.
 
-A direct doc-only request authorises its requested non-destructive documentation edits; it does not need a second approval. Obtain explicit approval before deleting a whole documentation file or migrating its path. Replacing stale sections or claims in an otherwise current document is ordinary maintenance when the governing change has been approved.
+A direct doc-only request authorises its requested non-destructive documentation edits; it does not need a second approval. The assistant MUST obtain explicit approval before deleting a whole documentation file or migrating its path. Replacing stale sections or claims in an otherwise current document is ordinary maintenance when the governing change is authorised.
 
 Verified descriptive facts, such as current package versions, module maps, test commands, and prerequisites, MAY be updated alongside or after implementation once evidence establishes them.
 
@@ -149,7 +149,7 @@ src/modules/<module>/README.md
 
 A clear exception is appropriate for a trivial module or infrastructure-only module with no meaningful product behaviour. Do not create empty guides merely to satisfy a directory rule. A guide explains the module's purpose and ownership, public capability/Contract, important behaviour and rules, boundaries/interactions, and relevant verification. Keep it subordinate to the Product Specification and Constitution; do not duplicate them.
 
-Update the module guide and code references alongside the implementation after governing documents are approved. A code change that alters module behaviour MUST leave its guide, public Contract, and relevant declaration links accurate.
+Update the module guide and code references alongside the implementation and any affected canonical-document changes. A code change that alters module behaviour MUST leave its guide, public Contract, and relevant declaration links accurate.
 
 For a documented module:
 
