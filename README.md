@@ -6,13 +6,13 @@ This repository is the source that ships preconfigured with Orchestra. It is als
 
 ## Contents
 
-The current package layout contains **26 installable packages**:
+The current package layout contains **27 installable packages**:
 
 | Type | Count | Location |
 | --- | ---: | --- |
 | Agents | 7 | [`agents/`](agents/) |
 | Prompts | 5 | [`prompts/`](prompts/) |
-| Skills | 14 | [`skills/`](skills/) |
+| Skills | 15 | [`skills/`](skills/) |
 
 ## Package Catalogue
 
@@ -61,6 +61,7 @@ Agents are markdown definitions with YAML frontmatter. One is a primary orchestr
 | [`how-to-write-engineering-constitutions`](skills/how-to-write-engineering-constitutions/) | Creates and revises durable engineering constitutions. |
 | [`github-cli`](skills/github-cli/) | Provides guidance for GitHub CLI work. |
 | [`playwright-cli-guide`](skills/playwright-cli-guide/) | Guides agents in installing Microsoft’s Playwright CLI and its bundled skill, then using the CLI for browser exploration and UI verification. |
+| [`project-documentation-governance`](skills/project-documentation-governance/) | Enforces current product and engineering documentation, including documentation alongside behavior-owning modules. |
 | [`monozukuri`](skills/monozukuri/) | Applies Monozukuri, Kaizen, and Jidoka to engineering work. |
 | [`normative-technical-writing`](skills/normative-technical-writing/) | Writes precise requirements using explicit normative language. |
 | [`orchestra`](skills/orchestra/) | Describes the repository-local Orchestra package and export workflow. |

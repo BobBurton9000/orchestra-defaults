@@ -68,6 +68,9 @@ packages:
   - name: playwright-cli-guide
     type: skill
     path: skills/playwright-cli-guide/
+  - name: project-documentation-governance
+    type: skill
+    path: skills/project-documentation-governance/
   - name: review-orchestrator-instructions
     type: skill
     path: skills/review-orchestrator-instructions/
