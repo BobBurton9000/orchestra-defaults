@@ -112,9 +112,9 @@ If the diff contains no textual or reviewable changes but contains binary or sub
 
 The orchestrator MUST resolve the roster at runtime. It MUST NOT maintain a static reviewer-name list.
 
-- The orchestrator MUST first query the runtime's current list of delegatable agents. It MUST select agents whose logical name matches `code-review.<specialty>` and whose mode is subagent/delegatable.
-- If the runtime does not expose a roster, the orchestrator MUST inspect only its configured agent-definition directories. It MUST match filenames `code-review.<specialty>.agent.md` and MUST require matching agent frontmatter/name where available. It MUST NOT treat arbitrary files in the reviewed source tree as available agents.
-- The `<specialty>` portion MUST be non-empty. The dedicated `review-orchestrator` primary and any other primary agent MUST NOT be treated as reviewers.
+- The orchestrator MUST first query the runtime's current list of delegatable agents. It MUST select agents whose logical name matches `code-review.<speciality>` and whose mode is subagent/delegatable.
+- If the runtime does not expose a roster, the orchestrator MUST inspect only its configured agent-definition directories. It MUST match filenames `code-review.<speciality>.agent.md` and MUST require matching agent frontmatter/name where available. It MUST NOT treat arbitrary files in the reviewed source tree as available agents.
+- The `<speciality>` portion MUST be non-empty. The dedicated `review-orchestrator` primary and any other primary agent MUST NOT be treated as reviewers.
 - The orchestrator MUST read each candidate's current description and remit before selecting it. A candidate is applicable unless its stated language/framework constraint excludes the batch or its explicit remit clearly excludes the change type. Uncertainty about applicability MUST favour dispatch, not omission.
 - The reviewer set MAY differ between batches. For every exclusion, the orchestrator MUST record the agent and a concise, evidence-based reason.
 - After determining applicability, the orchestrator MUST assign each reviewer to exactly one priority tier using its logical name: constitution reviewers first, then bug reviewers, then other reviewers. A name matching both `constitution` and `bug` MUST be assigned only to the constitution tier. Name matching MUST be case-insensitive and MUST use the logical name, not the description or remit.

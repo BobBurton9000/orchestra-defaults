@@ -1,13 +1,13 @@
 ---
 name: project-documentation-governance
-description: Enforces current, evidence-based product and engineering documentation before and alongside meaningful implementation work. Use for changes to product behavior, architecture, security, ownership, technology choices, testing strategy, vertical-module behavior, or project documentation; skip clearly mechanical changes with no such impact.
+description: Enforces current, evidence-based product and engineering documentation before and alongside meaningful implementation work. Use for changes to product behaviour, architecture, security, ownership, technology choices, testing strategy, vertical-module behaviour, or project documentation; skip clearly mechanical changes with no such impact.
 ---
 
 # Project Documentation Governance
 
 ## Purpose
 
-Keep project documentation aligned with current approved product intent and the actual engineering system. Use documentation as a decision gate for consequential work, maintain canonical documents as living current-state references, and place concise module guides beside behavior-owning code.
+Keep project documentation aligned with current approved product intent and the actual engineering system. Use documentation as a decision gate for consequential work, maintain canonical documents as living current-state references, and place concise module guides beside behaviour-owning code.
 
 This skill is self-contained. Do not require another writing skill, template package, or validator to apply it.
 
@@ -23,13 +23,13 @@ Distinguish rules from recommendations, verified facts, rationale, examples, and
 
 Apply this workflow to work that changes or creates:
 
-- Product scope, user-visible behavior, product rules, or user workflows.
+- Product scope, user-visible behaviour, product rules, or user workflows.
 - Engineering invariants, security, ownership, data boundaries, or architecture.
 - Technology choices, deployment configuration, or verification strategy.
-- Meaningful behavior owned by a vertical module with a public capability contract.
+- Meaningful behaviour owned by a vertical module with a public capability contract.
 - Project documentation itself.
 
-Do not run a full documentation gate for a clearly mechanical change that has no effect on product behavior, engineering decisions, module responsibility, or verification. If that impact is uncertain, inspect the relevant docs and code before deciding.
+Do not run a full documentation gate for a clearly mechanical change that has no effect on product behaviour, engineering decisions, module responsibility, or verification. If that impact is uncertain, inspect the relevant docs and code before deciding.
 
 ## Canonical document set and authority
 
@@ -55,33 +55,33 @@ The documents have distinct responsibilities:
 | Document | Current responsibility |
 |---|---|
 | `Constitution.md` | Durable engineering, ownership, security, data, and architectural invariants. |
-| `Specification.md` | Detailed, approved product behavior and observable requirements. |
-| `Vision.md` | Current approved product direction and outcomes where the Specification is not detailed. It is not a claim that every intended behavior is already implemented. |
+| `Specification.md` | Detailed, approved product behaviour and observable requirements. |
+| `Vision.md` | Current approved product direction and outcomes where the Specification is not detailed. It is not a claim that every intended behaviour is already implemented. |
 | `Architecture.md` | The actual system/module map, boundaries, ownership, and implementation conventions. |
 | `Tech_Stack.md` | Technology actually selected and configured, including versions when verifiable. |
 | `Testing_Strategy.md` | Current verification boundaries, commands, prerequisites, and evidence. |
 | ADRs | Current accepted rationale and consequences for material engineering decisions; they do not override the Constitution or approved product contract. |
 
-Project/system instructions and applicable security requirements remain higher authority. The Constitution governs engineering constraints. The Specification governs detailed product behavior within those constraints. The Vision guides product questions the Specification does not settle. Architecture, Tech Stack, Testing Strategy, and ADRs MUST remain consistent with those authorities.
+Project/system instructions and applicable security requirements remain higher authority. The Constitution governs engineering constraints. The Specification governs detailed product behaviour within those constraints. The Vision guides product questions the Specification does not settle. Architecture, Tech Stack, Testing Strategy, and ADRs MUST remain consistent with those authorities.
 
 Map changes to the documents they affect; do not edit every document mechanically:
 
 - Product direction, audience, or outcomes → Vision.
-- Product scope or behavior → Specification.
+- Product scope or behaviour → Specification.
 - Durable engineering invariants or ownership/security rules → Constitution.
 - Actual boundaries, modules, data flows, or implementation conventions → Architecture.
 - Technology/configuration choices → Tech Stack.
 - Verification commands, coverage boundaries, or prerequisites → Testing Strategy.
 - A material, durable technical choice → a current ADR.
-- Behavior owned by a vertical module → its module guide and code references, as well as any affected canonical documents above.
+- Behaviour owned by a vertical module → its module guide and code references, as well as any affected canonical documents above.
 
 Cross-check related documents and references even when only one needs substantive editing.
 
 ## Current-state and history policy
 
-All maintained project documentation MUST describe current approved intent or current verified system behavior. Product documents describe approved intent; engineering descriptions describe the actual system. If those disagree, report the discrepancy and ask whether the implementation must change or the approved product decision is changing. Do not silently make code the product authority or rewrite a specification to match code.
+All maintained project documentation MUST describe current approved intent or current verified system behaviour. Product documents describe approved intent; engineering descriptions describe the actual system. If those disagree, report the discrepancy and ask whether the implementation must change or the approved product decision is changing. Do not silently make code the product authority or rewrite a specification to match code.
 
-Documentation MUST NOT retain historical behavior, superseded decisions, obsolete alternatives, changelogs, decision timelines, status metadata, or links to prior decisions. Do not add `Status`, `Last updated`, version-history, or superseded-status fields to the templates. Git history is outside the documentation set and MUST NOT be rewritten.
+Documentation MUST NOT retain historical behaviour, superseded decisions, obsolete alternatives, changelogs, decision timelines, status metadata, or links to prior decisions. Do not add `Status`, `Last updated`, version-history, or superseded-status fields to the templates. Git history is outside the documentation set and MUST NOT be rewritten.
 
 Record an ADR only for a material decision with lasting consequences (for example, a change to security boundaries, ownership, persistence, architecture, or a major technology choice). Do not create ADRs for routine implementation choices. When an accepted decision changes, delete its obsolete ADR and stale references. If the current replacement still merits an ADR, write a new current-only record. Do not mention the prior decision in it.
 
@@ -99,7 +99,7 @@ For every relevant product or engineering change:
 
 1. Enumerate project `.md` files outside dot-prefixed directories. Any directory whose name begins with `.` is out of scope, including `.agents`, `.pi`, `.opencode`, `.github`, and `.git`, even if it contains Markdown.
 2. Exclude generated, vendored, and build output when repository evidence (such as ignore rules, build configuration, or project instructions) establishes those paths as generated or external. Do not exclude a directory merely because its name looks generic.
-3. Search the in-scope Markdown for the affected feature, terms, module names, and referenced paths. Read each relevant match and its linked documents. For a broad behavior or architecture change, read the complete canonical set and search the complete Markdown inventory.
+3. Search the in-scope Markdown for the affected feature, terms, module names, and referenced paths. Read each relevant match and its linked documents. For a broad behaviour or architecture change, read the complete canonical set and search the complete Markdown inventory.
 4. Include relevant code comments and declaration links in the audit. Markdown templates and reusable generic instructions are inventory assets, not statements of host-project state; preserve generic placeholders. Audit them for project-specific claims, which must be current.
 
 A portable initial inventory command is:
@@ -128,43 +128,43 @@ Inspect repository ignore/build configuration to identify additional generated o
 
 ### 3. Propose governing-document changes before code
 
-For a code task that needs a new or changed product behavior, engineering invariant, security rule, or architectural decision:
+For a code task that needs a new or changed product behaviour, engineering invariant, security rule, or architectural decision:
 
 1. Make a doc-only proposal in the worktree, limited to the relevant canonical docs and necessary stale-content/reference cleanup.
 2. Show the changed paths and diff, explain the decision being requested, and wait for explicit user approval.
 3. Do not implement code that depends on the proposal until the user approves it. If the request conflicts with existing docs, ask whether the user intentionally approves changing the governing decision; do not assume the task text alone overrides it.
 4. If the user rejects the proposal or the decision remains unresolved, do not proceed with dependent implementation.
 
-A direct doc-only request authorizes its requested non-destructive documentation edits; it does not need a second approval. Obtain explicit approval before deleting a whole documentation file or migrating its path. Replacing stale sections or claims in an otherwise current document is ordinary maintenance when the governing change has been approved.
+A direct doc-only request authorises its requested non-destructive documentation edits; it does not need a second approval. Obtain explicit approval before deleting a whole documentation file or migrating its path. Replacing stale sections or claims in an otherwise current document is ordinary maintenance when the governing change has been approved.
 
 Verified descriptive facts, such as current package versions, module maps, test commands, and prerequisites, MAY be updated alongside or after implementation once evidence establishes them.
 
 ### 4. Implement and maintain embedded module documentation
 
-A meaningful product-behavior vertical module with a public capability Contract SHOULD have a colocated guide at:
+A meaningful product-behaviour vertical module with a public capability Contract SHOULD have a colocated guide at:
 
 ```text
 src/modules/<module>/README.md
 ```
 
-A clear exception is appropriate for a trivial module or infrastructure-only module with no meaningful product behavior. Do not create empty guides merely to satisfy a directory rule. A guide explains the module's purpose and ownership, public capability/Contract, important behavior and rules, boundaries/interactions, and relevant verification. Keep it subordinate to the Product Specification and Constitution; do not duplicate them.
+A clear exception is appropriate for a trivial module or infrastructure-only module with no meaningful product behaviour. Do not create empty guides merely to satisfy a directory rule. A guide explains the module's purpose and ownership, public capability/Contract, important behaviour and rules, boundaries/interactions, and relevant verification. Keep it subordinate to the Product Specification and Constitution; do not duplicate them.
 
-Update the module guide and code references alongside the implementation after governing documents are approved. A code change that alters module behavior MUST leave its guide, public Contract, and relevant declaration links accurate.
+Update the module guide and code references alongside the implementation after governing documents are approved. A code change that alters module behaviour MUST leave its guide, public Contract, and relevant declaration links accurate.
 
 For a documented module:
 
 - Place a concise TSDoc-style comment above its primary public Contract declaration, with a one-sentence purpose and a relative Markdown link to the relevant guide section.
-- When the primary behavior is encapsulated in a distinct behavior-owning class, put the same kind of comment above that class too. Do not add links to every helper or class mechanically.
+- When the primary behaviour is encapsulated in a distinct behaviour-owning class, put the same kind of comment above that class too. Do not add links to every helper or class mechanically.
 - Resolve the Markdown path relative to the source file. Link to a specific section using the project's heading-anchor convention (normally a unique lowercase hyphenated heading fragment).
 - Verify that both the path and section anchor exist after edits. Update links when a heading or module path changes.
-- Keep detailed behavior in Markdown rather than duplicating it in comments. Put comments on declarations, never inside function bodies, and respect stricter project language rules.
+- Keep detailed behaviour in Markdown rather than duplicating it in comments. Put comments on declarations, never inside function bodies, and respect stricter project language rules.
 
 Example from `src/modules/claims/private/ClaimCompletion.ts`:
 
 ```ts
 /**
  * Coordinates claim completion and participant awards.
- * @see [Claims module guide](../README.md#behavior-and-rules)
+ * @see [Claims module guide](../README.md#behaviour-and-rules)
  */
 export class ClaimCompletion {}
 ```
@@ -175,9 +175,9 @@ The module guide template is `templates/module-guide.template.md`.
 
 After relevant code work:
 
-1. Re-enumerate in-scope `.md` files and search for affected terms, old behavior, old decisions, and obsolete paths.
+1. Re-enumerate in-scope `.md` files and search for affected terms, old behaviour, old decisions, and obsolete paths.
 2. Read every relevant hit and cross-linked document. Update all project-specific claims that the change made inaccurate; remove obsolete explanations and references rather than appending a historical account.
-3. Verify that the Product Specification still expresses approved behavior and that implementation discrepancies are resolved or reported. Verify engineering descriptions against the resulting code/configuration and actual commands where feasible.
+3. Verify that the Product Specification still expresses approved behaviour and that implementation discrepancies are resolved or reported. Verify engineering descriptions against the resulting code/configuration and actual commands where feasible.
 4. Check relevant relative links, heading fragments, module guides, code declaration comments, and README entry points.
 5. Report any remaining gap or unavailable verification. Do not claim a check passed unless it was run or otherwise established.
 
@@ -185,7 +185,7 @@ After relevant code work:
 
 - Use `templates/` as scaffolds, not as project facts. Read the relevant template before drafting. Replace every placeholder; remove an inapplicable section or state why it does not apply. Do not leave template instructions in a final document.
 - Use project evidence for current engineering facts: source/configuration, dependency manifests and locks, test definitions, CI configuration, and runnable commands. Verify exact versions and commands rather than guessing.
-- Ask the user for product intent, authority, and decisions that repository evidence cannot establish. Do not infer product requirements from existing behavior.
+- Ask the user for product intent, authority, and decisions that repository evidence cannot establish. Do not infer product requirements from existing behaviour.
 - The Constitution and Specification MUST define `MUST`, `MUST NOT`, and `MAY` near the beginning when they use them normatively. Use each term with its defined force. State recommendations as recommendations, not as disguised requirements.
 - Make product requirements observable and testable. Separate requirements from rationale, verified facts, examples, and recommendations. Use stable terminology and link related canonical documents rather than copying their full content.
 - Keep Architecture, Tech Stack, Testing Strategy, and module guides descriptive of the current system. A future capability belongs in approved product intent, not in an engineering description as though it already exists.

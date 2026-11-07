@@ -14,7 +14,7 @@
 
 ## Important flows and data boundaries
 
-[Describe current request, data, transaction, authorization, or lifecycle flows that are architecturally significant.]
+[Describe current request, data, transaction, authorisation, or lifecycle flows that are architecturally significant.]
 
 ## Integrations and runtime
 

@@ -2,7 +2,7 @@
 
 ## At a glance
 
-[Summarize the actual current runtime and major application technologies. Link to Architecture for ownership and boundaries.]
+[Summarise the actual current runtime and major application technologies. Link to Architecture for ownership and boundaries.]
 
 ## Runtime and application
 

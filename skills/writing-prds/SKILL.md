@@ -17,13 +17,13 @@ Use this skill when:
 
 Do **not** use this skill for:
 
-- Evergreen product artifacts (vision, domain model, UI/UX, style guide) — see the `product-documentation` skill.
+- Evergreen product artefacts (vision, domain model, UI/UX, style guide) — see the `product-documentation` skill.
 - Architectural decision records — see the `writing-adrs` skill.
 - Implementation plans — those follow the project's implementation-plan template.
 
 ## When to write a PRD vs an ADR vs an implementation plan
 
-| Artifact | Question it answers | Where it lives |
+| Artefact | Question it answers | Where it lives |
 |---|---|---|
 | **PRD** | What should the feature do, and why? | the project's requirements directory |
 | **ADR** | What architectural choice did we make, and why? | the project's ADR directory |
@@ -96,7 +96,7 @@ When reviewing a drafted PRD, check these in order:
 
 ## See also
 
-- `product-documentation` skill — for evergreen product artifacts (vision, domain model, UI/UX).
+- `product-documentation` skill — for evergreen product artefacts (vision, domain model, UI/UX).
 - `writing-adrs` skill — for ADRs that a PRD may require.
 - `writing-gherkin` skill — for the Acceptance Criteria section.
 - `immutable-migration-patches` skill — for the migration strategy section when a schema change is involved.

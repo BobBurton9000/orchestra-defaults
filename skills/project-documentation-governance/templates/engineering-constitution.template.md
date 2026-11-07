@@ -41,7 +41,7 @@ This Constitution governs [system, application, or engineering boundary]. It est
 
 ### Section 5.1: [Relevant failure or lifecycle rules]
 
-1. [State required behavior for expected and unexpected conditions, if applicable.]
+1. [State required behaviour for expected and unexpected conditions, if applicable.]
 
 ## Article 6: Verification and compliance
 

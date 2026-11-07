@@ -2,7 +2,7 @@
 
 ## Purpose and authority
 
-[State that this document defines the current approved product behavior within its scope. Identify the Product Vision as direction where this Specification is silent, and the Engineering Constitution and applicable project rules as authority for engineering and security constraints.]
+[State that this document defines the current approved product behaviour within its scope. Identify the Product Vision as direction where this Specification is silent, and the Engineering Constitution and applicable project rules as authority for engineering and security constraints.]
 
 ## Scope and users
 
@@ -22,10 +22,10 @@
 
 ### [Capability or user workflow]
 
-1. [Write each independently testable behavior as an explicit, observable requirement.]
+1. [Write each independently testable behaviour as an explicit, observable requirement.]
 2. [State relevant permissions, limits, failure outcomes, and edge cases.]
 
-[Organize requirements by capability. Use MUST, MUST NOT, and MAY only with their defined normative force.]
+[Organise requirements by capability. Use MUST, MUST NOT, and MAY only with their defined normative force.]
 
 ## Interaction and accessibility
 

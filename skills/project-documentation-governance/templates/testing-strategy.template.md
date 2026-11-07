@@ -2,7 +2,7 @@
 
 ## Verification overview
 
-[Summarize current verification layers and link to Architecture for ownership boundaries.]
+[Summarise current verification layers and link to Architecture for ownership boundaries.]
 
 ## Verification boundaries
 
