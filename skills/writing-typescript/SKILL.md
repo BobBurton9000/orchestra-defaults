@@ -496,7 +496,7 @@ This role arrangement protects retained Stable Proxy references from stale deleg
 
 ### Section 5.8: Class and interface file boundaries
 
-Each project-authored TypeScript source file MUST declare no more than one class or interface declaration in total. This requirement does not restrict the number of type aliases, functions, values, imports, or exports in a file. Public module entry points SHOULD re-export class and interface declarations from their individual files rather than define multiple declarations inline.
+Each project-authored TypeScript source file MUST contain no more than one class declaration, class expression, or interface declaration in total. This requirement does not restrict the number of type aliases, functions, values, imports, or exports in a file. Public module entry points SHOULD re-export class and interface declarations from their individual files rather than define multiple declarations inline.
 
 ## Article 6: Nullability and Strict Typing
 
@@ -550,7 +550,7 @@ Every query selector used by TypeScript MUST select elements through a class who
 
 ### Section 8.1: Enforcement
 
-Code reviews MUST treat every MUST and MUST NOT rule as binding. ESLint configuration for project-authored TypeScript MUST enable `bob-style/one-declaration-per-file` for application code, tests, and TypeScript configuration files to enforce Section 5.8. That rule limits class and interface declarations only; it does not require every declaration kind to have a separate file. A reviewer MAY request a refactor when names, structure, types, or method bodies technically compile but violate the constitutional intent.
+Code reviews MUST treat every MUST and MUST NOT rule as binding. ESLint configuration for project-authored TypeScript MUST use the `eslint-plugin-bob-style` package and enable `bob-style/one-declaration-per-file` for application code, tests, and TypeScript configuration files to enforce Section 5.8. That rule counts class declarations, class expressions, and interface declarations; it does not require every declaration kind to have a separate file. A reviewer MAY request a refactor when names, structure, types, or method bodies technically compile but violate the constitutional intent.
 
 Where project tooling can enforce production module-import boundaries, the project MUST configure it to reject production imports from another module's private space and composition entry point outside the composition root. If no available tooling can enforce a boundary, code review MUST enforce it. The absence of an automated check MUST NOT make a module-boundary violation permissible.
 
