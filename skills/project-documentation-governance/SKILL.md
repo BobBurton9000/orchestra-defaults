@@ -137,7 +137,7 @@ Each entry MUST include `Type`, `Scope`, `Context and evidence`, `Decision or ch
 
 - The assistant MUST NOT append a new entry to an existing single-file log.
 - The assistant MUST obtain explicit user authorisation before migrating a single-file log or deleting its source file. Without that authorisation, it MUST leave the source file intact, create new entries in the canonical directory, and report the legacy file.
-- During an authorized migration, the assistant MUST create one file per dated entry, preserve each entry's heading and substantive content, remove `Status` metadata fields, update moved relative links, and update references to the migrated records.
+- During an authorised migration, the assistant MUST create one file per dated entry, preserve each entry's heading and substantive content, remove `Status` metadata fields, update moved relative links, and update references to the migrated records.
 - During migration, the assistant MUST use verifiable source timestamps when available. For entries introduced in Git history, it MUST use the UTC committer timestamp of the commit that introduced the entry. If no verifiable source timestamp exists, it MUST use the UTC time when the individual file is created and preserve the original event date in the heading.
 - The assistant MUST verify that every source entry has a corresponding individual file and that all migrated links resolve before removing the old single-file log.
 - After creation or migration, the assistant MUST NOT edit or delete an individual Development Log entry. A correction or later evidence MUST be recorded in a new entry with a relative link to the earlier entry.
