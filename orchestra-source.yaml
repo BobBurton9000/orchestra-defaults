@@ -74,6 +74,9 @@ packages:
   - name: review-orchestrator-instructions
     type: skill
     path: skills/review-orchestrator-instructions/
+  - name: when-to-mock
+    type: skill
+    path: skills/when-to-mock/
   - name: writing-adrs
     type: skill
     path: skills/writing-adrs/
