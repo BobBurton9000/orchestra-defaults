@@ -148,7 +148,7 @@ All maintained project documentation, except individual Development Log entries 
 
 The Development Log is the sole exception to the current-state rule. Its entries preserve completed work as known when recorded and provide context for future agents and people. A Development Log entry MUST NOT establish or override current approved intent, current verified behaviour, or current task status.
 
-All other project documentation MUST NOT retain historical behaviour, superseded decisions, obsolete alternatives, changelogs, decision timelines, status metadata, or links to prior decisions. Do not add `Status`, `Last updated`, version-history, or superseded-status fields to those documents or their templates. Git history is outside the documentation set and MUST NOT be rewritten.
+All other project documentation MUST NOT retain historical behaviour, superseded decisions, obsolete alternatives, changelogs, decision timelines, or links to prior decisions. Project documents MAY include a `Status` field when it communicates their current approval, planning, or operational state. Do not add `Last updated` or version-history fields to project documents or their templates. Git history is outside the documentation set and MUST NOT be rewritten.
 
 Record an ADR only for a material decision with lasting consequences (for example, a change to security boundaries, ownership, persistence, architecture, or a major technology choice). Do not create ADRs for routine implementation choices. When an accepted decision changes, delete its obsolete ADR and stale references. If the current replacement still merits an ADR, write a new current-only record. Do not mention the prior decision in it.
 
@@ -158,7 +158,7 @@ When a project has no established ADR location or naming convention, use:
 docs/Engineering/decisions/YYYYMMDD-kebab-case.md
 ```
 
-The filename date is the acceptance date of the current decision, not a history. Do not add status or date metadata inside the ADR. Respect a clear existing ADR convention only when it is compatible with the current-only policy; otherwise propose a migration and obtain approval before moving or deleting files.
+The filename date is the acceptance date of the current decision, not a history. Do not add date metadata inside the ADR. Respect a clear existing ADR convention only when it is compatible with the current-only policy; otherwise propose a migration and obtain approval before moving or deleting files.
 
 ## Markdown inventory and audit scope
 
@@ -257,7 +257,7 @@ After relevant code work:
 - Make product requirements observable and testable. Separate requirements from rationale, verified facts, examples, and recommendations. Use stable terminology and link related canonical documents rather than copying their full content.
 - Keep Architecture, Tech Stack, Testing Strategy, and module guides descriptive of the current system. A future capability belongs in approved product intent, not in an engineering description as though it already exists.
 - Add concise relative links between related documents. If a root README exists, link it to the Engineering and Product entry points that apply. Check links and fragments during audits.
-- Do not add historical timelines, prior-state descriptions, changelogs, status/version-history metadata, stale decisions, or unverified claims.
+- Do not add historical timelines, prior-state descriptions, changelogs, version-history metadata, stale decisions, or unverified claims.
 
 ## Bundled templates
 
