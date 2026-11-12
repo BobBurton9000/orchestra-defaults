@@ -6,12 +6,12 @@ This repository is the source that ships preconfigured with Orchestra. It is als
 
 ## Contents
 
-The current package layout contains **28 installable packages**:
+The current package layout contains **27 installable packages**:
 
 | Type | Count | Location |
 | --- | ---: | --- |
 | Agents | 7 | [`agents/`](agents/) |
-| Prompts | 5 | [`prompts/`](prompts/) |
+| Prompts | 4 | [`prompts/`](prompts/) |
 | Skills | 16 | [`skills/`](skills/) |
 
 ## Package Catalogue
@@ -50,7 +50,6 @@ Agents are markdown definitions with YAML frontmatter. One is a primary orchestr
 | [`handoff`](prompts/handoff.prompt.md) | Synthesises the conversation and project state into a handoff document for a fresh agent. |
 | [`interactive-plan`](prompts/interactive-plan.prompt.md) | Based on Matt Pocock’s “Grill Me” skill; challenges an idea through focused questions. |
 | [`refine-prompt`](prompts/refine-prompt.prompt.md) | Optimises a supplied prompt for LLM consumption. |
-| [`transcribe-plan`](prompts/transcribe-plan.prompt.md) | Transcribes a plan to a uniquely named markdown file under `.temp/`. |
 
 ### Skills
 

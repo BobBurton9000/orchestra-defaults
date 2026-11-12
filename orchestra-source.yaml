@@ -39,9 +39,6 @@ packages:
   - name: refine-prompt
     type: prompt
     path: prompts/refine-prompt.prompt.md
-  - name: transcribe-plan
-    type: prompt
-    path: prompts/transcribe-plan.prompt.md
 
   # --- Skills ---
   - name: ado-import
