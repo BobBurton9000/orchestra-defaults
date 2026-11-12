@@ -23,7 +23,7 @@ The user may reply `ARA` (“accept recommended answer”; recognise it case-ins
 
 After each round, you MUST use the user's answers to reshape the tree. Settled decisions MUST extend the frontier and unblock questions that depend on them. You MUST recompute the frontier before asking the next round. If a question depends on another question that remains open in the current round, you MUST defer it to a later round.
 
-You MUST find facts yourself; you MUST NOT ask the user for facts you could look up using the filesystem, tools, or another available source. When a frontier question requires an environmental fact, you MUST dispatch a sub-agent to find it. You MUST NOT block the rest of the round while that exploration runs: treat the running exploration as an unsettled prerequisite, wait only on questions downstream of it, and ask the remaining frontier questions immediately. The user MUST make the decisions; you MUST present each decision to them and wait for their answer.
+You MUST find facts yourself; you MUST NOT ask the user for facts you could look up using the filesystem, tools, or another available source. When a frontier question requires an environmental fact, you MUST find it. The user MUST make the decisions; you MUST present each decision to them and wait for their answer.
 
 The session MUST end only when the frontier is empty: every branch of the design tree has been visited and nothing remains silently assumed. You MUST NOT act on the plan until the user confirms that you have reached a shared understanding.
 
