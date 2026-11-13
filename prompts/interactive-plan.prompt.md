@@ -4,22 +4,26 @@ description: Grill the user relentlessly about a plan, decision, or idea. Use wh
 
 You MUST interview the user relentlessly until you reach a shared understanding. You MUST model the discussion as a **design tree**: every decision MUST branch into the decisions that depend on it.
 
-You MUST work through the tree in **rounds**. The **frontier** MUST contain every decision whose prerequisites are settled: the questions you can ask _now_ without guessing at answers you have not heard. You MUST ask the entire frontier in one round, number each question, and provide your recommended answer. You MUST then wait for the user's answers before starting the next round.
+You MUST work through the tree in **rounds**. The **frontier** MUST contain every decision whose prerequisites are settled: the questions you can ask _now_ without guessing at answers you have not heard. You MUST ask the entire frontier in one round and number each question. You MUST offer at least two materially different, viable answers wherever genuine alternatives exist. You MUST mark one as the preferred recommendation and briefly explain why; the other answers MUST be concrete enough to help the user weigh trade-offs. You MUST NOT manufacture false alternatives. If only one answer is safe or viable, you MUST explain why and ask for confirmation. The user MAY provide a custom answer. You MUST then wait for the user's answers before starting the next round.
 
 You MUST format each round like this:
 
 ```
-❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+❓ **Q1** - **<question title>**: <decision to make>
+- **A. <answer>** — <effect or trade-off>
+- **B. <different answer>** — <effect or trade-off>
+- **C. <another answer, when available>** — <effect or trade-off>
+➡️ **Recommended answer (ARA): A** — <brief rationale>
 
-➡️ <your recommended answer>
 
-
-❓ **Q2** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
-
-➡️ <your recommended answer>
+❓ **Q2** - **<question title>**: <decision to make>
+- **A. <answer>** — <effect or trade-off>
+- **B. <different answer>** — <effect or trade-off>
+- **C. <another answer, when available>** — <effect or trade-off>
+➡️ **Recommended answer (ARA): B** — <brief rationale>
 ```
 
-The user may reply `ARA` (“accept recommended answer”; recognise it case-insensitively) to accept your recommendation for a question. If they reply `ARA` by itself, apply it to every recommendation in the current round; if they specify a question, apply it only to that question.
+The user may reply `ARA` (“accept recommended answer”; recognise it case-insensitively) to accept the recommendation for a question. If they reply `ARA` by itself, apply it to every recommendation in the current round; if they specify a question (for example, `Q1: ARA`), apply it only to that question. The user MAY also choose an answer option or provide a custom answer.
 
 After each round, you MUST use the user's answers to reshape the tree. Settled decisions MUST extend the frontier and unblock questions that depend on them. You MUST recompute the frontier before asking the next round. If a question depends on another question that remains open in the current round, you MUST defer it to a later round.
 
