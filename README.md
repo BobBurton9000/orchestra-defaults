@@ -6,13 +6,13 @@ This repository is the source that ships preconfigured with Orchestra. It is als
 
 ## Contents
 
-The current package layout contains **27 installable packages**:
+The current package layout contains **28 installable packages**:
 
 | Type | Count | Location |
 | --- | ---: | --- |
 | Agents | 7 | [`agents/`](agents/) |
 | Prompts | 4 | [`prompts/`](prompts/) |
-| Skills | 16 | [`skills/`](skills/) |
+| Skills | 17 | [`skills/`](skills/) |
 
 ## Package Catalogue
 
@@ -65,6 +65,7 @@ Agents are markdown definitions with YAML frontmatter. One is a primary orchestr
 | [`normative-technical-writing`](skills/normative-technical-writing/) | Writes precise requirements using explicit normative language. |
 | [`orchestra`](skills/orchestra/) | Describes the repository-local Orchestra package and export workflow. |
 | [`review-orchestrator-instructions`](skills/review-orchestrator-instructions/) | Defines the exclusive review workflow and includes its Git hunk extraction helper. |
+| [`web-prototype`](skills/web-prototype/) | Defines a disposable, single-HTML-file web mock with self-contained JavaScript for demonstrating an idea or change. |
 | [`when-to-mock`](skills/when-to-mock/) | Guides boundary-focused use of mocks and test doubles, and designing external dependencies for testability. |
 | [`writing-adrs`](skills/writing-adrs/) | Guides autonomous creation, revision, audit, and pruning of accepted architectural decision records. |
 | [`writing-human-documents`](skills/writing-human-documents/) | Guides clear, engaging human documents. |
