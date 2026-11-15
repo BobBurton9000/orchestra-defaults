@@ -44,6 +44,9 @@ packages:
   - name: ado-import
     type: skill
     path: skills/ado-import/
+  - name: development-log
+    type: skill
+    path: skills/development-log/
   - name: github-cli
     type: skill
     path: skills/github-cli/
@@ -65,9 +68,6 @@ packages:
   - name: playwright-cli-guide
     type: skill
     path: skills/playwright-cli-guide/
-  - name: project-documentation-governance
-    type: skill
-    path: skills/project-documentation-governance/
   - name: review-orchestrator-instructions
     type: skill
     path: skills/review-orchestrator-instructions/
