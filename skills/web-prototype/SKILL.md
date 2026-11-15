@@ -15,7 +15,6 @@ The user's request and applicable project instructions govern whether to create 
 
 - **MUST** and **MUST NOT** state mandatory rules and prohibitions.
 - **MAY** permits an action but does not require it.
-- **SHOULD** indicates a recommended action that may be omitted when there is a good reason.
 
 ## Definition
 
@@ -27,15 +26,13 @@ A prototype MAY simulate key interactions using its JavaScript. These interactio
 
 ## Local Viewing
 
-When the prototype is to be viewed in a browser, the agent SHOULD serve it from the project root using Python's standard-library static server. Run this from the project root:
+When the user wants to view the prototype, instruct them to run this from the project root:
 
 ```bash
 python3 -u -m http.server 0 --bind 127.0.0.1
 ```
 
-Port `0` asks the operating system to assign an available ephemeral port. The server prints the actual port and URL; share that URL, appending the prototype's project-relative path when it is not at the root. Keep the server process running while it is being viewed, then stop it when viewing is finished. This serves static files only; it does not run an application's build or backend server.
-
-The server exposes files under the project root to clients able to connect to the local machine. Confirm that this is an appropriate directory to serve, and keep the bind address at `127.0.0.1` rather than exposing it to the network.
+Port `0` selects an available port; open the URL printed by the server, adding the prototype's project-relative path if needed. The command stays active until stopped with Ctrl-C. It serves project-root files over loopback only; use it only when that directory is appropriate to serve.
 
 ## Lifecycle and Limits
 
