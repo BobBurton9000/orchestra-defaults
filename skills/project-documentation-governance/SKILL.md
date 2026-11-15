@@ -230,7 +230,6 @@ Example from `src/modules/claims/private/ClaimCompletion.ts`:
 
 ```ts
 /**
- * Coordinates claim completion and participant awards.
  * @see [Claims module guide](../README.md#behaviour-and-rules)
  */
 export class ClaimCompletion {}

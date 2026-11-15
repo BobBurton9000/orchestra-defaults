@@ -38,10 +38,3 @@
 ## Verification outcomes
 
 [Describe observable acceptance outcomes and link to Testing Strategy for test ownership, commands, and prerequisites.]
-
-## Related documents
-
-- [Product Vision](Vision.md)
-- [Engineering Constitution](../Engineering/Constitution.md)
-- [Architecture](../Engineering/Architecture.md)
-- [Testing Strategy](../Engineering/Testing_Strategy.md)

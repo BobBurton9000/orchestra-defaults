@@ -23,10 +23,3 @@
 ## Verification boundaries
 
 [Explain how architectural boundaries are verified. Link to Testing Strategy for commands and test prerequisites.]
-
-## Related documents
-
-- [Engineering Constitution](Constitution.md)
-- [Tech Stack](Tech_Stack.md)
-- [Testing Strategy](Testing_Strategy.md)
-- [Product Specification](../Product/Specification.md) (product-bearing projects only; omit when not applicable)

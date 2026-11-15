@@ -19,10 +19,3 @@
 ## Verification
 
 [Identify the module's relevant tests or verification boundary. Link to Testing Strategy for commands and prerequisites.]
-
-## Related documents
-
-- [Engineering Constitution](../../../docs/Engineering/Constitution.md)
-- [Architecture](../../../docs/Engineering/Architecture.md)
-- [Product Specification](../../../docs/Product/Specification.md) (include only when applicable)
-- [Testing Strategy](../../../docs/Engineering/Testing_Strategy.md)
