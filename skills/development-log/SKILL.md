@@ -73,7 +73,7 @@ Each entry MUST include `Type`, `Scope`, `Context and evidence`, `Decision or ch
 - During an authorised migration, create one file per dated entry, preserve each entry's heading and substantive content, remove `Status` metadata fields, update moved relative links, and update references to migrated records.
 - Use verifiable source timestamps during migration. For entries introduced in Git history, use the UTC committer timestamp of the commit that introduced the entry. If no verifiable source timestamp exists, use the UTC time when the individual file is created and preserve the original event date in the heading.
 - Verify that every source entry has a corresponding individual file and all migrated links resolve before removing the old single-file log.
-- After creation or migration, do not edit or delete an individual Development Log entry. Record corrections or later evidence in a new entry with a relative link to the earlier entry.
+- After creation or migration, treat an individual Development Log entry as immutable in substance. Formatting-only edits MAY be made, including whitespace, line wrapping, and Markdown formatting changes, provided they preserve all wording, facts, links, and meaning. Review formatter diffs to confirm they change presentation only. Do not edit or delete an entry to correct or change its recorded facts, decisions, scope, or other substantive content. Record corrections or later evidence in a new entry with a relative link to the earlier entry.
 
 ## Authority and completion
 
