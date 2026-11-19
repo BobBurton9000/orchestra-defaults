@@ -44,9 +44,6 @@ packages:
   - name: ado-import
     type: skill
     path: skills/ado-import/
-  - name: development-log
-    type: skill
-    path: skills/development-log/
   - name: github-cli
     type: skill
     path: skills/github-cli/
